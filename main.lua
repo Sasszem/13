@@ -12,11 +12,8 @@ end
 function love.draw()
     love.graphics.push()
     love.graphics.origin()
-    if config.flip and false then
-        love.graphics.translate(config.width/2, config.height/2)
-        love.graphics.rotate(math.rad(-90))
-        love.graphics.translate(-config.width/2, -config.height/2)
-        love.graphics.setBackgroundColor(1, 1, 1)
+    if config.flip then
+        love.graphics.scale(0.5, 0.5)
     end
     playfield:draw()
     love.graphics.pop()
