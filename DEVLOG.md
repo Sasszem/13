@@ -8,4 +8,8 @@
 ### Day 2 - 2020.06.02
 - Revisited one of my older project stubs, which did not have this issue for some reason - still did not figure out why
 - Spent some good time trying to solve that issue
-- Gave up at 10pm and figured I'll just use `love.graphics.scale(0.5, 0.5)` as a workaround - **and I know I'll have to do some coorinate transforms later too**
+- Gave up at 10pm and figured I'll just use `love.graphics.scale(0.5, 0.5)` as a workaround
+Also additional coordinate transform
+- simple packer script - should be later replaced by love-release
+- Add Path base
+- some github stuff
