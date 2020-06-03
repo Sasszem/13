@@ -23,8 +23,9 @@ function Cell:new(config, o)
 end
 
 function Cell:draw()
+    if self.remove then return end
     local s = self.size
-    love.graphics.setColor(CellColors[self.value])
+    love.graphics.setColor(CellColors[self.value] or rgb(255, 255, 255))
     love.graphics.rectangle("fill", self.x-s/2, self.y-s/2, s, s)
     local font = self.config.gameFont
     local h = font:getHeight()

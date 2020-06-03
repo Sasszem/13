@@ -45,3 +45,7 @@ end
 function love.mousereleased(x, y, button, istouch, presses)
     playfield:touchEnd()
 end
+
+function love.update(dt)
+    playfield:update(dt)
+end

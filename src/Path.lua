@@ -1,12 +1,15 @@
+local Cell = require("src.Cell")
+
 local Path = {}
 Path.__index = Path
 
 
-function Path:new(config, o)
+function Path:new(playfield, config, o)
     o = o or {}
     setmetatable(o, Path)
     o.config = config
     o.elements = {}
+    o.playfield = playfield
     return o
 end
 
@@ -38,6 +41,10 @@ function Path:canAddByPosition(cell)
 end
 
 function Path:draw()
+    if self.mergeCell then
+        self.mergeCell:draw()
+        return
+    end
     if #self.elements < 2 then return end
     love.graphics.setLineWidth(self.config.Path.width)
     love.graphics.setColor(self.config.Path.color)
@@ -51,6 +58,52 @@ end
 
 function Path:clear()
     self.elements = {}
+end
+
+function Path:merge()
+    if #self.elements < 2 then return end
+    self.mergeTask = coroutine.create(self.mergeAnimation)
+    coroutine.resume(self.mergeTask, self)
+end
+
+function Path:update(dt)
+    --print("Updating")
+    if self.mergeTask then
+        local cont, err = coroutine.resume(self.mergeTask, dt)
+        if not cont then
+            self.mergeTask = nil
+            print(err)
+        end
+    end
+end
+
+function Path:mergeAnimation()
+    print("starting animation...")
+    self.mergeCell = Cell(self.config)
+
+    self.mergeCell.value = self.elements[1].value
+    for i=2, #self.elements do
+        local t = 0
+        local toX, toY = self.elements[i].x, self.elements[i].y
+        local x, y = self.elements[i-1].x, self.elements[i-1].y
+        local stepX = (toX - x)/0.5
+        local stepY = (toY - y)/0.5
+        local currElem = self.elements[i]
+        self.elements[i-1].remove = true
+        while t < 0.5 do
+            local dt = coroutine.yield()
+            t = t + dt
+            x = x + stepX * dt
+            y = y + stepY * dt
+            self.mergeCell.x = x
+            self.mergeCell.y = y
+        end
+        currElem.value = currElem.value + 1
+        self.mergeCell.value = currElem.value
+    end
+    self.playfield:clear()
+    self.mergeCell = nil
+    self:clear()
 end
 
 setmetatable(Path, {__call=Path.new})

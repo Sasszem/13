@@ -12,7 +12,7 @@ function Playfield:new(config, o)
     o.y = config.Playfield.y
     o.size = config.Playfield.size
     o.gap = config.Playfield.gap
-    o.path = Path(config)
+    o.path = Path(o, config)
     o.cells = {}
     for i=1, o.size do
         for j=1, o.size do
@@ -23,6 +23,10 @@ function Playfield:new(config, o)
     end
 
     return o
+end
+
+function Playfield:update(dt)
+    self.path:update(dt)
 end
 
 function Playfield:draw()
@@ -53,7 +57,18 @@ function Playfield:touchMove(x, y)
 end
 
 function Playfield:touchEnd(x, y)
-    self.path:clear()
+    self.path:merge()
+end
+
+function Playfield:clear()
+    local newCells = {}
+    for _, C in ipairs(self.cells) do
+        if not C.remove then
+            newCells[#newCells+1] = C
+        end
+    end
+    print(#newCells)
+    self.cells = newCells
 end
 
 setmetatable(Playfield, {__call=Playfield.new})
