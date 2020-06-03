@@ -1,7 +1,7 @@
 local Cell = require("src.Cell")
-local Path = require("src.Path")
 
 local Playfield = {
+    cells = 10,
 }
 Playfield.__index = Playfield
 
@@ -12,7 +12,6 @@ function Playfield:new(config, o)
     o.y = config.Playfield.y
     o.size = config.Playfield.size
     o.gap = config.Playfield.gap
-    o.path = Path(config)
     o.cells = {}
     for i=1, o.size do
         for j=1, o.size do
@@ -26,34 +25,9 @@ function Playfield:new(config, o)
 end
 
 function Playfield:draw()
-    self.path:draw()
     for _, C in ipairs(self.cells) do
         C:draw()
     end
-end
-
-function Playfield:findCell(x,y)
-    for _, cell in ipairs(self.cells) do
-        if cell:inside(x, y) then
-            return cell
-        end
-    end
-end
-
-function Playfield:touchBegin(x, y)
-    local cell = self:findCell(x, y)
-    if not cell then return end
-    self.path:add(cell)
-end
-
-function Playfield:touchMove(x, y)
-    local cell = self:findCell(x, y)
-    if not cell then return end
-    self.path:add(cell)
-end
-
-function Playfield:touchEnd(x, y)
-    self.path:clear()
 end
 
 setmetatable(Playfield, {__call=Playfield.new})

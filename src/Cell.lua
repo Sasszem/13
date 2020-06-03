@@ -32,11 +32,5 @@ function Cell:draw()
     love.graphics.printf(self.value, font, self.x-s/2, self.y - h/2, s, "center")
 end
 
-function Cell:inside(x, y)
-    local iX = self.x - self.size / 2 < x and x < self.x + self.size / 2
-    local iY = self.y - self.size / 2 < y and y < self.y + self.size / 2
-    return iX and iY
-end
-
 setmetatable(Cell, {__call = Cell.new})
 return Cell

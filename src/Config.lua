@@ -19,10 +19,6 @@ function Config.get()
         size = 6,
         gap = c.mP*3,
     }
-    c.Path = {
-        width = c.mP * 2,
-        color = rgb(255, 0, 0),
-    }
     local s = c.Playfield.size * (c.Cell.size + c.Playfield.gap) - c.Playfield.gap
     c.Playfield.x = (c.width - s)/2 + c.Cell.size / 2
     c.Playfield.y = (c.height - s)/2 + c.Cell.size / 2
