@@ -107,11 +107,11 @@ end
 
 function Playfield:shiftdown()
     local t = 0
-    while t<1 do
+    while t<0.5 do
         local dt = coroutine.yield()
         t = t + dt
         for C, _ in pairs(self.needShiftdown) do
-            C.y = C.sourceY + (C.targetY - C.sourceY)*t
+            C.y = C.sourceY + (C.targetY - C.sourceY)*t*2
         end
     end
 end
