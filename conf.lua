@@ -1,5 +1,4 @@
 function love.conf(t)
-    t.window.width = 0
-    t.window.height = 0
-    t.window.fullscreenMode = "desktop"
+    t.window.width = 1080
+    t.window.height = 1920
 end
