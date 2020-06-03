@@ -72,13 +72,14 @@ function Path:update(dt)
         local cont, err = coroutine.resume(self.mergeTask, dt)
         if not cont then
             self.mergeTask = nil
-            print(err)
+            if err~="cannot resume dead coroutine" then
+                print(err)
+            end
         end
     end
 end
 
 function Path:mergeAnimation()
-    print("starting animation...")
     self.mergeCell = Cell(self.config)
 
     self.mergeCell.value = self.elements[1].value
