@@ -14,6 +14,11 @@ function Path:new(playfield, config, o)
 end
 
 function Path:add(cell)
+    if #self.elements>1 then
+        if cell == self.elements[#self.elements-1] then
+            self.elements[#self.elements] = nil
+        end
+    end
     if self:canAdd(cell) then
         self.elements[#self.elements+1] = cell
     end
@@ -26,6 +31,9 @@ function Path:canAdd(cell)
     if self.elements[#self.elements] == cell then return end
     if #self.elements == 1 and cell.value==1 then
         return self:canAddByPosition(cell)
+    end
+    if #self.elements==2 and self.elements[2].value == 1 then
+        return false
     end
     if cell.value == (self.elements[#self.elements].value + 1) then
         return self:canAddByPosition(cell)
