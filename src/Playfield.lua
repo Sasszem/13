@@ -20,6 +20,7 @@ function Playfield:new(config, o)
             o.cells[#o.cells + 1] = Cell(config)
             o.cells[#o.cells].x = o.x + (config.Cell.size + o.gap) * (i-1)
             o.cells[#o.cells].y = o.y + (config.Cell.size + o.gap) * (j-1)
+            o.cells[#o.cells].column = i
         end
     end
 
@@ -74,11 +75,13 @@ function Playfield:clear()
     -- make a copy from the non-marked cells
     local newCells = {}
     self.needShiftdown = {}
+    self.needAdd = {}
     for _, C in ipairs(self.cells) do
         if not C.remove then
             newCells[#newCells+1] = C
         else
             -- set target Y (for shifting down) to non-marked
+            self.needAdd[C.column] = (self.needAdd[C.column] or 0) + 1
             for _, N in ipairs(self:findAbove(C)) do
                 N.targetY = (N.targetY or N.y) + (self.config.Cell.size + self.config.Playfield.gap)
                 N.sourceY = N.y
@@ -94,9 +97,10 @@ end
 function Playfield:findAbove(cell)
     -- find every cell above given
     local result = {}
-    local x, y = cell.x, cell.y
+    local y = cell.y
+    local column = cell.column
     for _, C in ipairs(self.cells) do
-        if math.abs(C.x - x) < 10 then -- little tolerance, I do not trust float maths...
+        if C.column == column then
             if C.y < y then
                 result[#result+1] = C
             end
@@ -112,6 +116,36 @@ function Playfield:shiftdown()
         t = t + dt
         for C, _ in pairs(self.needShiftdown) do
             C.y = C.sourceY + (C.targetY - C.sourceY)*t*2
+        end
+    end
+    -- add back the cells
+    local delay = 0
+    local sizeAnim = {}
+    local toAnimate = 0
+    for i=1, self.size do
+        while (self.needAdd[i] or 0) > 0 do
+            local cell = Cell(self.config)
+            self.cells[#self.cells + 1] = cell
+            cell.x = self.x + (self.config.Cell.size + self.gap) * (i-1)
+            cell.y = self.y + (self.config.Cell.size + self.gap) * (self.needAdd[i]-1)
+            cell.column = i
+            cell.scale = 0
+            sizeAnim[cell] = -delay
+            self.needAdd[i] = self.needAdd[i] - 1
+            delay = delay + 0.2
+            toAnimate = toAnimate + 1
+        end
+    end
+    while toAnimate > 0 do
+        local dt = coroutine.yield()
+        for cell, cT in pairs(sizeAnim) do
+            cell.scale = math.max(cT, 0) * 2
+            sizeAnim[cell] = sizeAnim[cell] + dt
+            if sizeAnim[cell] >= 0.5 then
+                sizeAnim[cell] = nil
+                cell.scale = 1
+                toAnimate = toAnimate - 1
+            end
         end
     end
 end
