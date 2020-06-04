@@ -19,3 +19,4 @@ Also additional coordinate transform
 - Shifting down animation - with a coroutine
 - Path - undo, do not allow 1-1-2 pattern
 - Cell replenish and size animation - with a coroutine
+- Decrease 2 cell chance
