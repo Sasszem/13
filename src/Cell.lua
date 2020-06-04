@@ -15,7 +15,7 @@ Cell.__index = Cell
 
 function Cell:new(config, o)
     o = o or {}
-    o.value = o.value or math.random(1, 2)
+    o.value = o.value or (math.random(1, 4)==1 and 2 or 1)
     o.config = config
     o.size = config.Cell.size
     o.scale = 1
