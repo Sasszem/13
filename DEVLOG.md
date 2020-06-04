@@ -13,3 +13,9 @@ Also additional coordinate transform
 - simple packer script - should be later replaced by love-release
 - Add Path base
 - some github stuff
+
+### Day 3 - 2020.06.03
+- Merge animation using a coroutine - those things are amazing!
+- Shifting down animation - with a coroutine
+- Path - undo, do not allow 1-1-2 pattern
+- Cell replenish and size animation - with a coroutine
