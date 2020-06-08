@@ -14,6 +14,7 @@ function Path:new(playfield, config, o)
 end
 
 function Path:add(cell)
+    if self:animating() then return end
     if #self.elements>1 then
         if cell == self.elements[#self.elements-1] then
             self.elements[#self.elements] = nil
@@ -71,8 +72,13 @@ function Path:clear()
     self.elements = {}
 end
 
+function Path:animating()
+    return self.mergeTask or self.playfield.shiftdownTask
+end
+
 function Path:merge()
     if #self.elements < 2 then return end
+    if self:animating() then return end
     self.mergeTask = coroutine.create(self.mergeAnimation)
     coroutine.resume(self.mergeTask, self)
 end
