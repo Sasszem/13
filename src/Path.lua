@@ -49,10 +49,7 @@ function Path:canAddByPosition(cell)
 end
 
 function Path:draw()
-    if self.mergeCell then
-        self.mergeCell:draw()
-        return
-    end
+    if self.mergeCell then return end
     if #self.elements < 2 then return end
     love.graphics.setLineWidth(self.config.Path.width)
     love.graphics.setColor(self.config.Path.color)
@@ -61,6 +58,12 @@ function Path:draw()
         local xn, yn = self.elements[i].x, self.elements[i].y
         love.graphics.line(x, y, xn, yn)
         x, y = xn, yn
+    end
+end
+
+function Path:drawMerge()
+    if self.mergeCell then
+        self.mergeCell:draw()
     end
 end
 

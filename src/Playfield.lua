@@ -45,6 +45,7 @@ function Playfield:draw()
     for _, C in ipairs(self.cells) do
         C:draw()
     end
+    self.path:drawMerge()
 end
 
 function Playfield:findCell(x,y)
