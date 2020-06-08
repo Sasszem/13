@@ -70,6 +70,7 @@ end
 
 function Path:clear()
     self.elements = {}
+    self.mergeCell = nil
 end
 
 function Path:animating()
@@ -77,8 +78,10 @@ function Path:animating()
 end
 
 function Path:merge()
-    if #self.elements < 2 then return end
-    if self:animating() then return end
+    if #self.elements < 2 or self:animating() then
+        self:clear()
+        return
+    end
     self.mergeTask = coroutine.create(self.mergeAnimation)
     coroutine.resume(self.mergeTask, self)
 end
@@ -119,9 +122,8 @@ function Path:mergeAnimation()
         currElem.value = currElem.value + 1
         self.mergeCell.value = currElem.value
     end
-    self.playfield:clear()
-    self.mergeCell = nil
     self:clear()
+    self.playfield:clear()
 end
 
 setmetatable(Path, {__call=Path.new})
