@@ -1,4 +1,5 @@
 local Cell = require("src.Cell")
+local Sounds = require("src.Sounds")
 
 local function shiftdown(playfield)
     local t = 0
@@ -34,6 +35,7 @@ local function shiftdown(playfield)
             sizeAnim[cell] = sizeAnim[cell] + dt
             if sizeAnim[cell] >= 0.5 then
                 sizeAnim[cell] = nil
+                Sounds.play("pop")
                 cell.scale = 1
                 toAnimate = toAnimate - 1
             end
