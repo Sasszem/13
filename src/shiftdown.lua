@@ -2,12 +2,16 @@ local Cell = require("src.Cell")
 local Sounds = require("src.Sounds")
 
 local function shiftdown(playfield)
+    -- config locals
+    local Tdown = 0.25
+    local Tappear = 0.2
+
     local t = 0
-    while t<0.5 do
+    while t<Tdown do
         local dt = coroutine.yield()
         t = t + dt
         for C, _ in pairs(playfield.needShiftdown) do
-            C.y = C.sourceY + (C.targetY - C.sourceY)*t*2
+            C.y = C.sourceY + (C.targetY - C.sourceY)*t / Tdown
         end
     end
     -- add back the cells
@@ -31,9 +35,9 @@ local function shiftdown(playfield)
     while toAnimate > 0 do
         local dt = coroutine.yield()
         for cell, cT in pairs(sizeAnim) do
-            cell.scale = math.max(cT, 0) * 2
+            cell.scale = math.max(cT, 0) / Tappear
             sizeAnim[cell] = sizeAnim[cell] + dt
-            if sizeAnim[cell] >= 0.5 then
+            if sizeAnim[cell] >= 0.2 then
                 sizeAnim[cell] = nil
                 Sounds.play("pop")
                 cell.scale = 1

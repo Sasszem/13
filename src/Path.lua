@@ -101,6 +101,11 @@ function Path:update(dt)
 end
 
 function Path:mergeAnimation()
+    -- config local:
+    -- how long should it take to animate between two cells
+    -- (in seconds)
+    local T = 0.25
+
     self.mergeCell = Cell(self.config)
 
     self.mergeCell.value = self.elements[1].value
@@ -108,11 +113,11 @@ function Path:mergeAnimation()
         local t = 0
         local toX, toY = self.elements[i].x, self.elements[i].y
         local x, y = self.elements[i-1].x, self.elements[i-1].y
-        local stepX = (toX - x)/0.5
-        local stepY = (toY - y)/0.5
+        local stepX = (toX - x)/T
+        local stepY = (toY - y)/T
         local currElem = self.elements[i]
         self.elements[i-1].remove = true
-        while t < 0.5 do
+        while t < T do
             local dt = coroutine.yield()
             t = t + dt
             x = x + stepX * dt
