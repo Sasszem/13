@@ -49,5 +49,6 @@ function love.mousereleased(x, y, button, istouch, presses)
 end
 
 function love.update(dt)
+    Sounds.update(dt)
     playfield:update(dt)
 end

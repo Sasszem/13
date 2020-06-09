@@ -30,4 +30,24 @@ function Sounds.playLooping(name)
     source:play()
 end
 
+local t = 0
+function Sounds.update(dt)
+    if math.floor(t+dt) > math.floor(t) then -- every second
+        Sounds.cleanup()
+    end
+    t = t + dt
+end
+
+function Sounds.cleanup()
+    local newPlaying = {}
+    for _, sound in ipairs(playing) do
+        if not sound:isPlaying() then
+            sound:release()
+        else
+            newPlaying[#newPlaying+1] = sound
+        end
+    end
+    playing = newPlaying
+end
+
 return Sounds
