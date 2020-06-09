@@ -18,12 +18,15 @@ local function shiftdown(playfield)
     local delay = 0
     local sizeAnim = {}
     local toAnimate = 0
-    for i=1, playfield.size do
+
+    local P = playfield.config.Playfield
+    local C = playfield.config.Cell
+    for i=1, P.size do
         while (playfield.needAdd[i] or 0) > 0 do
             local cell = Cell(playfield.config)
             playfield.cells[#playfield.cells + 1] = cell
-            cell.x = playfield.x + (playfield.config.Cell.size + playfield.gap) * (i-1)
-            cell.y = playfield.y + (playfield.config.Cell.size + playfield.gap) * (playfield.needAdd[i]-1)
+            cell.x = P.x + (C.size + P.gap) * (i-1)
+            cell.y = P.y + (C.size + P.gap) * (playfield.needAdd[i]-1)
             cell.column = i
             cell.scale = 0
             sizeAnim[cell] = -delay

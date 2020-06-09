@@ -10,17 +10,19 @@ function Playfield:new(config, o)
     o = o or {}
     setmetatable(o, Playfield)
     o.config = config
-    o.x = config.Playfield.x
-    o.y = config.Playfield.y
-    o.size = config.Playfield.size
-    o.gap = config.Playfield.gap
     o.path = Path(o, config)
+
+    local gap = config.Playfield.gap
+    local size = config.Cell.size
+    local N = config.Playfield.size
+    local x = config.Playfield.x
+    local y = config.Playfield.y
     o.cells = {}
-    for i=1, o.size do
-        for j=1, o.size do
+    for i=1, N do
+        for j=1, N do
             o.cells[#o.cells + 1] = Cell(config)
-            o.cells[#o.cells].x = o.x + (config.Cell.size + o.gap) * (i-1)
-            o.cells[#o.cells].y = o.y + (config.Cell.size + o.gap) * (j-1)
+            o.cells[#o.cells].x = x + (size + gap) * (i-1)
+            o.cells[#o.cells].y = y + (size + gap) * (j-1)
             o.cells[#o.cells].column = i
             --o.cells[#o.cells].value = (j-1)*o.size + i
         end
@@ -48,6 +50,15 @@ function Playfield:draw()
         C:draw()
     end
     self.path:drawMerge()
+end
+
+function Playfield:resize(w, h)
+    local oldW, oldH = self.config.width, self.config.height
+    local dX, dY = w/oldW, h/oldH
+    for _, C in ipairs(self.cells) do
+        C.x = C.x * dX
+        C.y = C.y * dY
+    end
 end
 
 function Playfield:findCell(x,y)

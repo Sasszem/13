@@ -3,29 +3,40 @@ local Config = {
 
 function Config.get()
     local c = {}
-    setmetatable(c, Config)
-    c.width, c.height = love.graphics.getWidth(), love.graphics.getHeight()
-    c.wP = c.width / 100
-    c.hP = c.height / 100
-    c.mP = math.min(c.wP, c.hP)
-
-    c.gameFont = love.graphics.newFont("asset/supercomputer.ttf", c.mP*7)
+    setmetatable(c, {__index = Config})
 
     c.Cell = {
-        size = c.mP * 10,
+        size = 50,
     }
     c.Playfield = {
         size = 6,
-        gap = c.mP*3,
+        gap = 15,
     }
     c.Path = {
-        width = c.mP * 2,
+        width = 10,
         color = rgb(255, 0, 0),
     }
-    local s = c.Playfield.size * (c.Cell.size + c.Playfield.gap) - c.Playfield.gap
-    c.Playfield.x = (c.width - s)/2 + c.Cell.size / 2
-    c.Playfield.y = (c.height - s)/2 + c.Cell.size / 2
+
+    c:resize(love.graphics.getWidth(), love.graphics.getHeight())
     return c
+end
+
+function Config:resize(w, h)
+    self.width, self.height = w, h
+
+    self.wP = self.width / 100
+    self.hP = self.height / 100
+    self.mP = math.min(self.wP, self.hP)
+
+    self.gameFont = love.graphics.newFont("asset/supercomputer.ttf", self.mP*7)
+
+    self.Cell.size = self.mP * 10
+    self.Playfield.gap = self.mP * 3
+    self.Path.width = self.mP * 2
+
+    self.Playfield.s = self.Playfield.size * (self.Cell.size + self.Playfield.gap) - self.Playfield.gap
+    self.Playfield.x = (self.width - self.Playfield.s)/2 + self.Cell.size / 2
+    self.Playfield.y = (self.height - self.Playfield.s)/2 + self.Cell.size / 2
 end
 
 return Config

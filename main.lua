@@ -39,3 +39,8 @@ function love.update(dt)
     Sounds.update(dt)
     playfield:update(dt)
 end
+
+function love.resize(w, h)
+    playfield:resize(w, h)
+    config:resize(w, h)
+end
