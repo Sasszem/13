@@ -1,5 +1,5 @@
 local Cell = require("src.Cell")
-
+local Sounds = require("src.Sounds")
 local Path = {}
 Path.__index = Path
 
@@ -9,6 +9,7 @@ function Path:new(playfield, config, o)
     setmetatable(o, Path)
     o.config = config
     o.elements = {}
+    o.biggestYet = 2
     o.playfield = playfield
     return o
 end
@@ -120,6 +121,12 @@ function Path:mergeAnimation()
             self.mergeCell.y = y
         end
         currElem.value = currElem.value + 1
+        if currElem.value > self.biggestYet then
+            Sounds.play("newBiggest")
+            self.biggestYet = currElem.value
+        else
+            Sounds.play("click")
+        end
         self.mergeCell.value = currElem.value
     end
     self:clear()
