@@ -11,7 +11,7 @@ local function shiftdown(playfield)
         local dt = coroutine.yield()
         t = t + dt
         for C, _ in pairs(playfield.needShiftdown) do
-            C.y = C.sourceY + (C.targetY - C.sourceY)*t / Tdown
+            C.y = math.min(C.sourceY + (C.targetY - C.sourceY)*t / Tdown, C.targetY)
         end
     end
     -- add back the cells
