@@ -1,5 +1,6 @@
 local Config = require("src.Config")
 local Playfield = require("src.Playfield")
+local Sounds = require("src.Sounds")
 
 local playfield = nil
 local config = nil
@@ -7,6 +8,7 @@ local config = nil
 function love.load()
     config = Config.get()
     playfield = Playfield(config)
+    Sounds.playLooping("loop")
 end
 
 function love.draw()
@@ -47,5 +49,6 @@ function love.mousereleased(x, y, button, istouch, presses)
 end
 
 function love.update(dt)
+    Sounds.update(dt)
     playfield:update(dt)
 end

@@ -1,5 +1,6 @@
 local Cell = require("src.Cell")
 local Path = require("src.Path")
+local shiftdown = require("src.shiftdown")
 
 local Playfield = {
 }
@@ -45,6 +46,7 @@ function Playfield:draw()
     for _, C in ipairs(self.cells) do
         C:draw()
     end
+    self.path:drawMerge()
 end
 
 function Playfield:findCell(x,y)
@@ -90,7 +92,7 @@ function Playfield:clear()
         end
     end
     self.cells = newCells
-    self.shiftdownTask = coroutine.create(self.shiftdown)
+    self.shiftdownTask = coroutine.create(shiftdown)
     coroutine.resume(self.shiftdownTask, self)
 end
 
@@ -107,47 +109,6 @@ function Playfield:findAbove(cell)
         end
     end
     return result
-end
-
-function Playfield:shiftdown()
-    local t = 0
-    while t<0.5 do
-        local dt = coroutine.yield()
-        t = t + dt
-        for C, _ in pairs(self.needShiftdown) do
-            C.y = C.sourceY + (C.targetY - C.sourceY)*t*2
-        end
-    end
-    -- add back the cells
-    local delay = 0
-    local sizeAnim = {}
-    local toAnimate = 0
-    for i=1, self.size do
-        while (self.needAdd[i] or 0) > 0 do
-            local cell = Cell(self.config)
-            self.cells[#self.cells + 1] = cell
-            cell.x = self.x + (self.config.Cell.size + self.gap) * (i-1)
-            cell.y = self.y + (self.config.Cell.size + self.gap) * (self.needAdd[i]-1)
-            cell.column = i
-            cell.scale = 0
-            sizeAnim[cell] = -delay
-            self.needAdd[i] = self.needAdd[i] - 1
-            delay = delay + 0.2
-            toAnimate = toAnimate + 1
-        end
-    end
-    while toAnimate > 0 do
-        local dt = coroutine.yield()
-        for cell, cT in pairs(sizeAnim) do
-            cell.scale = math.max(cT, 0) * 2
-            sizeAnim[cell] = sizeAnim[cell] + dt
-            if sizeAnim[cell] >= 0.5 then
-                sizeAnim[cell] = nil
-                cell.scale = 1
-                toAnimate = toAnimate - 1
-            end
-        end
-    end
 end
 
 setmetatable(Playfield, {__call=Playfield.new})

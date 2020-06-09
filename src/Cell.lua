@@ -1,8 +1,21 @@
 require("src.utils")
 
 local CellColors = {
-    rgb(255, 255, 255),
-    rgb(50, 200, 75), 
+    rgb("#eeeeec"),
+    rgb("#8ae234"),
+    rgb("#729fcf"),
+    rgb("#ad7fa8"),
+    rgb("#ef2929"), -- 5
+    rgb("#edd400"),
+    rgb("#3465a4"),
+    rgb("#f57900"),
+    rgb("#babdb6"),
+    rgb("#cc0000"), -- 10
+    rgb("#c4a000"),
+    rgb("#204a87"),
+    rgb("#4e9a06"),
+    rgb("#5c3566"),
+    rgb("#a40000"), -- 15
 }
 
 

@@ -1,5 +1,5 @@
 local Cell = require("src.Cell")
-
+local Sounds = require("src.Sounds")
 local Path = {}
 Path.__index = Path
 
@@ -9,11 +9,13 @@ function Path:new(playfield, config, o)
     setmetatable(o, Path)
     o.config = config
     o.elements = {}
+    o.biggestYet = 2
     o.playfield = playfield
     return o
 end
 
 function Path:add(cell)
+    if self:animating() then return end
     if #self.elements>1 then
         if cell == self.elements[#self.elements-1] then
             self.elements[#self.elements] = nil
@@ -49,10 +51,7 @@ function Path:canAddByPosition(cell)
 end
 
 function Path:draw()
-    if self.mergeCell then
-        self.mergeCell:draw()
-        return
-    end
+    if self.mergeCell then return end
     if #self.elements < 2 then return end
     love.graphics.setLineWidth(self.config.Path.width)
     love.graphics.setColor(self.config.Path.color)
@@ -64,12 +63,26 @@ function Path:draw()
     end
 end
 
+function Path:drawMerge()
+    if self.mergeCell then
+        self.mergeCell:draw()
+    end
+end
+
 function Path:clear()
     self.elements = {}
+    self.mergeCell = nil
+end
+
+function Path:animating()
+    return self.mergeTask or self.playfield.shiftdownTask
 end
 
 function Path:merge()
-    if #self.elements < 2 then return end
+    if #self.elements < 2 or self:animating() then
+        self:clear()
+        return
+    end
     self.mergeTask = coroutine.create(self.mergeAnimation)
     coroutine.resume(self.mergeTask, self)
 end
@@ -88,6 +101,11 @@ function Path:update(dt)
 end
 
 function Path:mergeAnimation()
+    -- config local:
+    -- how long should it take to animate between two cells
+    -- (in seconds)
+    local T = 0.25
+
     self.mergeCell = Cell(self.config)
 
     self.mergeCell.value = self.elements[1].value
@@ -95,11 +113,11 @@ function Path:mergeAnimation()
         local t = 0
         local toX, toY = self.elements[i].x, self.elements[i].y
         local x, y = self.elements[i-1].x, self.elements[i-1].y
-        local stepX = (toX - x)/0.5
-        local stepY = (toY - y)/0.5
+        local stepX = (toX - x)/T
+        local stepY = (toY - y)/T
         local currElem = self.elements[i]
         self.elements[i-1].remove = true
-        while t < 0.5 do
+        while t < T do
             local dt = coroutine.yield()
             t = t + dt
             x = x + stepX * dt
@@ -108,11 +126,15 @@ function Path:mergeAnimation()
             self.mergeCell.y = y
         end
         currElem.value = currElem.value + 1
+        if currElem.value > self.biggestYet then
+            Sounds.play("newBiggest")
+            self.biggestYet = currElem.value
+        end
+        Sounds.play("click")
         self.mergeCell.value = currElem.value
     end
-    self.playfield:clear()
-    self.mergeCell = nil
     self:clear()
+    self.playfield:clear()
 end
 
 setmetatable(Path, {__call=Path.new})
