@@ -129,9 +129,8 @@ function Path:mergeAnimation()
         if currElem.value > self.biggestYet then
             Sounds.play("newBiggest")
             self.biggestYet = currElem.value
-        else
-            Sounds.play("click")
         end
+        Sounds.play("click")
         self.mergeCell.value = currElem.value
     end
     self:clear()
