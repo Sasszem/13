@@ -12,13 +12,7 @@ function love.load()
 end
 
 function love.draw()
-    love.graphics.push()
-    love.graphics.origin()
-    if config.flip then
-        love.graphics.scale(0.5, 0.5)
-    end
     playfield:draw()
-    love.graphics.pop()
 end
 
 function love.keypressed(key, code, rep)
@@ -27,20 +21,13 @@ function love.keypressed(key, code, rep)
     end
 end
 
-local function mouseToWorld(x, y)
-    if config.flip then
-        return 2*x, 2*y
-    end
-    return x, y
-end
-
 function love.mousepressed(x, y, button, istouch, presses)
-    playfield:touchBegin(mouseToWorld(x, y))
+    playfield:touchBegin(x, y)
 end
 
 function love.mousemoved(x, y, dx, dy, istouch)
     if love.mouse.isDown(1, 2, 3) then
-        playfield:touchMove(mouseToWorld(x, y))
+        playfield:touchMove(x, y)
     end
 end
 

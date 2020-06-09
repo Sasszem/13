@@ -22,6 +22,7 @@ function Playfield:new(config, o)
             o.cells[#o.cells].x = o.x + (config.Cell.size + o.gap) * (i-1)
             o.cells[#o.cells].y = o.y + (config.Cell.size + o.gap) * (j-1)
             o.cells[#o.cells].column = i
+            --o.cells[#o.cells].value = (j-1)*o.size + i
         end
     end
 

@@ -4,13 +4,12 @@ local Config = {
 function Config.get()
     local c = {}
     setmetatable(c, Config)
-    c.width, c.height, _ = love.window.getMode()
+    c.width, c.height = love.graphics.getWidth(), love.graphics.getHeight()
     c.wP = c.width / 100
     c.hP = c.height / 100
     c.mP = math.min(c.wP, c.hP)
-    c.gameFont = love.graphics.newFont("asset/supercomputer.ttf", c.mP*7)
 
-    c.flip = love.system.getOS() == "Android"
+    c.gameFont = love.graphics.newFont("asset/supercomputer.ttf", c.mP*7)
 
     c.Cell = {
         size = c.mP * 10,
