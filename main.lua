@@ -1,6 +1,7 @@
 local Config = require("src.Config")
 local Playfield = require("src.Playfield")
 local Sounds = require("src.Sounds")
+local Tasks = require("src.Tasks")
 
 local playfield = nil
 local config = nil
@@ -37,7 +38,7 @@ end
 
 function love.update(dt)
     Sounds.update(dt)
-    playfield:update(dt)
+    Tasks.update(dt)
 end
 
 function love.resize(w, h)

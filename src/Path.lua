@@ -1,5 +1,7 @@
 local Cell = require("src.Cell")
 local Sounds = require("src.Sounds")
+local Tasks = require("src.Tasks")
+
 local Path = {}
 Path.__index = Path
 
@@ -83,8 +85,7 @@ function Path:merge()
         self:clear()
         return
     end
-    self.mergeTask = coroutine.create(self.mergeAnimation)
-    coroutine.resume(self.mergeTask, self)
+    Tasks.run(self.mergeAnimation, self)
 end
 
 function Path:update(dt)

@@ -1,6 +1,8 @@
 local Cell = require("src.Cell")
 local Path = require("src.Path")
+local Tasks = require("src.Tasks")
 local shiftdown = require("src.shiftdown")
+local addCells = require("src.addCells")
 
 local Playfield = {
 }
@@ -12,36 +14,25 @@ function Playfield:new(config, o)
     o.config = config
     o.path = Path(o, config)
 
-    local gap = config.Playfield.gap
-    local size = config.Cell.size
     local N = config.Playfield.size
-    local x = config.Playfield.x
-    local y = config.Playfield.y
     o.cells = {}
+    o.needAdd = {}
     for i=1, N do
-        for j=1, N do
-            o.cells[#o.cells + 1] = Cell(config)
-            o.cells[#o.cells].x = x + (size + gap) * (i-1)
-            o.cells[#o.cells].y = y + (size + gap) * (j-1)
-            o.cells[#o.cells].column = i
-            --o.cells[#o.cells].value = (j-1)*o.size + i
-        end
+        o.needAdd[i] = N
     end
-
+    Tasks.run(function(self)
+        local t = 0
+        while t < 0.2 do
+            local dt = coroutine.yield()
+            t = t + dt
+        end
+        self:addCells(true)
+    end, o)
     return o
 end
 
-function Playfield:update(dt)
-    self.path:update(dt)
-    if self.shiftdownTask then
-        local cont, err = coroutine.resume(self.shiftdownTask, dt)
-        if not cont then
-            if err~="cannot resume dead coroutine" then
-                print(err)
-            end
-            self.shiftdownTask = nil
-        end
-    end
+function Playfield:addCells(fast)
+    Tasks.run(addCells, self, fast)
 end
 
 function Playfield:draw()
@@ -104,8 +95,7 @@ function Playfield:clear()
         end
     end
     self.cells = newCells
-    self.shiftdownTask = coroutine.create(shiftdown)
-    coroutine.resume(self.shiftdownTask, self)
+    Tasks.run(shiftdown, self)
 end
 
 function Playfield:findAbove(cell)
