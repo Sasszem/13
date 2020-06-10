@@ -1,5 +1,7 @@
 local Cell = require("src.Cell")
 local Sounds = require("src.Sounds")
+local Tasks = require("src.Tasks")
+
 local Path = {}
 Path.__index = Path
 
@@ -83,8 +85,7 @@ function Path:merge()
         self:clear()
         return
     end
-    self.mergeTask = coroutine.create(self.mergeAnimation)
-    coroutine.resume(self.mergeTask, self)
+    Tasks.run(self.mergeAnimation, self)
 end
 
 function Path:update(dt)
@@ -126,9 +127,12 @@ function Path:mergeAnimation()
             self.mergeCell.y = y
         end
         currElem.value = currElem.value + 1
+        self.playfield.score = self.playfield.score + currElem.value
         if currElem.value > self.biggestYet then
             Sounds.play("newBiggest")
             self.biggestYet = currElem.value
+            -- add some extra points too
+            self.playfield.score = self.playfield.score + currElem.value
         end
         Sounds.play("click")
         self.mergeCell.value = currElem.value

@@ -30,7 +30,6 @@ function Cell:new(config, o)
     o = o or {}
     o.value = o.value or (math.random(1, 4)==1 and 2 or 1)
     o.config = config
-    o.size = config.Cell.size
     o.scale = 1
     setmetatable(o, Cell)
     return o
@@ -42,7 +41,7 @@ function Cell:draw()
     love.graphics.translate(self.x, self.y)
     love.graphics.scale(self.scale, self.scale)
     love.graphics.translate(-self.x, -self.y)
-    local s = self.size
+    local s = self.config.Cell.size
     love.graphics.setColor(CellColors[self.value] or rgb(255, 255, 255))
     love.graphics.rectangle("fill", self.x-s/2, self.y-s/2, s, s)
     local font = self.config.gameFont
@@ -53,8 +52,9 @@ function Cell:draw()
 end
 
 function Cell:inside(x, y)
-    local iX = self.x - self.size / 2 < x and x < self.x + self.size / 2
-    local iY = self.y - self.size / 2 < y and y < self.y + self.size / 2
+    local s = self.config.Cell.size
+    local iX = self.x - s / 2 < x and x < self.x + s / 2
+    local iY = self.y - s / 2 < y and y < self.y + s / 2
     return iX and iY
 end
 

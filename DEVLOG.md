@@ -24,7 +24,7 @@ Also additional coordinate transform
 - Cell replenish and size animation - with a coroutine
 - Decrease 2 cell chance
 
-## Day 4 - 2020.06.09
+## Day 4 - 2020.06.08
 
 - Draw merge cell above normal cells
 - Freeze gameplay while animating
@@ -37,3 +37,13 @@ Also additional coordinate transform
 - add more cell colors
 
 Finished working at 03:14 am
+
+## Day 5 - 2020.06.09
+
+- fix mobile coordinate system for good
+Was a long fix, as the resolution actually changes more than once while initializing.
+
+- Make "task" system and refactor with it
+- Add timer & score
+
+Finished at 02:56 am
