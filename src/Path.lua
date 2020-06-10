@@ -102,13 +102,15 @@ function Path:clear()
 end
 
 function Path:animating()
-    -- TODO: this does NOT work
-    return self.mergeTask or self.game.shiftdownTask
+    return self.game.animating
 end
 
 function Path:merge()
+    -- don't do a thing if still animating
+    if self:animating() then return end
+
     -- merge if possible, if not, clear
-    if #self.elements < 2 or self:animating() then
+    if #self.elements < 2 then
         self:clear()
         return
     end
@@ -116,6 +118,8 @@ function Path:merge()
 end
 
 function Path:mergeAnimation()
+    self.game.animating = true
+
     -- config local:
     -- how long should it take to animate between two cells
     -- (in seconds)

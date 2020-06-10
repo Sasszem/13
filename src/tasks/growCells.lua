@@ -38,6 +38,7 @@ function growCells(cellPool, fast)
         end
     end
     cellPool.sizeAnim = nil
+    cellPool.game.animating = false
 end
 
 return growCells
