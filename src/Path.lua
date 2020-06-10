@@ -1,62 +1,86 @@
 local Cell = require("src.Cell")
 local Sounds = require("src.Sounds")
-local Tasks = require("src.Tasks")
 
 local Path = {}
 Path.__index = Path
 
 
-function Path:new(playfield, config, o)
+function Path:new(game, config, o)
     o = o or {}
     setmetatable(o, Path)
     o.config = config
     o.elements = {}
     o.biggestYet = 2
-    o.playfield = playfield
+    o.game = game
     return o
 end
 
 function Path:add(cell)
+    -- trigger adding or removing of a cell
+
+    -- disallow any action while animating to prevent funny effects
     if self:animating() then return end
+
+    -- cell removing
     if #self.elements>1 then
         if cell == self.elements[#self.elements-1] then
             self.elements[#self.elements] = nil
         end
     end
+
+    -- adding it if can add
     if self:canAdd(cell) then
         self.elements[#self.elements+1] = cell
     end
 end
 
 function Path:canAdd(cell)
+    -- if empty, only allow ones
     if #self.elements == 0 then
         return cell.value == 1
     end
+
+    -- do not allow adding the same twice (while holding the mouse)
     if self.elements[#self.elements] == cell then return end
+
+    -- special case: 1-1 -> 2
     if #self.elements == 1 and cell.value==1 then
         return self:canAddByPosition(cell)
     end
+
+    -- do not allow 1-1-2
     if #self.elements==2 and self.elements[2].value == 1 then
         return false
     end
+
+    -- if incremental, check position
     if cell.value == (self.elements[#self.elements].value + 1) then
         return self:canAddByPosition(cell)
     end
 end
 
 function Path:canAddByPosition(cell)
+    -- distances
     local dX = math.abs(cell.x - self.elements[#self.elements].x)
     local dY = math.abs(cell.y - self.elements[#self.elements].y)
+
+    -- max distance - 110% because I do not trust float math
     local maxD = (self.config.Cell.size + self.config.Playfield.gap)*1.1
-    local ex = dX<=maxD and dY<=maxD
-    return ex
+
+    return (dX <= maxD) and (dY <= maxD)
 end
 
-function Path:draw()
+function Path:drawPath()
+    -- only if not merging
     if self.mergeCell then return end
+
+    -- only if having at least 2 elements
     if #self.elements < 2 then return end
+
+
     love.graphics.setLineWidth(self.config.Path.width)
     love.graphics.setColor(self.config.Path.color)
+
     local x, y = self.elements[1].x, self.elements[1].y
     for i=2, #self.elements do
         local xn, yn = self.elements[i].x, self.elements[i].y
@@ -66,6 +90,7 @@ function Path:draw()
 end
 
 function Path:drawMerge()
+    -- need 2 separate draws because of layering
     if self.mergeCell then
         self.mergeCell:draw()
     end
@@ -77,28 +102,17 @@ function Path:clear()
 end
 
 function Path:animating()
-    return self.mergeTask or self.playfield.shiftdownTask
+    -- TODO: this does NOT work
+    return self.mergeTask or self.game.shiftdownTask
 end
 
 function Path:merge()
+    -- merge if possible, if not, clear
     if #self.elements < 2 or self:animating() then
         self:clear()
         return
     end
-    Tasks.run(self.mergeAnimation, self)
-end
-
-function Path:update(dt)
-    --print("Updating")
-    if self.mergeTask then
-        local cont, err = coroutine.resume(self.mergeTask, dt)
-        if not cont then
-            self.mergeTask = nil
-            if err~="cannot resume dead coroutine" then
-                print(err)
-            end
-        end
-    end
+    self.game.TM:run(self.mergeAnimation, self)
 end
 
 function Path:mergeAnimation()
@@ -108,37 +122,49 @@ function Path:mergeAnimation()
     local T = 0.25
 
     self.mergeCell = Cell(self.config)
-
     self.mergeCell.value = self.elements[1].value
+
+    -- for each move
     for i=2, #self.elements do
         local t = 0
+        -- move time
+
         local toX, toY = self.elements[i].x, self.elements[i].y
-        local x, y = self.elements[i-1].x, self.elements[i-1].y
-        local stepX = (toX - x)/T
-        local stepY = (toY - y)/T
+        -- goal coordinates
+
+        local fromX, fromY = self.elements[i-1].x, self.elements[i-1].y
+        -- starting coordinates
+
         local currElem = self.elements[i]
+        -- current target cell
+
         self.elements[i-1].remove = true
+        -- mark prev cell as remove (hides it)
+
         while t < T do
             local dt = coroutine.yield()
             t = t + dt
-            x = x + stepX * dt
-            y = y + stepY * dt
-            self.mergeCell.x = x
-            self.mergeCell.y = y
+            self.mergeCell.x = fromX + (toX - fromX)*t/T
+            self.mergeCell.y = fromY + (toY - fromY)*t/T
         end
+
         currElem.value = currElem.value + 1
-        self.playfield.score = self.playfield.score + currElem.value
+
+        -- give some score
+        self.game.score = self.game.score + currElem.value
+
+        -- if new biggest cell yet in the game, play sound and gime some extra points
         if currElem.value > self.biggestYet then
             Sounds.play("newBiggest")
             self.biggestYet = currElem.value
-            -- add some extra points too
-            self.playfield.score = self.playfield.score + currElem.value
+            self.game.score = self.game.score + currElem.value
         end
+
         Sounds.play("click")
         self.mergeCell.value = currElem.value
     end
     self:clear()
-    self.playfield:clear()
+    self.game.cells:afterMerge()
 end
 
 setmetatable(Path, {__call=Path.new})

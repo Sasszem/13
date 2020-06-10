@@ -1,19 +1,18 @@
 local Config = require("src.Config")
-local Playfield = require("src.Playfield")
+local Game = require("src.Game")
 local Sounds = require("src.Sounds")
-local Tasks = require("src.Tasks")
 
-local playfield = nil
+local game = nil
 local config = nil
 
 function love.load()
     config = Config.get()
-    playfield = Playfield(config)
+    game = Game(config)
     Sounds.playLooping("loop")
 end
 
 function love.draw()
-    playfield:draw()
+    game:draw()
 end
 
 function love.keypressed(key, code, rep)
@@ -23,25 +22,24 @@ function love.keypressed(key, code, rep)
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
-    playfield:touchBegin(x, y)
+    game:touchBegin(x, y)
 end
 
 function love.mousemoved(x, y, dx, dy, istouch)
     if love.mouse.isDown(1, 2, 3) then
-        playfield:touchMove(x, y)
+        game:touchMove(x, y)
     end
 end
 
 function love.mousereleased(x, y, button, istouch, presses)
-    playfield:touchEnd()
+    game:touchEnd()
 end
 
 function love.update(dt)
     Sounds.update(dt)
-    Tasks.update(dt)
+    game:update(dt)
 end
 
 function love.resize(w, h)
-    playfield:resize(w, h)
     config:resize(w, h)
 end
