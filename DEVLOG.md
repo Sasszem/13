@@ -24,7 +24,7 @@ Also additional coordinate transform
 - Cell replenish and size animation - with a coroutine
 - Decrease 2 cell chance
 
-## Day 4 - 2020.06.09
+## Day 4 - 2020.06.08
 
 - Draw merge cell above normal cells
 - Freeze gameplay while animating
