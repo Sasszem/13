@@ -127,9 +127,12 @@ function Path:mergeAnimation()
             self.mergeCell.y = y
         end
         currElem.value = currElem.value + 1
+        self.playfield.score = self.playfield.score + currElem.value
         if currElem.value > self.biggestYet then
             Sounds.play("newBiggest")
             self.biggestYet = currElem.value
+            -- add some extra points too
+            self.playfield.score = self.playfield.score + currElem.value
         end
         Sounds.play("click")
         self.mergeCell.value = currElem.value

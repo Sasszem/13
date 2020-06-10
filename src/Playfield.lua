@@ -14,6 +14,9 @@ function Playfield:new(config, o)
     o.config = config
     o.path = Path(o, config)
 
+    o.time = 0
+    o.score = 0
+
     local N = config.Playfield.size
     o.cells = {}
     o.needAdd = {}
@@ -28,11 +31,25 @@ function Playfield:new(config, o)
         end
         self:addCells(true)
     end, o)
+    Tasks.run(function(self)
+        while true do
+            local dt = coroutine.yield()
+            self.time = self.time + dt
+        end
+    end, o)
+
     return o
 end
 
 function Playfield:addCells(fast)
     Tasks.run(addCells, self, fast)
+end
+
+function Playfield:drawInfo()
+    love.graphics.setFont(self.config.gameFont)
+    love.graphics.setColor(rgb("#ffffff"))
+    love.graphics.printf(("%d:%02d"):format(math.floor(self.time / 60), math.floor(self.time % 60)), 0, 10*self.config.hP, self.config.width, "center")
+    love.graphics.printf(("%d"):format(self.score), 0, 15*self.config.hP, self.config.width, "center")
 end
 
 function Playfield:draw()
@@ -41,6 +58,7 @@ function Playfield:draw()
         C:draw()
     end
     self.path:drawMerge()
+    self:drawInfo()
 end
 
 function Playfield:resize(w, h)
