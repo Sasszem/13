@@ -26,7 +26,6 @@ function addCells(playfield, fast)
     end
     while toAnimate > 0 do
         local dt = coroutine.yield()
-        print(dt)
         for cell, cT in pairs(sizeAnim) do
             cell.scale = math.max(cT, 0) / Tappear
             sizeAnim[cell] = sizeAnim[cell] + dt
