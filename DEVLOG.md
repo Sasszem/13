@@ -37,3 +37,13 @@ Also additional coordinate transform
 - add more cell colors
 
 Finished working at 03:14 am
+
+## Day 5 - 2020.06.09
+
+- fix mobile coordinate system for good
+Was a long fix, as the resolution actually changes more than once while initializing.
+
+- Make "task" system and refactor with it
+- Add timer & score
+
+Finished at 02:56 am
