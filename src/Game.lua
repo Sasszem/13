@@ -75,6 +75,7 @@ function Game:quit()
 end
 
 function Game:endGame()
+    SaveRestore.remove()
     love.event.quit()
 end
 

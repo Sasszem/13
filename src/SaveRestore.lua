@@ -114,4 +114,16 @@ function SaveRestore.load(game)
     end
 end
 
+
+-------------------
+-- REMOVE SECTION --
+-------------------
+
+--- remove saved game data
+function SaveRestore.remove()
+    love.filesystem.remove(CELLSFILE)
+    love.filesystem.remove(GAMEDATAFILE)
+end
+
+
 return SaveRestore
