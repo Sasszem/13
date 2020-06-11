@@ -64,8 +64,8 @@ function Game:touchEnd(x, y)
 end
 
 function Game:quit()
-    -- fast-forward a second to finish all animations
-    for i=1, 100 do
+    -- fast-forward to finish all animations
+    while self.animating do
         love.update(0.01)
     end
     SaveRestore.save(self)
