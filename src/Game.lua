@@ -15,6 +15,7 @@ function Game:new(config, o)
 
     o.time = 0
     o.score = 0
+    o.biggestYet = 2
 
     o.TM = TasksManager()
 
@@ -63,6 +64,7 @@ function Game:touchEnd(x, y)
 end
 
 function Game:quit()
+    -- fast-forward a second to finish all animations
     for i=1, 100 do
         love.update(0.01)
     end

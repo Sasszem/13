@@ -10,7 +10,6 @@ function Path:new(game, config, o)
     setmetatable(o, Path)
     o.config = config
     o.elements = {}
-    o.biggestYet = 2
     o.game = game
     return o
 end
@@ -158,9 +157,9 @@ function Path:mergeAnimation()
         self.game.score = self.game.score + currElem.value
 
         -- if new biggest cell yet in the game, play sound and gime some extra points
-        if currElem.value > self.biggestYet then
+        if currElem.value > self.game.biggestYet then
             Sounds.play("newBiggest")
-            self.biggestYet = currElem.value
+            self.game.biggestYet = currElem.value
             self.game.score = self.game.score + currElem.value
         end
 
