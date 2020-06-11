@@ -19,6 +19,9 @@ function love.keypressed(key, code, rep)
     if key=="escape" then
         love.event.quit()
     end
+    if key=="r" then
+        game.undo:restore()
+    end
 end
 
 function love.mousepressed(x, y, button, istouch, presses)

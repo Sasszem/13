@@ -113,6 +113,7 @@ function Path:merge()
         self:clear()
         return
     end
+    self.game.undo:backup()
     self.game.TM:run(self.mergeAnimation, self)
 end
 

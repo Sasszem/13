@@ -2,6 +2,7 @@ local Path = require("src.Path")
 local TasksManager = require("src.TaskManager")
 local CellPool = require("src.CellPool")
 local SaveRestore = require("src.SaveRestore")
+local Undo = require("src.Undo")
 
 local Game = {
 }
@@ -18,7 +19,7 @@ function Game:new(config, o)
     o.biggestYet = 2
 
     o.TM = TasksManager()
-
+    o.undo = Undo(o)
     o.cells = CellPool(o)
 
     o.TM:periodic(function (self)
