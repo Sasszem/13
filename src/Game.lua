@@ -65,11 +65,17 @@ function Game:touchEnd(x, y)
 end
 
 function Game:quit()
+    if self.won then return end
+
     -- fast-forward to finish all animations
     while self.animating do
         love.update(0.01)
     end
     SaveRestore.save(self)
+end
+
+function Game:endGame()
+    love.event.quit()
 end
 
 setmetatable(Game, {__call=Game.new})

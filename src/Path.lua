@@ -117,6 +117,8 @@ function Path:merge()
     self.game.TM:run(self.mergeAnimation, self)
 end
 
+local VICTORYVALUE = 5
+
 function Path:mergeAnimation()
     self.game.animating = true
 
@@ -159,7 +161,12 @@ function Path:mergeAnimation()
 
         -- if new biggest cell yet in the game, play sound and gime some extra points
         if currElem.value > self.game.biggestYet then
-            Sounds.play("newBiggest")
+            if currElem.value == VICTORYVALUE then
+                Sounds.play("victory")
+                self.game.won = true
+            else
+                Sounds.play("newBiggest")
+            end
             self.game.biggestYet = currElem.value
             self.game.score = self.game.score + currElem.value
         end
