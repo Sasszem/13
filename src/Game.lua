@@ -1,6 +1,7 @@
 local Path = require("src.Path")
 local TasksManager = require("src.TaskManager")
 local CellPool = require("src.CellPool")
+local SaveRestore = require("src.SaveRestore")
 
 local Game = {
 }
@@ -61,6 +62,12 @@ function Game:touchEnd(x, y)
     self.path:merge()
 end
 
+function Game:quit()
+    for i=1, 100 do
+        love.update(0.01)
+    end
+    SaveRestore.save(self)
+end
 
 setmetatable(Game, {__call=Game.new})
 return Game

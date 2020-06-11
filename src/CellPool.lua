@@ -1,4 +1,5 @@
 local CellPool = {}
+local SaveRestore = require("src.SaveRestore")
 
 function CellPool:new(game)
     local o = {}
@@ -7,18 +8,22 @@ function CellPool:new(game)
 
     o.game = game
     o.cells = {}
-
-    local N = game.config.Playfield.size
-    o.needAdd = {}
-    for i=1, N do
-        o.needAdd[i] = N
-    end
-    game.TM:delayed(o.addCells, 0.2, o, true)
-
+    o:init()
     return o
 end
 setmetatable(CellPool, {__call = CellPool.new})
 
+function CellPool:init()
+    local N = self.game.config.Playfield.size
+    self.needAdd = {}
+    for i=1, N do
+        self.needAdd[i] = N
+    end
+
+    
+    self.game.TM:delayed(self.addCells, 0.2, self, true)
+    self.game.TM:delayed(SaveRestore.load, 0.21, self.game)
+end
 
 function CellPool:findAbove(cell)
     -- find every cell above given one
