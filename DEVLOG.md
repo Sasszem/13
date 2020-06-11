@@ -47,3 +47,11 @@ Was a long fix, as the resolution actually changes more than once while initiali
 - Add timer & score
 
 Finished at 02:56 am
+
+### Day 6 - 2020.06.10
+
+- A huge refactor
+- fix: disallow merging while animating
+- basic loading and saving
+
+Finished at 04:06 am
