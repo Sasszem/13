@@ -32,7 +32,7 @@ end
 function Game:drawInfo()
     -- draw score and time
     love.graphics.setFont(self.config.gameFont)
-    love.graphics.setColor(rgb("#ffffff"))
+    love.graphics.setColor(rgb(255, 255, 255))
     love.graphics.printf(("%d:%02d"):format(math.floor(self.time / 60), self.time % 60), 0, 10*self.config.hP, self.config.width, "center")
     love.graphics.printf(("%d"):format(self.score), 0, 15*self.config.hP, self.config.width, "center")
 end

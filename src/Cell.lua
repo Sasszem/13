@@ -1,21 +1,36 @@
-require("src.utils")
+-- HEX color to RGB color
+local function hex(hexstring)
+    assert(hexstring:sub(0, 1)=="#", "Color strings must be in hex format!")
+
+    -- extract string bits
+    r = hexstring:sub(2, 3)
+    g = hexstring:sub(4, 5)
+    b = hexstring:sub(6, 7)
+
+    -- convert to decimal
+    r = tonumber(r, 16)
+    g = tonumber(g, 16)
+    b = tonumber(b, 16)
+
+    return {r/255, g/255, b/255}
+end
 
 local CellColors = {
-    rgb("#eeeeec"),
-    rgb("#8ae234"),
-    rgb("#729fcf"),
-    rgb("#ad7fa8"),
-    rgb("#ef2929"), -- 5
-    rgb("#edd400"),
-    rgb("#3465a4"),
-    rgb("#f57900"),
-    rgb("#babdb6"),
-    rgb("#cc0000"), -- 10
-    rgb("#c4a000"),
-    rgb("#204a87"),
-    rgb("#4e9a06"),
-    rgb("#5c3566"),
-    rgb("#a40000"), -- 15
+    hex("#eeeeec"),
+    hex("#8ae234"),
+    hex("#729fcf"),
+    hex("#ad7fa8"),
+    hex("#ef2929"), -- 5
+    hex("#edd400"),
+    hex("#3465a4"),
+    hex("#f57900"),
+    hex("#babdb6"),
+    hex("#cc0000"), -- 10
+    hex("#c4a000"),
+    hex("#204a87"),
+    hex("#4e9a06"),
+    hex("#5c3566"),
+    hex("#a40000"), -- 15
 }
 
 
@@ -42,11 +57,11 @@ function Cell:draw()
     love.graphics.scale(self.scale, self.scale)
     love.graphics.translate(-self.x, -self.y)
     local s = self.config.Cell.size
-    love.graphics.setColor(CellColors[self.value] or rgb(255, 255, 255))
+    love.graphics.setColor(CellColors[self.value] or hex("#ffffff"))
     love.graphics.rectangle("fill", self.x-s/2, self.y-s/2, s, s)
     local font = self.config.gameFont
     local h = font:getHeight()
-    love.graphics.setColor(rgb(0, 0, 0))
+    love.graphics.setColor(hex("#000000"))
     love.graphics.printf(self.value, font, self.x-s/2, self.y - h/2, s, "center")
     love.graphics.pop()
 end
