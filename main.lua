@@ -16,9 +16,7 @@ function love.draw()
 end
 
 function love.keypressed(key, code, rep)
-    if key=="escape" then
-        love.event.quit()
-    end
+    menu:keypressed(key)
     --if key=="r" then
     --    game.undo:restore()
     --end

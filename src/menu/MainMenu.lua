@@ -10,7 +10,8 @@ local MainMenu = VDiv(
     {
         placement = "center",
         gap = 10,
-    }
+    },
+    "mainMenu"
 )
 
 function MainMenu.widgets.btnNormal.style:click(x, y, button)

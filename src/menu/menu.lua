@@ -27,4 +27,11 @@ function Menu:mousereleased(x, y)
     self:getWidget("game"):mousereleased(x, y)
 end
 
+function Menu:keypressed(key)
+    local sel = self:getWidget("switcher").selected
+    if sel == "game" then
+        self:getWidget("game"):quit()
+    end
+end
+
 return Menu

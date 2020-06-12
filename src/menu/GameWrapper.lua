@@ -5,7 +5,7 @@ local Game = require("src.Game")
 local config = Config.get()
 
 function GameWrapper:newGame()
-    self.game = Game(config)
+    self.game = Game(config, self)
 end
 
 function GameWrapper:draw()
@@ -28,6 +28,11 @@ function GameWrapper:mousereleased(x, y)
     if self.game then
         self.game:touchEnd()
     end
+end
+
+function GameWrapper:quit()
+    self.game:quit()
+    self:getWidget("switcher").selected = "mainMenu"
 end
 
 return GameWrapper

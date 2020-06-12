@@ -8,10 +8,12 @@ local Game = {
 }
 Game.__index = Game
 
-function Game:new(config, o)
-    o = o or {}
+function Game:new(config, parentWidget)
+    local o = {}
     setmetatable(o, Game)
     o.config = config
+    o.parentWidget = parentWidget
+
     o.path = Path(o, config)
 
     o.time = 0
@@ -71,7 +73,7 @@ end
 
 function Game:endGame()
     SaveRestore.remove()
-    love.event.quit()
+    self.parentWidget:quit()
 end
 
 setmetatable(Game, {__call=Game.new})
