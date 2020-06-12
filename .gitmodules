@@ -1,0 +1,4 @@
+[submodule "yalg"]
+	path = yalg
+	url = https://github.com/sasszem/yalg
+	branch = release
