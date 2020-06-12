@@ -55,3 +55,13 @@ Finished at 02:56 am
 - basic loading and saving
 
 Finished at 04:06 am
+Messed up branch (and merge commit) name as day 7
+
+### Day 7 - 2020.06.11
+
+- finish save system
+- undo function base
+- game end base
+- setup YALG GUI lib
+
+Finished working at 03:40 am

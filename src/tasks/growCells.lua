@@ -39,6 +39,9 @@ function growCells(cellPool, fast)
     end
     cellPool.sizeAnim = nil
     cellPool.game.animating = false
+    if cellPool.game.won then
+        cellPool.game:endGame()
+    end
 end
 
 return growCells

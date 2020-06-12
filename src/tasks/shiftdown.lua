@@ -17,6 +17,12 @@ local function shiftdown(playfield)
         end
     end
 
+    -- clear source and target to avoid accidental reuse
+    for _, C in ipairs(playfield.cells) do
+        C.targetY = nil
+        C.sourceY = nil
+    end
+
     -- add new cells
     playfield:addCells()
 end

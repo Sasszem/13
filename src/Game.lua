@@ -2,6 +2,7 @@ local Path = require("src.Path")
 local TasksManager = require("src.TaskManager")
 local CellPool = require("src.CellPool")
 local SaveRestore = require("src.SaveRestore")
+local Undo = require("src.Undo")
 
 local Game = {
 }
@@ -15,9 +16,10 @@ function Game:new(config, o)
 
     o.time = 0
     o.score = 0
+    o.biggestYet = 2
 
     o.TM = TasksManager()
-
+    o.undo = Undo(o)
     o.cells = CellPool(o)
 
     o.TM:periodic(function (self)
@@ -63,10 +65,18 @@ function Game:touchEnd(x, y)
 end
 
 function Game:quit()
-    for i=1, 100 do
+    if self.won then return end
+
+    -- fast-forward to finish all animations
+    while self.animating do
         love.update(0.01)
     end
     SaveRestore.save(self)
+end
+
+function Game:endGame()
+    SaveRestore.remove()
+    love.event.quit()
 end
 
 setmetatable(Game, {__call=Game.new})
