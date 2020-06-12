@@ -3,16 +3,18 @@ local TasksManager = require("src.TaskManager")
 local CellPool = require("src.CellPool")
 local SaveRestore = require("src.SaveRestore")
 local Undo = require("src.Undo")
+local Highscores = require("src.Highscores")
 
 local Game = {
 }
 Game.__index = Game
 
-function Game:new(config, parentWidget)
+function Game:new(config, parentWidget, gamemode)
     local o = {}
     setmetatable(o, Game)
     o.config = config
     o.parentWidget = parentWidget
+    o.gamemode = gamemode
 
     o.path = Path(o, config)
 
@@ -73,6 +75,7 @@ end
 
 function Game:endGame()
     SaveRestore.remove()
+    Highscores.update(self.gamemode, self.time, self.biggestYet)
     self.parentWidget:quit()
 end
 

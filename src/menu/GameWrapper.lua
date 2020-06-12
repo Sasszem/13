@@ -4,8 +4,8 @@ local Game = require("src.Game")
 
 local config = Config.get()
 
-function GameWrapper:newGame()
-    self.game = Game(config, self)
+function GameWrapper:newGame(gamemode)
+    self.game = Game(config, self, gamemode)
 end
 
 function GameWrapper:draw()
