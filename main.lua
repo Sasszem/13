@@ -42,7 +42,3 @@ end
 function love.resize(w, h)
     menu:resize(w, h)
 end
-
-function love.quit()
-    --game:quit()
-end

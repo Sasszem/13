@@ -19,4 +19,8 @@ function MainMenu.widgets.btnNormal.style:click(x, y, button)
     self:getWidget("switcher").selected = "game"
 end
 
+function MainMenu.widgets.btnExit.style:click(x, y, button)
+    love.event.quit()
+end
+
 return MainMenu
