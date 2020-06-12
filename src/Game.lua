@@ -48,13 +48,8 @@ function Game:update(dt)
     self.TM:update(dt)
 end
 
-function Game:touchBegin(x, y)
-    local cell = self.cells:findCell(x, y)
-    if not cell then return end
-    self.path:add(cell)
-end
-
 function Game:touchMove(x, y)
+    if not love.mouse.isDown(1, 2, 3) then return end
     local cell = self.cells:findCell(x, y)
     if not cell then return end
     self.path:add(cell)
