@@ -18,7 +18,7 @@ function Game:new(config, parentWidget, gamemode)
 
     o.path = Path(o, config)
 
-    o.time = self.gamemode == "normal" and 0 or 300
+    o.time = ((gamemode == "timed") and 30) or 0
     o.score = 0
     o.biggestYet = 2
 
