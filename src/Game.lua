@@ -3,18 +3,22 @@ local TasksManager = require("src.TaskManager")
 local CellPool = require("src.CellPool")
 local SaveRestore = require("src.SaveRestore")
 local Undo = require("src.Undo")
+local Highscores = require("src.Highscores")
 
 local Game = {
 }
 Game.__index = Game
 
-function Game:new(config, o)
-    o = o or {}
+function Game:new(config, parentWidget, gamemode)
+    local o = {}
     setmetatable(o, Game)
     o.config = config
+    o.parentWidget = parentWidget
+    o.gamemode = gamemode
+
     o.path = Path(o, config)
 
-    o.time = 0
+    o.time = self.gamemode == "normal" and 0 or 300
     o.score = 0
     o.biggestYet = 2
 
@@ -23,7 +27,8 @@ function Game:new(config, o)
     o.cells = CellPool(o)
 
     o.TM:periodic(function (self)
-        self.time = self.time + 1
+        local dt = self.gamemode == "normal" and 1 or -1
+        self.time = self.time + dt
     end, 1, 0, o)
 
     return o
@@ -32,7 +37,7 @@ end
 function Game:drawInfo()
     -- draw score and time
     love.graphics.setFont(self.config.gameFont)
-    love.graphics.setColor(rgb("#ffffff"))
+    love.graphics.setColor(rgb(255, 255, 255))
     love.graphics.printf(("%d:%02d"):format(math.floor(self.time / 60), self.time % 60), 0, 10*self.config.hP, self.config.width, "center")
     love.graphics.printf(("%d"):format(self.score), 0, 15*self.config.hP, self.config.width, "center")
 end
@@ -48,13 +53,8 @@ function Game:update(dt)
     self.TM:update(dt)
 end
 
-function Game:touchBegin(x, y)
-    local cell = self.cells:findCell(x, y)
-    if not cell then return end
-    self.path:add(cell)
-end
-
 function Game:touchMove(x, y)
+    if not love.mouse.isDown(1, 2, 3) then return end
     local cell = self.cells:findCell(x, y)
     if not cell then return end
     self.path:add(cell)
@@ -76,7 +76,8 @@ end
 
 function Game:endGame()
     SaveRestore.remove()
-    love.event.quit()
+    Highscores.update(self.gamemode, self.time, self.biggestYet)
+    self.parentWidget:quit()
 end
 
 setmetatable(Game, {__call=Game.new})

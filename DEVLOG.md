@@ -65,3 +65,11 @@ Messed up branch (and merge commit) name as day 7
 - setup YALG GUI lib
 
 Finished working at 03:40 am
+
+### Day 8 - 2020.06.12
+
+- Menu base
+- Highscore saving
+- timer mode base
+
+Finished at 02:31 am
