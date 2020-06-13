@@ -18,7 +18,7 @@ function Game:new(config, parentWidget, gamemode)
 
     o.path = Path(o, config)
 
-    o.time = 0
+    o.time = self.gamemode == "normal" and 0 or 300
     o.score = 0
     o.biggestYet = 2
 
@@ -27,7 +27,8 @@ function Game:new(config, parentWidget, gamemode)
     o.cells = CellPool(o)
 
     o.TM:periodic(function (self)
-        self.time = self.time + 1
+        local dt = self.gamemode == "normal" and 1 or -1
+        self.time = self.time + dt
     end, 1, 0, o)
 
     return o
