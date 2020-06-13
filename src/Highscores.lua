@@ -22,7 +22,6 @@ end
 function Highscores.save(fn, data)
     local f = love.filesystem.newFile(fn, "w")
     for _, d in ipairs(data) do
-        print(d[0], d[1])
         f:write(("%s-%s\n"):format(d[1], d[2]))
     end
     f:close()
@@ -35,9 +34,12 @@ function Highscores.update(gamemode, time, maximum)
     local dateString = ("%02d/%02d %2d:%02d"):format(dT.month, dT.day, dT.hour, dT.min)
     local res = gamemode=="timed" and maximum or time
     d[#d+1] = {res, dateString}
-    local reverse = gamemode == "timed"
+    local reverse = (gamemode == "timed")
     table.sort(d, function(a, b)
-        return not (reverse == (a[1]<b[1]))
+        if reverse then
+            a, b = b, a
+        end
+        return a[1] < b[1]
     end)
     while  #d > KEEP do
         d[#d] = nil
