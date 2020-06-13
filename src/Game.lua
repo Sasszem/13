@@ -25,11 +25,21 @@ function Game:new(config, parentWidget, gamemode)
     o.TM = TasksManager()
     o.undo = Undo(o)
     o.cells = CellPool(o)
-
+    SaveRestore.load(o)
     o.TM:periodic(function (self)
         local dt = self.gamemode == "normal" and 1 or -1
         self.time = self.time + dt
     end, 1, 0, o)
+
+    -- time's up detector
+    if gamemode == "timed" then
+        o.TM:run(function (self)
+            while self.time > 0 do
+                coroutine.yield()
+            end
+            self:endGame()
+        end, o)
+    end
 
     return o
 end

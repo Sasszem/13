@@ -20,9 +20,8 @@ function CellPool:init()
         self.needAdd[i] = N
     end
 
-    
+    self.game.TM:run(self.loadCells, self)
     self.game.TM:delayed(self.addCells, 0.2, self, true)
-    self.game.TM:delayed(SaveRestore.load, 0.21, self.game)
 end
 
 function CellPool:findAbove(cell)
@@ -108,6 +107,37 @@ end
 function CellPool:addCells(fast)
     self.game.TM:run(require("src.tasks.addCells"), self, fast)
     self.game.TM:run(require("src.tasks.growCells"), self, fast)
+end
+
+function CellPool:loadCells()
+    -- wait until cells are added
+    -- e.g needAdd contains all zeroes
+    -- e.g sum is zero
+    while true do
+        local sum = 0
+        for _, i in ipairs(self.needAdd) do
+            sum = sum + i
+        end
+
+        if sum == 0 then break end
+
+        coroutine.yield()
+    end
+
+    -- apply loaded cells data from game
+    local cellsData = self.game.loadedCells
+
+    if not cellsData then return end
+
+    for i=1, #cellsData do
+        self.cells[i].x = cellsData[i][1]
+        self.cells[i].y = cellsData[i][2]
+        self.cells[i].value = cellsData[i][3]
+        self.cells[i].column = cellsData[i][4]
+    end
+
+    -- remove loaded data
+    self.game.loadedCells = nil
 end
 
 return CellPool

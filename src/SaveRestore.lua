@@ -100,14 +100,7 @@ function SaveRestore.load(game)
     -- don't do partial loads
     if not (cellsData and gameData) then return end
 
-    -- apply loaded cells data
-    for i=1, #cellsData do
-        game.cells.cells[i].x = cellsData[i][1]
-        game.cells.cells[i].y = cellsData[i][2]
-        game.cells.cells[i].value = cellsData[i][3]
-        game.cells.cells[i].column = cellsData[i][4]
-    end
-
+    game.loadedCells = cellsData
     -- apply loaded game data
     for k, v in pairs(gameData) do
         game[k] = v
