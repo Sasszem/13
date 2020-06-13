@@ -24,6 +24,11 @@ function MainMenu.widgets.btnTimed.style:click(x, y, button)
     self:getWidget("switcher").selected = "game"
 end
 
+function MainMenu.widgets.btnHighscores.style:click(x, y, button)
+    self:getWidget("highscores"):loadHighscores()
+    self:getWidget("switcher").selected = "highscores"
+end
+
 function MainMenu.widgets.btnExit.style:click(x, y, button)
     love.event.quit()
 end
