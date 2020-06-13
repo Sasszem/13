@@ -85,7 +85,7 @@ function Game:quit()
 end
 
 function Game:endGame()
-    SaveRestore.remove()
+    SaveRestore.remove(self.gamemode)
     Highscores.update(self.gamemode, self.time, self.biggestYet)
     self.parentWidget:quit()
 end
