@@ -5,6 +5,7 @@ local Game = require("src.Game")
 local config = Config.get()
 
 function GameWrapper:newGame(gamemode)
+    config:resize(self.w, self.h)
     self.game = Game(config, self, gamemode)
 end
 
