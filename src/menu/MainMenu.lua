@@ -37,4 +37,8 @@ function MainMenu.widgets.btnExit.style:click(x, y, button)
     love.event.quit()
 end
 
+function MainMenu.widgets.btnOptions.style:click()
+    self:getWidget("switcher").selected = "options"
+end
+
 return MainMenu
