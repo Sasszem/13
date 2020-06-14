@@ -26,6 +26,10 @@ end
 
 function MainMenu.widgets.btnHighscores.style:click(x, y, button)
     self:getWidget("highscores"):loadHighscores()
+
+    -- quick fix: back button sometimes getting covered
+    self:getWidget("GUI#1"):resize(love.graphics.getWidth(), love.graphics.getHeight())
+
     self:getWidget("switcher").selected = "highscores"
 end
 
