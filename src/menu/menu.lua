@@ -36,6 +36,10 @@ function Menu:keypressed(key)
     if sel == "game" then
         self:getWidget("game"):quit()
     end
+    if sel == "mainMenu" then
+        love.event.quit()
+    end
+    self:getWidget("switcher").selected = "mainMenu"
 end
 
 return Menu
