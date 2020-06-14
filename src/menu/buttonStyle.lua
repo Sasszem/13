@@ -3,6 +3,7 @@ local ButtonStyle = {
     activeBorder = rgb(41, 163, 41),
     borderColor = rgb(179, 0, 0),
     placement = "fill",
+    backgroundColor = rgb(0, 0, 102),
 }
 
 function ButtonStyle:mouseEnter(x, y)

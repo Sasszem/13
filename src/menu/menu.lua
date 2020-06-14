@@ -1,10 +1,14 @@
 local MainMenu = require("src.menu.MainMenu")
 local GameWrapper = require("src.menu.GameWrapper")
+local Highscores = require("src.menu.HighscoresMenu")
+local GameEndScreen = require("src.menu.GameEndScreen")
 require("yalg.yalg")
 
 local Menu = GUI(
     Switcher(
         GameWrapper,
+        Highscores,
+        GameEndScreen,
         MainMenu,
         {},
         "switcher"
@@ -32,6 +36,10 @@ function Menu:keypressed(key)
     if sel == "game" then
         self:getWidget("game"):quit()
     end
+    if sel == "mainMenu" then
+        love.event.quit()
+    end
+    self:getWidget("switcher").selected = "mainMenu"
 end
 
 return Menu

@@ -18,18 +18,28 @@ function Game:new(config, parentWidget, gamemode)
 
     o.path = Path(o, config)
 
-    o.time = self.gamemode == "normal" and 0 or 300
+    o.time = ((gamemode == "timed") and 30) or 0
     o.score = 0
     o.biggestYet = 2
 
     o.TM = TasksManager()
     o.undo = Undo(o)
     o.cells = CellPool(o)
-
+    SaveRestore.load(o)
     o.TM:periodic(function (self)
         local dt = self.gamemode == "normal" and 1 or -1
         self.time = self.time + dt
     end, 1, 0, o)
+
+    -- time's up detector
+    if gamemode == "timed" then
+        o.TM:run(function (self)
+            while self.time > 0 do
+                coroutine.yield()
+            end
+            self:endGame()
+        end, o)
+    end
 
     return o
 end
@@ -75,7 +85,7 @@ function Game:quit()
 end
 
 function Game:endGame()
-    SaveRestore.remove()
+    SaveRestore.remove(self.gamemode)
     Highscores.update(self.gamemode, self.time, self.biggestYet)
     self.parentWidget:quit()
 end

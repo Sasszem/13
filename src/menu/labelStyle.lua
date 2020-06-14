@@ -1,0 +1,4 @@
+local LabelStyle = {
+}
+
+return LabelStyle

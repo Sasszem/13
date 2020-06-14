@@ -1,12 +1,12 @@
 local SaveRestore = {}
 
 
--- filename to save cell info into
-local CELLSFILE = "CELLS.SAV"
+-- filename template to save cell info into
+local CELLSFILE = "CELLS-%s.SAV"
 
 -- filename for game data
 -- (score, time, biggestYet)
-local GAMEDATAFILE = "GAME.SAV"
+local GAMEDATAFILE = "GAME-%s.SAV"
 
 
 --------------------
@@ -15,8 +15,8 @@ local GAMEDATAFILE = "GAME.SAV"
 
 
 -- write each cell into the file, one at a line
-local function saveCells(cells)
-    local file = love.filesystem.newFile(CELLSFILE, "w")
+local function saveCells(cells, gamemode)
+    local file = love.filesystem.newFile(CELLSFILE:format(gamemode), "w")
 
     for _, cell in ipairs(cells) do
         file:write(("%s %s %s %s\n"):format(cell.x, cell.y, cell.value, cell.column))
@@ -27,9 +27,9 @@ end
 
 
 -- write game data into file, in k-v pairs
-local function saveGameData(game)
+local function saveGameData(game, gamemode)
 
-    local file = love.filesystem.newFile(GAMEDATAFILE, "w")
+    local file = love.filesystem.newFile(GAMEDATAFILE:format(gamemode), "w")
 
     -- what to save
     local toSave = {"score", "time", "biggestYet" }
@@ -43,8 +43,8 @@ end
 
 -- public API
 function SaveRestore.save(game)
-    saveCells(game.cells.cells)
-    saveGameData(game)
+    saveCells(game.cells.cells, game.gamemode)
+    saveGameData(game, game.gamemode)
 end
 
 
@@ -54,14 +54,14 @@ end
 
 
 -- only load to memory and return data
-local function loadCellsData()
+local function loadCellsData(gamemode)
     -- check if file exists
-    local info = love.filesystem.getInfo(CELLSFILE)
+    local info = love.filesystem.getInfo(CELLSFILE:format(gamemode))
     if not info then return end
 
     -- load each cell
     local cellsData = {}
-    for line in love.filesystem.lines(CELLSFILE) do
+    for line in love.filesystem.lines(CELLSFILE:format(gamemode)) do
         -- each cell is encoded in a line
         -- convert to numbers
         local lineData = {}
@@ -75,14 +75,14 @@ local function loadCellsData()
 end
 
 
-function loadGameData()
-    local info = love.filesystem.getInfo(GAMEDATAFILE)
+function loadGameData(gamemode)
+    local info = love.filesystem.getInfo(GAMEDATAFILE:format(gamemode))
     if not info then return end
     -- check if file exists
 
     -- load backed-up k-v pairs
     local values = {}
-    for line in love.filesystem.lines(GAMEDATAFILE) do
+    for line in love.filesystem.lines(GAMEDATAFILE:format(gamemode)) do
         local key, value = line:match("(.+):(.+)")
         -- getting to love regex I am...
         values[key] = tonumber(value)
@@ -94,20 +94,13 @@ end
 -- public API
 -- also apply data to game if sucessfuly loaded
 function SaveRestore.load(game)
-    local cellsData = loadCellsData()
-    local gameData = loadGameData()
+    local cellsData = loadCellsData(game.gamemode)
+    local gameData = loadGameData(game.gamemode)
 
     -- don't do partial loads
     if not (cellsData and gameData) then return end
 
-    -- apply loaded cells data
-    for i=1, #cellsData do
-        game.cells.cells[i].x = cellsData[i][1]
-        game.cells.cells[i].y = cellsData[i][2]
-        game.cells.cells[i].value = cellsData[i][3]
-        game.cells.cells[i].column = cellsData[i][4]
-    end
-
+    game.loadedCells = cellsData
     -- apply loaded game data
     for k, v in pairs(gameData) do
         game[k] = v
@@ -120,9 +113,9 @@ end
 -------------------
 
 --- remove saved game data
-function SaveRestore.remove()
-    love.filesystem.remove(CELLSFILE)
-    love.filesystem.remove(GAMEDATAFILE)
+function SaveRestore.remove(gamemode)
+    love.filesystem.remove(CELLSFILE:format(gamemode))
+    love.filesystem.remove(GAMEDATAFILE:format(gamemode))
 end
 
 
