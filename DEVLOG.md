@@ -73,3 +73,15 @@ Finished working at 03:40 am
 - timer mode base
 
 Finished at 02:31 am
+
+### Day 9 - 2020.06.13
+
+- Some refactors
+- Some bugfixes
+- Separate saves for the two modes
+- Highscores screen
+- Game end screen
+
+Finished at 02:38 am
+Project is pretty close to 1.0, but I'm also damn close to the deadline
+Tomorrow I'll make the options menu work - looks like that's the only thing missing for 1.0
