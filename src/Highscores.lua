@@ -78,4 +78,9 @@ function Highscores.update(gamemode, time, maximum)
     Highscores.save(fn, scores)
 end
 
+function Highscores.delete()
+    love.filesystem.remove(FILENAME:format("normal"))
+    love.filesystem.remove(FILENAME:format("timed"))
+end
+
 return Highscores
