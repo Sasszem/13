@@ -1,16 +1,29 @@
-require("yalg.yalg")
+-- menu/HighscoresMenu.lua
+-- UI fragment to show highscores
+-- also handles loading of them
 
+-- imports
+require("yalg.yalg")
 local Highscores = require("src.Highscores")
+
+
+------------
+-- STYLES --
+------------
 
 local LS = require("src.menu.labelStyle")
 local BS = require("src.menu.buttonStyle")
+
+
+----------
+-- ROWS --
+----------
 
 local rowStyle = {
     border = 3,
     borderColor = rgb(77, 77, 255),
     font = Font(20, "asset/supercomputer.ttf")
 }
-
 
 local function makeRow(i)
     return HDiv(
@@ -20,6 +33,7 @@ local function makeRow(i)
     )
 end
 
+--normal mode highscores rows
 local NormalHS = VDiv(
     makeRow(1),
     makeRow(2),
@@ -32,6 +46,7 @@ local NormalHS = VDiv(
     "normalHS"
 )
 
+-- timed mode highscores rows
 local TimedHS = VDiv(
     makeRow(6),
     makeRow(7),
@@ -44,6 +59,11 @@ local TimedHS = VDiv(
     "timedHS"
 )
 
+
+---------------------
+-- Chooser buttons --
+---------------------
+
 local chooser = HDiv(
     Label(""),
     Button("Normal", BS, "selectNormalBtn"),
@@ -52,23 +72,31 @@ local chooser = HDiv(
     Label("")
 )
 
+-- custom styles for chooser buttons
 chooser.widgets.selectNormalBtn.style.span = 4
 chooser.widgets.selectTimedBtn.style.span = 4
 
+-- background for selected mode button
 local activeBackground = rgb(0, 102, 34)
 
+-- select normal mode button
 function chooser.widgets.selectNormalBtn.style:click()
     self:getWidget("hsSwitcher").selected = "normalHS"
     self:getWidget("selectTimedBtn").style.backgroundColor = BS.backgroundColor
     self.style.backgroundColor = activeBackground
 end
 
+-- select timed mode button
 function chooser.widgets.selectTimedBtn.style:click()
     self:getWidget("hsSwitcher").selected = "timedHS"
     self:getWidget("selectNormalBtn").style.backgroundColor = BS.backgroundColor
     self.style.backgroundColor = activeBackground
 end
 
+
+-----------------------
+-- Assemble the menu --
+----------------------
 
 local HighscoresMenu = VDiv(
     VDiv(
@@ -95,14 +123,25 @@ local HighscoresMenu = VDiv(
     "highscores"
 )
 
+-- activate normal mode
 HighscoresMenu.widgets.selectNormalBtn.style.click(HighscoresMenu.widgets.selectNormalBtn)
 
+-- back button
 function HighscoresMenu.widgets.backBtn.style:click()
     self:getWidget("switcher").selected = "mainMenu"
 end
 
+
+-- function to load the data into the UI
 function HighscoresMenu:loadHighscores()
-    -- normal mode
+    -- clear prev. text
+    -- (in case of deleted highscores via options)
+    for i=1, 10 do
+        self:getWidget(("result#%d"):format(i)).text = ""
+        self:getWidget(("date#%d"):format(i)).text = ""
+    end
+
+    -- load normal mode
     local normal = Highscores.load("normal")
 
     for i, line in ipairs(normal) do
@@ -111,7 +150,7 @@ function HighscoresMenu:loadHighscores()
         self:getWidget(("date#%d"):format(i)).text = tostring(line[2])
     end
 
-    -- timed mode
+    -- load timed mode
     local timed = Highscores.load("timed")
 
     for i, line in ipairs(timed) do
@@ -119,5 +158,6 @@ function HighscoresMenu:loadHighscores()
         self:getWidget(("date#%d"):format(i+5)).text = tostring(line[2])
     end
 end
+
 
 return HighscoresMenu

@@ -1,16 +1,60 @@
-local GameWrapper = Label("", {placement = "fill"}, "game")
+-- menu/GameWrapper.lua
+-- UI fragment as a wrapper around Game and config
+-- forwards drawing, updateing and other events
+-- has 2 buttons: back and undo
+
+require("yalg.yalg")
+
+-- button style
+local BS = require("src.menu.buttonStyle")
+
+
+-- game wrapper widget with 2 buttons (back and undo)
+local GameWrapper = VDiv(
+    Label("", {span=11}),
+    HDiv(
+        Button("Back", BS, "backFromGame"),
+        Label(""),
+        Button("Undo", BS, "undoBtn")
+    ),
+    {},
+    "game"
+)
+
+-- back button
+function GameWrapper.widgets.backFromGame.style:click()
+    self:getWidget("game"):quit()
+end
+
+-- undo button
+function GameWrapper.widgets.undoBtn.style:click()
+    self:getWidget("game"):undo()
+end
+
+
+-- game related imports
 local Config = require("src.Config")
 local Game = require("src.Game")
 
+-- config instance
 local config = Config.get()
 
+-- start a new game in specified mode
 function GameWrapper:newGame(gamemode)
     config:resize(self.w, self.h)
+    -- this is needed as the screen's resolution might have changed since config creation
+
     self.game = Game(config, self, gamemode)
 end
 
+
+--------------------
+-- FORWARD EVENTS --
+--------------------
+
 function GameWrapper:draw()
     self.game:draw()
+    VDiv.draw(self)
 end
 
 function GameWrapper:update(dt)
@@ -34,21 +78,28 @@ end
 function GameWrapper:quit()
     self.game:quit()
 
-    -- pressing back OR winning 
+    -- pressing back OR winning?
     if not self.game.won then
         self:getWidget("switcher").selected = "mainMenu"
     else
         -- game end screen
         -- setup values
         self:getWidget("switcher").selected = "gameEnd"
-        self:getWidget("gameOverLbl").text = 
+
+        self:getWidget("gameOverLbl").text =
             (self.game.gamemode=="normal") and "You won!" or "Time's up"
+
         self:getWidget("resultLbl").text = 
-            (self.game.gamemode=="normal") and ("Time: %d:%02d"):format(self.game.time/60, self.game.time%60) 
-            or ("Maximum value: %d"):format(self.game.biggestYet)
+            (self.game.gamemode=="normal") and ("Time: %d:%02d"):format(self.game.time/60, self.game.time%60)
+                or ("Maximum value: %d"):format(self.game.biggestYet)
     end
 
+    -- delete game instance
     self.game = nil
+end
+
+function GameWrapper:undo()
+    self.game:undoMove()
 end
 
 return GameWrapper

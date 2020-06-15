@@ -1,3 +1,10 @@
+-- TaskManager.lua
+-- task manager class
+-- schedules coroutine based async tasks
+-- delayed and periodic function calling
+-- and some basic error handling
+
+
 local TaskManager = {}
 
 function TaskManager:new()
@@ -8,6 +15,7 @@ function TaskManager:new()
 end
 setmetatable(TaskManager, {__call = TaskManager.new})
 
+
 -- queue a parallel task
 -- a coroutine which is updated with dt's
 function TaskManager:run(task, ...)
@@ -15,6 +23,7 @@ function TaskManager:run(task, ...)
     coroutine.resume(cor, ...)
     self.running[cor] = true
 end
+
 
 -- update queued parallel tasks
 -- also displays errors and removes dead tasks
@@ -31,12 +40,14 @@ function TaskManager:update(dt)
     end
 end
 
+
 -- call a function periodically, with an initial delay
 -- also can provide arguments to that function
 -- uses normal task as a backend
 function TaskManager:periodic(task, period, delay, ...)
     local args = {...}
 
+    -- use a task as a backend
     self:run(function()
         local t = period-delay
         while true do
@@ -50,11 +61,13 @@ function TaskManager:periodic(task, period, delay, ...)
     end)
 end
 
+
 -- call a function with args after a delay
 -- uses normal task as a backend
 function TaskManager:delayed(task, delay, ...)
     local args = {...}
 
+    -- use a task as a backend
     self:run(function ()
         local t = 0
         while t < delay do
@@ -64,5 +77,6 @@ function TaskManager:delayed(task, delay, ...)
         task(unpack(args))
     end)
 end
+
 
 return TaskManager

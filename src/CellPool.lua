@@ -1,6 +1,12 @@
+-- CellPool.lua
+-- Class storing all the cells in the playfield
+-- and relate operations
+
+
 local CellPool = {}
 local SaveRestore = require("src.SaveRestore")
 
+-- constructor
 function CellPool:new(game)
     local o = {}
     setmetatable(o, {__index = CellPool})
@@ -13,20 +19,24 @@ function CellPool:new(game)
 end
 setmetatable(CellPool, {__call = CellPool.new})
 
+-- initializer - called by constructor
 function CellPool:init()
+    -- setup needAdd for addCells task to add all the cells
+    -- (reusing addCells task from the merging animation)
     local N = self.game.config.Playfield.size
     self.needAdd = {}
     for i=1, N do
         self.needAdd[i] = N
     end
 
+    -- start async tasks
     self.game.TM:run(self.loadCells, self)
     self.game.TM:delayed(self.addCells, 0.2, self, true)
 end
 
+-- find every cell above given one
+-- used for gravity simulation
 function CellPool:findAbove(cell)
-    -- find every cell above given one
-
     local result = {}
     local y = cell.y
     local column = cell.column
@@ -43,6 +53,8 @@ function CellPool:findAbove(cell)
 end
 
 
+-- find cell by XY coordinates
+-- used for mouse handling
 function CellPool:findCell(x,y)
     -- find touched cell
 
@@ -51,7 +63,6 @@ function CellPool:findCell(x,y)
             return cell
         end
     end
-
 end
 
 
@@ -104,11 +115,15 @@ function CellPool:afterMerge()
     self.game.TM:run(require("src.tasks.shiftdown"), self)
 end
 
+
+-- add back the cells removed after merge
 function CellPool:addCells(fast)
-    self.game.TM:run(require("src.tasks.addCells"), self, fast)
+    require("src.tasks.addCells")(self, fast)
     self.game.TM:run(require("src.tasks.growCells"), self, fast)
 end
 
+
+-- load saved game
 function CellPool:loadCells()
     -- wait until cells are added
     -- e.g needAdd contains all zeroes

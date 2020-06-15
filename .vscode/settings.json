@@ -1,0 +1,18 @@
+{
+    "Lua.diagnostics.globals": [
+        "love",
+        "unpack",
+
+        // yalg
+        "GUI",
+        "VDiv",
+        "Button",
+        "Label",
+        "Switcher",
+        "HDiv",
+        "Font"
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global"
+    ]
+}

@@ -2,6 +2,15 @@
 
 Recreation of a simple game
 
+## To play
+
+Grab a download from the releases page. Needs Löve2D version 11.3 or compatible. Works on every platform supported by Löve2D, but the main target is android.
+
+## To build
+
+Clone this repo **with submodules**, and enjoy.
+I used [love-release](https://github.com/MisterDA/love-release) to make a bundle.
+
 ## The original
 
 I got the idea from a mobile game "Make it 13" (later renamed to "Number merger infinity"), which was quite addictive, but poorly implemented, and had quite a few ads.

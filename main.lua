@@ -9,6 +9,7 @@ local config = nil
 
 function love.load()
     Sounds.playLooping("loop")
+    menu:getWidget("options"):load()
 end
 
 function love.draw()
@@ -17,9 +18,6 @@ end
 
 function love.keypressed(key, code, rep)
     menu:keypressed(key)
-    --if key=="r" then
-    --    game.undo:restore()
-    --end
 end
 
 function love.mousepressed(x, y, button, istouch, presses)
@@ -41,4 +39,8 @@ end
 
 function love.resize(w, h)
     menu:resize(w, h)
+end
+
+function love.quit()
+    menu:getWidget("options"):save()
 end

@@ -85,3 +85,15 @@ Finished at 02:31 am
 Finished at 02:38 am
 Project is pretty close to 1.0, but I'm also damn close to the deadline
 Tomorrow I'll make the options menu work - looks like that's the only thing missing for 1.0
+
+### Day 10 - 2020.06.14
+
+- refactors
+- options menu (needed to extend Sounds, Highscores and SaveRestore)
+- undo and exit buttons in game
+- title in main menu
+- new release mode: love-release
+- remove scores
+- some project doc stuff
+
+Finished at 04:19 am, uploaded release after that

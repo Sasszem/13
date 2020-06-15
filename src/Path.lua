@@ -1,19 +1,30 @@
+-- Path.lua
+-- class representing the path connecting the cells
+-- handles adding, removing and merging animation
+
+
 local Cell = require("src.Cell")
 local Sounds = require("src.Sounds")
+
 
 local Path = {}
 Path.__index = Path
 
-
+-- constructor
 function Path:new(game, config, o)
     o = o or {}
     setmetatable(o, Path)
+
     o.config = config
     o.elements = {}
     o.game = game
+
     return o
 end
 
+
+-- add or remove a cell if possible
+-- called by game
 function Path:add(cell)
     -- trigger adding or removing of a cell
 
@@ -21,6 +32,7 @@ function Path:add(cell)
     if self:animating() then return end
 
     -- cell removing
+    -- (if cell is previous-to-last in path, remove it)
     if #self.elements>1 then
         if cell == self.elements[#self.elements-1] then
             self.elements[#self.elements] = nil
@@ -33,6 +45,9 @@ function Path:add(cell)
     end
 end
 
+
+-- check if a cell can be added
+-- used by add
 function Path:canAdd(cell)
     -- if empty, only allow ones
     if #self.elements == 0 then
@@ -58,6 +73,9 @@ function Path:canAdd(cell)
     end
 end
 
+
+-- check id a cell can be added by position
+-- used by canAdd
 function Path:canAddByPosition(cell)
     -- distances
     local dX = math.abs(cell.x - self.elements[#self.elements].x)
@@ -69,6 +87,8 @@ function Path:canAddByPosition(cell)
     return (dX <= maxD) and (dY <= maxD)
 end
 
+
+-- draw the path only
 function Path:drawPath()
     -- only if not merging
     if self.mergeCell then return end
@@ -77,6 +97,7 @@ function Path:drawPath()
     if #self.elements < 2 then return end
 
 
+    -- draw line segments
     love.graphics.setLineWidth(self.config.Path.width)
     love.graphics.setColor(self.config.Path.color)
 
@@ -88,6 +109,8 @@ function Path:drawPath()
     end
 end
 
+
+-- draw merge cells
 function Path:drawMerge()
     -- need 2 separate draws because of layering
     if self.mergeCell then
@@ -95,15 +118,23 @@ function Path:drawMerge()
     end
 end
 
+
+-- remove all elements and merge cell
+-- called at the end of the merging animation
 function Path:clear()
     self.elements = {}
     self.mergeCell = nil
 end
 
+
+-- check if some animation is running
 function Path:animating()
     return self.game.animating
 end
 
+
+-- merge the cells if possible
+-- called by game
 function Path:merge()
     -- don't do a thing if still animating
     if self:animating() then return end
@@ -113,12 +144,15 @@ function Path:merge()
         self:clear()
         return
     end
+
     self.game.undo:backup()
     self.game.TM:run(self.mergeAnimation, self)
 end
 
-local VICTORYVALUE = 5
+-- at which value to win the game
+local VICTORYVALUE = 13
 
+-- merge animation async task
 function Path:mergeAnimation()
     self.game.animating = true
 
@@ -156,10 +190,8 @@ function Path:mergeAnimation()
 
         currElem.value = currElem.value + 1
 
-        -- give some score
-        self.game.score = self.game.score + currElem.value
-
-        -- if new biggest cell yet in the game, play sound and gime some extra points
+        -- if new biggest cell yet in the game, play sound
+        -- play victory sound and set flag if we won
         if currElem.value > self.game.biggestYet then
             if currElem.value == VICTORYVALUE then
                 Sounds.play("victory")
@@ -168,15 +200,19 @@ function Path:mergeAnimation()
                 Sounds.play("newBiggest")
             end
             self.game.biggestYet = currElem.value
-            self.game.score = self.game.score + currElem.value
         end
 
         Sounds.play("click")
         self.mergeCell.value = currElem.value
     end
+
+    -- clearup
     self:clear()
+
+    -- start other animations
     self.game.cells:afterMerge()
 end
+
 
 setmetatable(Path, {__call=Path.new})
 return Path

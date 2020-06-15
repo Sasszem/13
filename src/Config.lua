@@ -1,3 +1,10 @@
+-- Config.lua
+-- basic class for storing shared constants
+-- used mostly for geometry
+-- so values are based on screen size
+-- since that changes on android after love.load, we also have to be careful and sometimes recalculate
+-- (took me a long time to make it working)
+
 local Config = {
 }
 
