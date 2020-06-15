@@ -90,5 +90,9 @@ function Game:endGame()
     self.parentWidget:quit()
 end
 
+function Game:undoMove()
+    self.undo:restore()
+end
+
 setmetatable(Game, {__call=Game.new})
 return Game

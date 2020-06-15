@@ -1,4 +1,29 @@
-local GameWrapper = Label("", {placement = "fill"}, "game")
+require("yalg.yalg")
+
+local BS = require("src.menu.buttonStyle")
+
+local GameWrapper = VDiv(
+    Label("", {span=11}),
+    HDiv(
+        Button("Back", BS, "backFromGame"),
+        Label(""),
+        Button("Undo", BS, "undoBtn")
+    ),
+    {},
+    "game"
+)
+
+-- back button
+function GameWrapper.widgets.backFromGame.style:click()
+    self:getWidget("game"):quit()
+end
+
+-- undo button
+function GameWrapper.widgets.undoBtn.style:click()
+    self:getWidget("game"):undo()
+end
+
+
 local Config = require("src.Config")
 local Game = require("src.Game")
 
@@ -11,6 +36,7 @@ end
 
 function GameWrapper:draw()
     self.game:draw()
+    VDiv.draw(self)
 end
 
 function GameWrapper:update(dt)
@@ -49,6 +75,10 @@ function GameWrapper:quit()
     end
 
     self.game = nil
+end
+
+function GameWrapper:undo()
+    self.game:undoMove()
 end
 
 return GameWrapper
