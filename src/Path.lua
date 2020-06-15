@@ -190,10 +190,7 @@ function Path:mergeAnimation()
 
         currElem.value = currElem.value + 1
 
-        -- give some score
-        self.game.score = self.game.score + currElem.value
-
-        -- if new biggest cell yet in the game, play sound and gime some extra points
+        -- if new biggest cell yet in the game, play sound
         -- play victory sound and set flag if we won
         if currElem.value > self.game.biggestYet then
             if currElem.value == VICTORYVALUE then
@@ -203,7 +200,6 @@ function Path:mergeAnimation()
                 Sounds.play("newBiggest")
             end
             self.game.biggestYet = currElem.value
-            self.game.score = self.game.score + currElem.value
         end
 
         Sounds.play("click")

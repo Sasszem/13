@@ -9,7 +9,6 @@ function Undo:new(game)
     local o = {}
     setmetatable(o, {__index = Undo})
 
-    o.score = 0
     o.time = 0
     o.biggestYet = 0
     o.cells = {}
@@ -23,7 +22,6 @@ setmetatable(Undo, {__call = Undo.new})
 
 function Undo:backup()
     -- deep copies the game state for backup
-    self.score = self.game.score
     self.time = self.game.time
     self.cells = {}
 
@@ -39,7 +37,6 @@ end
 
 function Undo:restore()
     -- deep copy the saved data back to game
-    self.game.score = self.score
     self.game.time = self.time
 
     for i, C in ipairs(self.cells) do

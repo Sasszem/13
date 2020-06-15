@@ -31,7 +31,6 @@ function Game:new(config, parentWidget, gamemode)
 
     -- game state
     o.time = ((gamemode == "timed") and 30) or 0
-    o.score = 0
     o.biggestYet = 2
 
     -- load saved game
@@ -59,11 +58,10 @@ end
 
 
 function Game:drawInfo()
-    -- draw score and time
+    -- draw time
     love.graphics.setFont(self.config.gameFont)
     love.graphics.setColor(rgb(255, 255, 255))
     love.graphics.printf(("%d:%02d"):format(math.floor(self.time / 60), self.time % 60), 0, 10*self.config.hP, self.config.width, "center")
-    love.graphics.printf(("%d"):format(self.score), 0, 15*self.config.hP, self.config.width, "center")
 end
 
 

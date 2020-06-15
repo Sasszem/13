@@ -11,7 +11,7 @@ local SaveRestore = {}
 local CELLSFILE = "CELLS-%s.SAV"
 
 -- filename for game data
--- (score, time, biggestYet)
+-- (time, biggestYet)
 local GAMEDATAFILE = "GAME-%s.SAV"
 
 
@@ -38,7 +38,7 @@ local function saveGameData(game, gamemode)
     local file = love.filesystem.newFile(GAMEDATAFILE:format(gamemode), "w")
 
     -- what to save
-    local toSave = {"score", "time", "biggestYet" }
+    local toSave = {"time", "biggestYet" }
 
     for _, k in ipairs(toSave) do
         file:write(("%s:%s\n"):format(k, game[k]))
