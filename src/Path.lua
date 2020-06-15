@@ -117,7 +117,7 @@ function Path:merge()
     self.game.TM:run(self.mergeAnimation, self)
 end
 
-local VICTORYVALUE = 5
+local VICTORYVALUE = 13
 
 function Path:mergeAnimation()
     self.game.animating = true
