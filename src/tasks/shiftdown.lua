@@ -1,5 +1,5 @@
-local Cell = require("src.Cell")
-local Sounds = require("src.Sounds")
+-- tasks/shiftdown.lua
+-- a coroutine based async task for simulating gravity on cells
 
 local function shiftdown(playfield)
     -- animation time constant

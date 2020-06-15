@@ -1,3 +1,6 @@
+-- tasks/growCells.lua
+-- a coroutine based async task for cell appear animation
+
 local Sounds = require("src.Sounds")
 
 function growCells(cellPool, fast)
@@ -37,8 +40,12 @@ function growCells(cellPool, fast)
             end
         end
     end
+
+    -- clean up
     cellPool.sizeAnim = nil
     cellPool.game.animating = false
+
+    -- end game if won
     if cellPool.game.won then
         cellPool.game:endGame()
     end

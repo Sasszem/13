@@ -1,5 +1,11 @@
+-- menu/HighscoresMenu.lua
+-- UI fragment to show highscores
+-- also handles loading of them
+
+-- imports
 require("yalg.yalg")
 local Highscores = require("src.Highscores")
+
 
 ------------
 -- STYLES --
@@ -8,13 +14,17 @@ local Highscores = require("src.Highscores")
 local LS = require("src.menu.labelStyle")
 local BS = require("src.menu.buttonStyle")
 
+
+----------
+-- ROWS --
+----------
+
 local rowStyle = {
     border = 3,
     borderColor = rgb(77, 77, 255),
     font = Font(20, "asset/supercomputer.ttf")
 }
 
--- row template
 local function makeRow(i)
     return HDiv(
         Label("", LS, ("result#%d"):format(i)),
@@ -49,7 +59,11 @@ local TimedHS = VDiv(
     "timedHS"
 )
 
--- chosser buttons
+
+---------------------
+-- Chooser buttons --
+---------------------
+
 local chooser = HDiv(
     Label(""),
     Button("Normal", BS, "selectNormalBtn"),
@@ -79,7 +93,11 @@ function chooser.widgets.selectTimedBtn.style:click()
     self.style.backgroundColor = activeBackground
 end
 
--- assemble the menu
+
+-----------------------
+-- Assemble the menu --
+----------------------
+
 local HighscoresMenu = VDiv(
     VDiv(
         HDiv(
@@ -140,5 +158,6 @@ function HighscoresMenu:loadHighscores()
         self:getWidget(("date#%d"):format(i+5)).text = tostring(line[2])
     end
 end
+
 
 return HighscoresMenu

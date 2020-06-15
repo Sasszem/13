@@ -1,14 +1,15 @@
 local Highscores = {}
 
-local FILENAME = "HIGHSCORE-%s.HSC"
-local KEEP = 5
--- how many highscores to keep
+-- some constants
+
+local FILENAME = "HIGHSCORE-%s.HSC" -- a template for filenames
+local KEEP = 5 -- how many highscores to keep
+
 
 -- format: result-month/day hour:minute
 
---- load highscores
--- @param gamemode the gamemode to load highscores for
--- @return a list of result(num) - date (str) pairs
+-- load highscores for a specified gamemode
+-- returns them as a list of {result (int), date(string)} pairs
 function Highscores.load(gamemode)
     -- save file name
     local fn = FILENAME:format(gamemode)
@@ -27,9 +28,8 @@ function Highscores.load(gamemode)
     return data
 end
 
+
 --- save highscore data to file. Used itnernally.
--- @param fn - the file name to save into
--- @param data a list of result-date pairs
 function Highscores.save(fn, data)
     local f = love.filesystem.newFile(fn, "w")
     for _, d in ipairs(data) do
@@ -38,13 +38,12 @@ function Highscores.save(fn, data)
     f:close()
 end
 
---- update highsocres
--- @param gamemode the current gamemode
--- @time the time of the game
--- @maximum the biggest cell value in game
+
+-- update highsocres
+-- figures out what to save and how to sort from gamemode
 function Highscores.update(gamemode, time, maximum)
     local fn = FILENAME:format(gamemode)
-    
+
     -- load old highscores
     local scores = Highscores.load(gamemode)
 
@@ -78,9 +77,12 @@ function Highscores.update(gamemode, time, maximum)
     Highscores.save(fn, scores)
 end
 
+
+-- delete highscore files
 function Highscores.delete()
     love.filesystem.remove(FILENAME:format("normal"))
     love.filesystem.remove(FILENAME:format("timed"))
 end
+
 
 return Highscores

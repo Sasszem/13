@@ -1,3 +1,9 @@
+-- SaveRestore.lua
+-- API for saving and restoring game state
+-- saves cell value, position (x, y), and column
+-- as well as game time, and biggestYet
+-- uses different file for different gamemodes
+
 local SaveRestore = {}
 
 

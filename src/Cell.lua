@@ -1,3 +1,12 @@
+-- Cell.lua
+-- a class representing a single cell
+
+
+------------
+-- COLORS --
+------------
+
+
 -- HEX color to RGB color
 local function hex(hexstring)
     assert(hexstring:sub(0, 1)=="#", "Color strings must be in hex format!")
@@ -34,6 +43,10 @@ local CellColors = {
 }
 
 
+----------------
+-- CELL CLASS --
+----------------
+
 local Cell = {
     x = 0,
     y = 0,
@@ -41,6 +54,7 @@ local Cell = {
 }
 Cell.__index = Cell
 
+-- constructor
 function Cell:new(config, o)
     o = o or {}
     o.value = o.value or (math.random(1, 4)==1 and 2 or 1)
@@ -49,6 +63,7 @@ function Cell:new(config, o)
     setmetatable(o, Cell)
     return o
 end
+
 
 function Cell:draw()
     if self.remove then return end
@@ -66,10 +81,14 @@ function Cell:draw()
     love.graphics.pop()
 end
 
+
+-- test if coordinates are inside a cell
+-- (used by mouse cde)
 function Cell:inside(x, y)
     local s = self.config.Cell.size
-    local iX = self.x - s / 2 < x and x < self.x + s / 2
-    local iY = self.y - s / 2 < y and y < self.y + s / 2
+    local iX = self.x - s / 2 < x and x < self.x + s / 2 -- inside X
+    local iY = self.y - s / 2 < y and y < self.y + s / 2 -- inside Y
+
     return iX and iY
 end
 

@@ -1,4 +1,6 @@
-local Sounds = require("src.Sounds")
+-- tasks/addCells.lua
+-- a function to add cells and setup grow animation
+
 local Cell = require("src.Cell")
 
 function addCells(cellPool, fast)
