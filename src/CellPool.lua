@@ -118,7 +118,7 @@ end
 
 -- add back the cells removed after merge
 function CellPool:addCells(fast)
-    self.game.TM:run(require("src.tasks.addCells"), self, fast)
+    require("src.tasks.addCells")(self, fast)
     self.game.TM:run(require("src.tasks.growCells"), self, fast)
 end
 
