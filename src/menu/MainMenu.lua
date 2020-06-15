@@ -2,6 +2,7 @@ require("yalg.yalg")
 local BS = require("src.menu.buttonStyle")
 
 local MainMenu = VDiv(
+    Label("13", {font=Font(60, "asset/supercomputer.ttf"), span = 2}),
     Button("Normal", BS, "btnNormal"),
     Button("Timed", BS, "btnTimed"),
     Button("Highscores", BS, "btnHighscores"),
