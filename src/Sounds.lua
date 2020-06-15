@@ -1,4 +1,7 @@
-local Sounds = {}
+local Sounds = {
+    soundsEnabled = true,
+    musicEnabled = true
+}
 
 local cache = {}
 
@@ -18,6 +21,7 @@ end
 local playing = {}
 
 function Sounds.play(name)
+    if not Sounds.soundsEnabled then return end
     local source = Sounds.getSource(name)
     playing[#playing+1] = source
     source:play()
@@ -27,6 +31,8 @@ function Sounds.playLooping(name)
     local source = Sounds.getSource(name)
     playing[#playing+1] = source
     source:setLooping(true)
+    local volume = Sounds.musicEnabled and 1 or 0
+    source:setVolume(volume)
     source:play()
 end
 
@@ -48,6 +54,18 @@ function Sounds.cleanup()
         end
     end
     playing = newPlaying
+end
+
+function Sounds.setSounds(enable)
+    Sounds.soundsEnabled = enable
+end
+
+function Sounds.setMusic(enable)
+    Sounds.musicEnabled = enable
+    local volume = enable and 1 or 0
+    for _, S in ipairs(playing) do
+        S:setVolume(volume)
+    end
 end
 
 return Sounds
