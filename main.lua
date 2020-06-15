@@ -9,6 +9,7 @@ local config = nil
 
 function love.load()
     Sounds.playLooping("loop")
+    menu:getWidget("options"):load()
 end
 
 function love.draw()
@@ -41,4 +42,8 @@ end
 
 function love.resize(w, h)
     menu:resize(w, h)
+end
+
+function love.quit()
+    menu:getWidget("options"):save()
 end
