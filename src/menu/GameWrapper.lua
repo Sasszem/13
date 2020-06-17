@@ -79,7 +79,7 @@ function GameWrapper:quit()
     self.game:quit()
 
     -- pressing back OR winning?
-    if not self.game.won then
+    if not self.game.gameEnded then
         self:getWidget("switcher").selected = "mainMenu"
     else
         -- game end screen

@@ -46,7 +46,7 @@ function growCells(cellPool, fast)
     cellPool.game.animating = false
 
     -- end game if won
-    if cellPool.game.won then
+    if cellPool.game.gameEnded then
         cellPool.game:endGame()
     end
 end

@@ -49,7 +49,7 @@ function Game:new(config, parentWidget, gamemode)
             while self.time > 0 do
                 coroutine.yield()
             end
-            self.won = true
+            self.gameEnded = true
             self:endGame()
         end, o)
     end
@@ -98,7 +98,7 @@ end
 
 
 function Game:quit()
-    if self.won then return end
+    if self.gameEnded then return end
 
     -- fast-forward to finish all animations
     while self.animating do
