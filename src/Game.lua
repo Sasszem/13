@@ -30,7 +30,7 @@ function Game:new(config, parentWidget, gamemode)
     o.cells = CellPool(o)
 
     -- game state
-    o.time = ((gamemode == "timed") and 30) or 0
+    o.time = ((gamemode == "timed") and 300) or 0
     o.biggestYet = 2
 
     -- load saved game
