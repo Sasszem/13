@@ -49,6 +49,7 @@ function Game:new(config, parentWidget, gamemode)
             while self.time > 0 do
                 coroutine.yield()
             end
+            self.won = true
             self:endGame()
         end, o)
     end
