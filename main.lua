@@ -1,11 +1,6 @@
-local Config = require("src.Config")
-local Game = require("src.Game")
 local Sounds = require("src.Sounds")
 
 local menu = require("src.menu.menu")
-
-local game = nil
-local config = nil
 
 function love.load()
     Sounds.playLooping("loop")

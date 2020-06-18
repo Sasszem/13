@@ -4,7 +4,6 @@
 
 
 local CellPool = {}
-local SaveRestore = require("src.SaveRestore")
 
 -- constructor
 function CellPool:new(game)

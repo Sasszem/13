@@ -37,20 +37,20 @@ function Game:new(config, parentWidget, gamemode)
     SaveRestore.load(o)
 
     -- time updater
-    o.TM:periodic(function (self)
-        local dt = self.gamemode == "normal" and 1 or -1
-        self.time = self.time + dt
+    o.TM:periodic(function (game)
+        local dt = game.gamemode == "normal" and 1 or -1
+        game.time = game.time + dt
     end, 1, 0, o)
 
 
     -- time's up detector task
     if gamemode == "timed" then
-        o.TM:run(function (self)
-            while self.time > 0 do
+        o.TM:run(function (game)
+            while game.time > 0 do
                 coroutine.yield()
             end
-            self.gameEnded = true
-            self:endGame()
+            game.gameEnded = true
+            game:endGame()
         end, o)
     end
 
@@ -62,7 +62,12 @@ function Game:drawInfo()
     -- draw time
     love.graphics.setFont(self.config.gameFont)
     love.graphics.setColor(rgb(255, 255, 255))
-    love.graphics.printf(("%d:%02d"):format(math.floor(self.time / 60), self.time % 60), 0, 10*self.config.hP, self.config.width, "center")
+    love.graphics.printf(
+        ("%d:%02d"):format(
+            math.floor(self.time / 60),
+            self.time % 60),
+        0, 10*self.config.hP, self.config.width, "center"
+    )
 end
 
 

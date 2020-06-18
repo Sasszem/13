@@ -89,7 +89,7 @@ function GameWrapper:quit()
         self:getWidget("gameOverLbl").text =
             (self.game.gamemode=="normal") and "You won!" or "Time's up"
 
-        self:getWidget("resultLbl").text = 
+        self:getWidget("resultLbl").text =
             (self.game.gamemode=="normal") and ("Time: %d:%02d"):format(self.game.time/60, self.game.time%60)
                 or ("Maximum value: %d"):format(self.game.biggestYet)
     end

@@ -3,7 +3,7 @@
 
 local Cell = require("src.Cell")
 
-function addCells(cellPool, fast)
+local function addCells(cellPool, fast)
     -- delay to apply before animation
     local delay = 0
 

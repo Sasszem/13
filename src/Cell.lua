@@ -12,9 +12,9 @@ local function hex(hexstring)
     assert(hexstring:sub(0, 1)=="#", "Color strings must be in hex format!")
 
     -- extract string bits
-    r = hexstring:sub(2, 3)
-    g = hexstring:sub(4, 5)
-    b = hexstring:sub(6, 7)
+    local r = hexstring:sub(2, 3)
+    local g = hexstring:sub(4, 5)
+    local b = hexstring:sub(6, 7)
 
     -- convert to decimal
     r = tonumber(r, 16)
