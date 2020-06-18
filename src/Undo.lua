@@ -23,6 +23,7 @@ setmetatable(Undo, {__call = Undo.new})
 function Undo:backup()
     -- deep copies the game state for backup
     self.time = self.game.time
+    self.biggestYet = self.game.biggestYet
     self.cells = {}
 
     for i, C in ipairs(self.game.cells.cells) do
@@ -36,6 +37,10 @@ end
 
 
 function Undo:restore()
+    -- do not restore if no data
+    -- (no backup was made yet)
+    if self.biggestYet == 0 then return end
+
     -- deep copy the saved data back to game
     self.game.time = self.time
 

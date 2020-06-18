@@ -81,7 +81,7 @@ local function loadCellsData(gamemode)
 end
 
 
-function loadGameData(gamemode)
+local function loadGameData(gamemode)
     local info = love.filesystem.getInfo(GAMEDATAFILE:format(gamemode))
     if not info then return end
     -- check if file exists

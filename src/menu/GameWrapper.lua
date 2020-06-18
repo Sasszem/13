@@ -79,7 +79,7 @@ function GameWrapper:quit()
     self.game:quit()
 
     -- pressing back OR winning?
-    if not self.game.won then
+    if not self.game.gameEnded then
         self:getWidget("switcher").selected = "mainMenu"
     else
         -- game end screen
@@ -89,7 +89,7 @@ function GameWrapper:quit()
         self:getWidget("gameOverLbl").text =
             (self.game.gamemode=="normal") and "You won!" or "Time's up"
 
-        self:getWidget("resultLbl").text = 
+        self:getWidget("resultLbl").text =
             (self.game.gamemode=="normal") and ("Time: %d:%02d"):format(self.game.time/60, self.game.time%60)
                 or ("Maximum value: %d"):format(self.game.biggestYet)
     end

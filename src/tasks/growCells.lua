@@ -3,7 +3,7 @@
 
 local Sounds = require("src.Sounds")
 
-function growCells(cellPool, fast)
+local function growCells(cellPool, fast)
     while cellPool.toAnimate == 0 do
         coroutine.yield()
     end
@@ -31,7 +31,7 @@ function growCells(cellPool, fast)
             -- play sound and remove from animation pool
             if sizeAnim[cell] >= Tappear then
                 sizeAnim[cell] = nil
-                if not fast then 
+                if not fast then
                     Sounds.play("pop")
                 end
                 -- fixup scale just in case of floating point funnyness
@@ -46,7 +46,7 @@ function growCells(cellPool, fast)
     cellPool.game.animating = false
 
     -- end game if won
-    if cellPool.game.won then
+    if cellPool.game.gameEnded then
         cellPool.game:endGame()
     end
 end

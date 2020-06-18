@@ -22,7 +22,10 @@ function Sounds.getSource(name)
     -- fill in cache
     if not cache[name] then
         local filename = ("asset/%s.ogg"):format(name)
-        local fileInfo = assert(love.filesystem.getInfo(filename), ("Requested sound file %s can not be found!"):format(filename))
+        local fileInfo = assert(
+            love.filesystem.getInfo(filename),
+            ("Requested sound file %s can not be found!"):format(filename)
+        )
         local fileSize = fileInfo.size
         local sourceMode = (fileSize > StreamSize) and "stream" or "static"
         cache[name] = love.audio.newSource(filename, sourceMode)
