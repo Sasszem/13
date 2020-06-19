@@ -6,6 +6,8 @@ Recreation of a simple game
 
 Grab a download from the releases page. Needs Löve2D version 11.3 or compatible. Works on every platform supported by Löve2D, but the main target is android.
 
+You can also try out the [web version](13.html), altought that's slower and hase a few sound issues.
+
 ## To build
 
 Clone this repo **with submodules**, and enjoy.
