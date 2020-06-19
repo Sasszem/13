@@ -6,7 +6,11 @@
 
 local Sounds = {
     soundsEnabled = true,
-    musicEnabled = true
+    musicEnabled = true,
+
+    clone = true,
+    -- do we need to clone the sound or use a single source
+    -- later is required by love.js's limitations
 }
 
 local cache = {}
@@ -31,7 +35,11 @@ function Sounds.getSource(name)
         cache[name] = love.audio.newSource(filename, sourceMode)
     end
 
-    return cache[name]:clone()
+    local s = cache[name]
+    if Sounds.clone then
+        s = s:clone()
+    end
+    return s
 end
 
 local playing = {}
@@ -42,14 +50,18 @@ function Sounds.play(name)
     if not Sounds.soundsEnabled then return end
 
     local source = Sounds.getSource(name)
-    playing[#playing+1] = source
+    if Sounds.clone then
+        playing[#playing+1] = source
+    end
     source:play()
 end
 
 -- play a sound looping (background music)
 function Sounds.playLooping(name)
     local source = Sounds.getSource(name)
-    playing[#playing+1] = source
+    if Sounds.clone then
+        playing[#playing+1] = source
+    end
 
     source:setLooping(true)
 
@@ -74,10 +86,12 @@ end
 
 -- remove stopped sources from list
 function Sounds.cleanup()
+    if not Sounds.clone then return end
     local newPlaying = {}
     for _, sound in ipairs(playing) do
         if not sound:isPlaying() then
             sound:release()
+            print("Removed a sound")
         else
             newPlaying[#newPlaying+1] = sound
         end
