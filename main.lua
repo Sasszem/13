@@ -1,8 +1,10 @@
 local Sounds = require("src.Sounds")
+local versionCompat = require("src.versionCompat")
 
 local menu = require("src.menu.menu")
 
 function love.load()
+    versionCompat.register()
     Sounds.playLooping("loop")
     menu:getWidget("options"):load()
 end
