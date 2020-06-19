@@ -4,7 +4,7 @@ Recreation of a simple game
 
 ## To play
 
-Grab a download from the releases page. Needs Löve2D version 11.3 or compatible. Works on every platform supported by Löve2D, but the main target is android.
+Grab a download from the releases page. The .love bundles need Löve2D version 11.3 or compatible. Works on every platform supported by Löve2D, but the main target is android - so just grab the apk version if you can.
 
 You can also try out the [web version](13.html), altought that's slower and hase a few sound issues.
 
