@@ -24,7 +24,7 @@ local NL = {}
 for k, v in pairs(LS) do
     NL[k] = v
 end
-NL.font = Font(20, "asset/supercomputer.ttf")
+NL.font = Font(20, "asset/Oregano-Regular.ttf")
 
 
 -- on / yes button
@@ -190,7 +190,7 @@ end
 ------------------
 
 local OptionsMenu = VDiv(
-    Label("Options", {font = Font(40, "asset/supercomputer.ttf")}),
+    Label("Options", {font = Font(40, "asset/Oregano-Regular.ttf")}),
     SoundsMenu,
     MusicMenu,
     Label(""),

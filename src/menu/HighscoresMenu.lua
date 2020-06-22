@@ -22,7 +22,7 @@ local BS = require("src.menu.buttonStyle")
 local rowStyle = {
     border = 3,
     borderColor = rgb(77, 77, 255),
-    font = Font(20, "asset/supercomputer.ttf")
+    font = Font(20, "asset/Oregano-Regular.ttf")
 }
 
 local function makeRow(i)
