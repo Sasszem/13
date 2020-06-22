@@ -4,7 +4,7 @@
 -- imports
 require("yalg.yalg")
 local BS = require("src.menu.buttonStyle")
-
+local L = require("src.Local")
 
 --------------------
 -- UI declaration --
@@ -12,11 +12,11 @@ local BS = require("src.menu.buttonStyle")
 
 local MainMenu = VDiv(
     Label("13", {font=Font(60, "asset/supercomputer.ttf"), span = 2}),
-    Button("Normal", BS, "btnNormal"),
-    Button("Timed", BS, "btnTimed"),
-    Button("Highscores", BS, "btnHighscores"),
-    Button("Options", BS, "btnOptions"),
-    Button("Exit", BS, "btnExit"),
+    Button(L["normal"], BS, "btnNormal"),
+    Button(L["timed"], BS, "btnTimed"),
+    Button(L["highscores"], BS, "btnHighscores"),
+    Button(L["options"], BS, "btnOptions"),
+    Button(L["exit"], BS, "btnExit"),
     {
         placement = "center",
         gap = 10,

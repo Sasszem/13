@@ -4,6 +4,7 @@
 -- has 2 buttons: back and undo
 
 require("yalg.yalg")
+local L = require("src.Local")
 
 -- button style
 local BS = require("src.menu.buttonStyle")
@@ -13,9 +14,9 @@ local BS = require("src.menu.buttonStyle")
 local GameWrapper = VDiv(
     Label("", {span=11}),
     HDiv(
-        Button("Back", BS, "backFromGame"),
+        Button(L["back"], BS, "backFromGame"),
         Label(""),
-        Button("Undo", BS, "undoBtn")
+        Button(L["undo"], BS, "undoBtn")
     ),
     {},
     "game"

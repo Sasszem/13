@@ -2,11 +2,12 @@
 local LS = require("src.menu.labelStyle")
 local BS = require("src.menu.buttonStyle")
 
+local L = require("src.Local")
 
 local GameEndScreen = VDiv(
-    Label("Game over", LS, "gameOverLbl"),
+    Label(L["gameover"], LS, "gameOverLbl"),
     Label("gameScorePlaceholder", LS, "resultLbl"),
-    Button("Back to main menu", BS, "backToMenuBtn"),
+    Button(L["backtomainmenu"], BS, "backToMenuBtn"),
     {},
     "gameEnd"
 )
