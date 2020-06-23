@@ -5,7 +5,7 @@
 -- imports
 require("yalg.yalg")
 local Highscores = require("src.Highscores")
-
+local L = require("src.Local")
 
 ------------
 -- STYLES --
@@ -66,9 +66,9 @@ local TimedHS = VDiv(
 
 local chooser = HDiv(
     Label(""),
-    Button("Normal", BS, "selectNormalBtn"),
+    Button(L["normal"], BS, "selectNormalBtn"),
     Label(""),
-    Button("Timed", BS, "selectTimedBtn"),
+    Button(L["timed"], BS, "selectTimedBtn"),
     Label("")
 )
 
@@ -101,12 +101,12 @@ end
 local HighscoresMenu = VDiv(
     VDiv(
         HDiv(
-            Button("Back", BS, "backBtn"),
+            Button(L["back"], BS, "backBtn"),
             {
                 slots = 3
             }
         ),
-        Label("Highscores", LS)
+        Label(L["highscores"], LS)
     ),
     Switcher(
         TimedHS,

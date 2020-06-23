@@ -1,6 +1,7 @@
 local SaveRestore = require("src.SaveRestore")
 local Highscores = require("src.Highscores")
 local Sounds = require("src.Sounds")
+local L = require("src.Local")
 
 ------------
 -- STYLES --
@@ -51,13 +52,13 @@ OffBTN.borderColor = rgb(255, 204, 0)
 
 local DelSaves = Switcher(
     HDiv(
-        Button("No", OffBTN, "noDelSavesBtn"),
-        Label("Are you sure", NL),
-        Button("Yes", OnBTN, "delSavesBtn"),
+        Button(L["no"], OffBTN, "noDelSavesBtn"),
+        Label(L["sure"], NL),
+        Button(L["yes"], OnBTN, "delSavesBtn"),
         {},
         "delSavesHDiv"
     ),
-    Button("Delete saved games", NB, "delSavesMenuBtn"),
+    Button(L["delSaves"], NB, "delSavesMenuBtn"),
     {},
     "delSavesSwitcher"
 )
@@ -85,13 +86,13 @@ end
 
 local DelHS = Switcher(
     HDiv(
-        Button("No", OffBTN, "noDelHSBtn"),
-        Label("Are you sure", NL),
-        Button("Yes", OnBTN, "delHSBtn"),
+        Button(L["no"], OffBTN, "noDelHSBtn"),
+        Label(L["sure"], NL),
+        Button(L["yes"], OnBTN, "delHSBtn"),
         {},
         "delHSHDiv"
     ),
-    Button("Delete highscores", NB, "delHSMenuBtn"),
+    Button(L["delHS"], NB, "delHSMenuBtn"),
     {},
     "delHSSwitcher"
 )
@@ -117,10 +118,10 @@ end
 -- Sounds on-off --
 -------------------
 local SoundsMenu = HDiv(
-    Label("Sounds"),
+    Label(L["sounds"]),
     HDiv(
-        Button("On", OnBTN, "soundsOn"),
-        Button("Off", OffBTN, "soundsOff")
+        Button(L["on"], OnBTN, "soundsOn"),
+        Button(L["off"], OffBTN, "soundsOff")
     )
 )
 
@@ -154,10 +155,10 @@ end
 ------------------
 
 local MusicMenu = HDiv(
-    Label("Music"),
+    Label(L["music"]),
     HDiv(
-        Button("On", OnBTN, "musicOn"),
-        Button("Off", OffBTN, "musicOff")
+        Button(L["on"], OnBTN, "musicOn"),
+        Button(L["off"], OffBTN, "musicOff")
     )
 )
 
@@ -190,14 +191,14 @@ end
 ------------------
 
 local OptionsMenu = VDiv(
-    Label("Options", {font = Font(40, "asset/Oregano-Regular.ttf")}),
+    Label(L["options"], {font = Font(40, "asset/Oregano-Regular.ttf")}),
     SoundsMenu,
     MusicMenu,
-    Label(""),
+    Button(L["language"], NB, "languagesBtn"),
     DelSaves,
     DelHS,
     HDiv(
-        Button("Back", NB, "backFromOptions")
+        Button(L["back"], NB, "backFromOptions")
     ),
     {},
     "options"
@@ -207,6 +208,11 @@ local OptionsMenu = VDiv(
 function OptionsMenu.widgets.backFromOptions.style:click()
     self:getWidget("switcher").selected = "mainMenu"
 end
+
+function OptionsMenu.widgets.languagesBtn.style:click()
+    self:getWidget("switcher").selected = "languageSelect"
+end
+
 
 --------------------------
 -- Sound options saving --

@@ -10,6 +10,7 @@ local GameWrapper = require("src.menu.GameWrapper")
 local Highscores = require("src.menu.HighscoresMenu")
 local GameEndScreen = require("src.menu.GameEndScreen")
 local OptionsMenu = require("src.menu.OptionsMenu")
+local LanguageSelectMenu = require("src.menu.LanguageSelectMenu")
 
 
 local Menu = GUI(
@@ -18,6 +19,7 @@ local Menu = GUI(
         Highscores,
         GameEndScreen,
         OptionsMenu,
+        LanguageSelectMenu,
         MainMenu,
         {},
         "switcher"
