@@ -11,7 +11,7 @@ local L = require("src.Local")
 --------------------
 
 local MainMenu = VDiv(
-    Label("13", {font=Font(60, "asset/supercomputer.ttf"), span = 2}),
+    Label("13", {font=Font(60, "asset/Oregano-Regular.ttf"), span = 2}),
     Button(L["normal"], BS, "btnNormal"),
     Button(L["timed"], BS, "btnTimed"),
     Button(L["highscores"], BS, "btnHighscores"),

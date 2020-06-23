@@ -35,7 +35,7 @@ function Config:resize(w, h)
     self.hP = self.height / 100
     self.mP = math.min(self.wP, self.hP)
 
-    self.gameFont = love.graphics.newFont("asset/supercomputer.ttf", self.mP*7)
+    self.gameFont = love.graphics.newFont("asset/Oregano-Regular.ttf", self.mP*7)
 
     self.Cell.size = self.mP * 10
     self.Playfield.gap = self.mP * 3
