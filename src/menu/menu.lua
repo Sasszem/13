@@ -48,6 +48,8 @@ function Menu:mousereleased(x, y)
 end
 
 function Menu:keypressed(key)
+    if key~="escape" then return end
+
     local sel = self:getWidget("switcher").selected
 
     -- save and quit game if in game
