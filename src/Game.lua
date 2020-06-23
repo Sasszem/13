@@ -62,11 +62,18 @@ function Game:drawInfo()
     -- draw time
     love.graphics.setFont(self.config.gameFont)
     love.graphics.setColor(rgb(255, 255, 255))
-    love.graphics.printf(
+
+    -- center it on the screen
+    -- but take changing font size into account
+    -- so calcuzlate a constant position
+    -- it can still flicker a bit, but should be way less noticable
+    local w = self.config.gameFont:getWidth("44:44")
+
+    love.graphics.print(
         ("%d:%02d"):format(
             math.floor(self.time / 60),
             self.time % 60),
-        0, 10*self.config.hP, self.config.width, "center"
+        (self.config.width-w)/2, 10*self.config.hP
     )
 end
 
