@@ -42,6 +42,27 @@ local CellColors = {
     hex("#a40000"), -- 15
 }
 
+--------------------
+-- Roman numerals --
+--------------------
+local roman = {
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V",
+    "VI",
+    "VII",
+    "VIII",
+    "IX",
+    "X",
+    "XI",
+    "XII",
+    "XIII",
+    "XIV",
+    "XV",
+}
+
 
 ----------------
 -- CELL CLASS --
@@ -78,7 +99,7 @@ function Cell:draw()
     local font = self.config.gameFont
     local h = font:getHeight()
     love.graphics.setColor(hex("#000000"))
-    love.graphics.printf(self.value, font, self.x-s/2, self.y - h/2, s, "center")
+    love.graphics.printf(roman[self.value], font, self.x-s/2, self.y - h/2, s, "center")
     love.graphics.pop()
 end
 
