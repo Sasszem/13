@@ -23,7 +23,7 @@ local Menu = GUI(
         "switcher"
     ),
     {
-        font = Font(30, "asset/supercomputer.ttf")
+        font = Font(30, "asset/Oregano-Regular.ttf")
     }
 )
 

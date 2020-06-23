@@ -7,7 +7,7 @@
 
 ## Font
 
-[supercomputer font](https://www.1001fonts.com/supercomputer-font.html)
+[Oregano font](https://fonts.google.com/specimen/Oregano) created by Astigmatic
 
 ## Sounds
 
