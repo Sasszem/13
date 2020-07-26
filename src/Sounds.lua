@@ -91,7 +91,6 @@ function Sounds.cleanup()
     for _, sound in ipairs(playing) do
         if not sound:isPlaying() then
             sound:release()
-            print("Removed a sound")
         else
             newPlaying[#newPlaying+1] = sound
         end

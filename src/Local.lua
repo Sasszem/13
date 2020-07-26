@@ -17,7 +17,6 @@ function Local.load()
 
     strings = require(("asset.translations.%s"):format(selectedLocal))
     setmetatable(Local, {__index = strings})
-    print("loaded")
 end
 
 function Local.set(selectedLocal)
