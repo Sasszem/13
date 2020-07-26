@@ -49,7 +49,7 @@ function Highscores.update(gamemode, time, maximum)
 
     -- get current date string
     local dT = os.date("*t")
-    local dateString = ("%02d/%02d %2d:%02d"):format(dT.month, dT.day, dT.hour, dT.min)
+    local dateString = ("%02d/%02d/%02d %2d:%02d"):format(dT.year, dT.month, dT.day, dT.hour, dT.min)
 
     -- result from values and gamemode
     local res = gamemode=="timed" and maximum or time
