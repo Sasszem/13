@@ -7,6 +7,8 @@ require("yalg.yalg")
 local Highscores = require("src.Highscores")
 local L = require("src.Local")
 
+local themefontsrc="asset/Oregano-Regular.ttf"
+
 ------------
 -- STYLES --
 ------------
@@ -14,27 +16,56 @@ local L = require("src.Local")
 local LS = require("src.menu.labelStyle")
 local BS = require("src.menu.buttonStyle")
 
+-- new button style (centered)
+local CB = {}
+for k, v in pairs(BS) do
+    CB[k] = v
+end
+CB.placement = "center"
+
+-- new button style (for sheet chooser)
+local SC = {}
+for k, v in pairs(BS) do
+    SC[k] = v
+end
+
+SC.borderColor = rgb(108, 110, 114)
+SC.activeBorder = rgb(108, 110, 114)
+
+function SC:mouseEnter(x, y)
+    self.style.borderColor, self.style.activeBorder = self.style.activeBorder, self.style.borderColor
+    -- do not play a sound on a sheet chooser
+    -- Sounds.play("click")
+end
+
+function SC:mouseLeave(x, y)
+    -- instead of changing colors, just do nothing
+end
+
 
 ----------
 -- ROWS --
 ----------
 
 local rowStyle = {
-    border = 3,
-    borderColor = rgb(77, 77, 255),
-    font = Font(20, "asset/Oregano-Regular.ttf")
+    font = Font(20, themefontsrc),
 }
 
 local function makeRow(i)
     return HDiv(
-        Label("", LS, ("result#%d"):format(i)),
-        Label("", LS, ("date#%d"):format(i)),
+        Label("", {font = Font(32, themefontsrc), span = 1}, ("result#%d"):format(i)),
+        Label("", {font = Font(20, themefontsrc), span = 2}, ("date#%d"):format(i)),
         rowStyle
     )
 end
 
 --normal mode highscores rows
 local NormalHS = VDiv(
+    HDiv(
+        Label(L["highscorecolumn1"], {span = 1}),
+        Label(L["highscorecolumn3"], {span = 2}),
+        rowStyle
+    ),
     makeRow(1),
     makeRow(2),
     makeRow(3),
@@ -48,6 +79,11 @@ local NormalHS = VDiv(
 
 -- timed mode highscores rows
 local TimedHS = VDiv(
+    HDiv(
+        Label(L["highscorecolumn2"], {span = 1}),
+        Label(L["highscorecolumn3"], {span = 2}),
+        rowStyle
+    ),
     makeRow(6),
     makeRow(7),
     makeRow(8),
@@ -65,11 +101,8 @@ local TimedHS = VDiv(
 ---------------------
 
 local chooser = HDiv(
-    Label(""),
-    Button(L["normal"], BS, "selectNormalBtn"),
-    Label(""),
-    Button(L["timed"], BS, "selectTimedBtn"),
-    Label("")
+    Button(L["normal"], SC, "selectNormalBtn"),
+    Button(L["timed"], SC, "selectTimedBtn")
 )
 
 -- custom styles for chooser buttons
@@ -99,15 +132,10 @@ end
 ----------------------
 
 local HighscoresMenu = VDiv(
-    VDiv(
-        HDiv(
-            Button(L["back"], BS, "backBtn"),
-            {
-                slots = 3
-            }
-        ),
-        Label(L["highscores"], LS)
+    HDiv(
+        Label(L["highscores"], {font = Font(40, themefontsrc)})
     ),
+    chooser,
     Switcher(
         TimedHS,
         NormalHS,
@@ -116,7 +144,11 @@ local HighscoresMenu = VDiv(
         },
         "hsSwitcher"
     ),
-    chooser,
+    VDiv(
+        HDiv(
+            Button(L["back"], CB, "backBtn")
+        )
+    ),
     {
         gap = 10,
     },
