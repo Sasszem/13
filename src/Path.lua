@@ -194,7 +194,6 @@ function Path:mergeAnimation()
         -- play victory sound and set flag if we won
         if currElem.value > self.game.biggestYet then
             if currElem.value == VICTORYVALUE then
-                Sounds.play("victory")
                 self.game.gameEnded = true
             else
                 Sounds.play("newBiggest")

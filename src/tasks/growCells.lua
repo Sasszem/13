@@ -48,6 +48,9 @@ local function growCells(cellPool, fast)
     -- end game if won
     if cellPool.game.gameEnded then
         cellPool.game:endGame()
+        -- átraktam ide a zene lejátszását, hogy a merge animáció végén csendüljön csak fel a zene
+        -- de ezt még le kéne tesztelni
+        Sounds.play("victory")
     end
 end
 
