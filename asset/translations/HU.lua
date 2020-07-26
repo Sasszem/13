@@ -5,6 +5,8 @@ return {
     options = "Beállítások",
     about = "Névjegy",
     exit = "Kilépés",
+    gametime1="Eltelt idő:",
+    gametime2="Hátralévő idő:",
     gameover = "Játék vége",
     backtomainmenu = "Vissza a menübe",
     back = "Vissza",
