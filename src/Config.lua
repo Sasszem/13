@@ -21,7 +21,7 @@ function Config.get()
     }
     c.Path = {
         width = 10,
-        color = rgb(255, 0, 0),
+        color = rgb(255, 255, 255),
     }
 
     c:resize(love.graphics.getWidth(), love.graphics.getHeight())
