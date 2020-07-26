@@ -1,5 +1,5 @@
 return {
-    normal = "Sima",
+    normal = "Sima játék",
     timed = "Időzített",
     highscores = "Eredmények",
     options = "Beállítások",
@@ -18,8 +18,8 @@ return {
     yes = "Igen",
     no = "Nem",
     music = "Zene",
-    language = "Nyelv",
-    restartrequired = "Újraindítás szükséges!",
+    language = "Nyelv módosítása",
+    restartrequired = "Indítsd újra az appot!",
     abouttext1="A „13” ",
     abouttext2=" verzióját 2020-ban készítette",
     abouttext3="Sasszem (Magyarországról)",
