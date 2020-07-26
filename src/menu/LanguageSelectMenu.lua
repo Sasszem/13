@@ -10,7 +10,7 @@ local LanguageSelectMenu = VDiv(
     Button("Magyar", BS, "magyar"),
     Label("", {span = 5}),
     Button(L["back"], BS, "backFromLang"),
-    Label(L["restartrequired"], LS, "restartLbl"),
+    Label("", LS, "restartLbl"),
     {
         gap = 10,
         margin = 50,
