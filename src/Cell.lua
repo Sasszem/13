@@ -74,7 +74,7 @@ function Cell:draw()
     local s = self.config.Cell.size
     love.graphics.setColor(CellColors[self.value] or hex("#ffffff"))
     -- love.graphics.rectangle("fill", self.x-s/2, self.y-s/2, s, s)
-    rwrc(self.x-s/2, self.y-s/2, s, s, 3)
+    rwrc(self.x-s/2, self.y-s/2, s, s, 7)
     local font = self.config.gameFont
     local h = font:getHeight()
     love.graphics.setColor(hex("#000000"))
@@ -91,13 +91,13 @@ local top = math.pi * 1.5
 -- rounded rectangle
 -- source: https://love2d.org/forums/viewtopic.php?t=11511
 function rwrc(x, y, w, h, r)
-	r = r or 15
+    r = r or 15
     
-    
+
     -- border lines
     -- without border lines, cell lines will not be blurred
     -- but, with border lines, cell will be ugly when drawing a path
-	love.graphics.rectangle("line", x, y+r, w, h-r*2)
+    love.graphics.rectangle("line", x, y+r, w, h-r*2)
 	love.graphics.rectangle("line", x+r, y, w-r*2, r)
 	love.graphics.rectangle("line", x+r, y+h-r, w-r*2, r)
 	love.graphics.arc("line", x+r, y+r, r, left, top)
@@ -113,7 +113,6 @@ function rwrc(x, y, w, h, r)
 	love.graphics.arc("fill", x + w-r, y+r, r, -bottom, right)
 	love.graphics.arc("fill", x + w-r, y + h-r, r, right, bottom)
 	love.graphics.arc("fill", x+r, y + h-r, r, bottom, left)
-    
 end
 
 
