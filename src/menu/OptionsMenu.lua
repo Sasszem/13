@@ -25,7 +25,7 @@ local NL = {}
 for k, v in pairs(LS) do
     NL[k] = v
 end
-NL.font = Font(20, "asset/Oregano-Regular.ttf")
+NL.font = Font(24, "asset/Oregano-Regular.ttf")
 
 
 -- on / yes button
