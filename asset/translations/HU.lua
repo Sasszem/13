@@ -3,6 +3,7 @@ return {
     timed = "Időzített",
     highscores = "Eredmények",
     options = "Beállítások",
+    about = "Névjegy",
     exit = "Kilépés",
     gameover = "Játék vége",
     backtomainmenu = "Vissza a menübe",
@@ -19,4 +20,14 @@ return {
     music = "Zene",
     language = "Nyelv",
     restartrequired = "Újraindítás szükséges!",
+    abouttext1="A „13” ",
+    abouttext2=" verzióját 2020-ban készítette",
+    abouttext3="Sasszem (Magyarországról)",
+    abouttext4="Ez a játék a Löve2D motort használja.",
+    abouttext5="Az Oregano betűtípus az Astigmatic One Eye",
+    abouttext6="munkája, Rand Holub designja alapján.",
+    abouttext7="A hangok és a zenék forrása az",
+    abouttext8="OrangeFreeSounds.com.",
+    abouttext9="Az ötletül szolgáló játék alkotója a",
+    abouttext10="Geek Squad (Romániából)"
 }
