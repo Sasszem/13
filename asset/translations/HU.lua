@@ -1,7 +1,7 @@
 return {
     normal = "Sima játék",
     timed = "Időzített",
-    highscores = "Eredmények",
+    highscores = " Eredmények ",
     highscorecolumn1 = "Játékidő",
     highscorecolumn2 = "Pontszám",
     highscorecolumn3 = "Dátum",
