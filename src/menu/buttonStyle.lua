@@ -1,10 +1,14 @@
 local Sounds = require("src.Sounds")
 
 local ButtonStyle = {
-    activeBorder = rgb(41, 163, 41),
-    borderColor = rgb(179, 0, 0),
+    activeBorder = rgb(114, 193, 233),
+    borderColor = rgb(108, 110, 114),
     placement = "fill",
-    backgroundColor = rgb(0, 0, 102),
+    backgroundColor = rgb(28, 33, 38),
+    -- kattintásnál a háttérszín változzon meg
+    -- ButtonStyle:click(x, y)
+    --     self.style.backgroundColor=rgb(61, 174, 230)
+    -- (Btimes2)
 }
 
 -- make the border color change
