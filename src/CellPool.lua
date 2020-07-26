@@ -66,6 +66,7 @@ end
 
 
 function CellPool:draw()
+    love.graphics.setLineWidth(0)
     -- draw each cell
     for _, C in ipairs(self.cells) do
         C:draw()
