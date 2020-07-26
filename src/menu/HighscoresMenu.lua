@@ -77,7 +77,7 @@ chooser.widgets.selectNormalBtn.style.span = 4
 chooser.widgets.selectTimedBtn.style.span = 4
 
 -- background for selected mode button
-local activeBackground = rgb(0, 102, 34)
+local activeBackground = rgb(108, 110, 114)
 
 -- select normal mode button
 function chooser.widgets.selectNormalBtn.style:click()
