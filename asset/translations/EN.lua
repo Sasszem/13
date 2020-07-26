@@ -5,6 +5,8 @@ return {
     options = "Options",
     about = "About",
     exit = "Exit",
+    gametime1="Elapsed time",
+    gametime2="Remaining time",
     gameover = "Game over",
     backtomainmenu = "Back to main menu",
     back = "Back",

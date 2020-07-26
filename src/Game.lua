@@ -7,6 +7,7 @@ local TasksManager = require("src.TaskManager")
 local CellPool = require("src.CellPool")
 local SaveRestore = require("src.SaveRestore")
 local Undo = require("src.Undo")
+local L = require("src.Local")
 local Highscores = require("src.Highscores")
 
 local Game = {
@@ -62,11 +63,20 @@ function Game:drawInfo()
     -- draw time
     love.graphics.setFont(self.config.gameFont)
     love.graphics.setColor(rgb(255, 255, 255))
+    
+    time_label=L["gametime1"]
+    if self.gamemode == "timed" then
+        time_label=L["gametime2"] 
+    end
+    
+    love.graphics.printf(time_label,
+        0, 10*self.config.hP, self.config.width, "center"
+    )
     love.graphics.printf(
         ("%d:%02d"):format(
             math.floor(self.time / 60),
             self.time % 60),
-        0, 10*self.config.hP, self.config.width, "center"
+        0, 15*self.config.hP, self.config.width, "center"
     )
 end
 
