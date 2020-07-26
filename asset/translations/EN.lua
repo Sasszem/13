@@ -1,7 +1,7 @@
 return {
     normal = "Normal",
     timed = "Timed",
-    highscores = "Highscores",
+    highscores = " Highscores ",
     highscorecolumn1 = "Time required",
     highscorecolumn2 = "Score",
     highscorecolumn3 = "Date",
