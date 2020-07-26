@@ -6,6 +6,7 @@ local BS = require("src.menu.buttonStyle")
 local LS = require("src.menu.labelStyle")
 
 local LanguageSelectMenu = VDiv(
+    Label(L["languageswitcher"], LS, "languageselecttitle"), 
     Button("English", BS, "english"),
     Button("Magyar", BS, "magyar"),
     Label("", {span = 5}),
