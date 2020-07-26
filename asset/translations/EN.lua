@@ -3,6 +3,7 @@ return {
     timed = "Timed",
     highscores = "Highscores",
     options = "Options",
+    about = "About",
     exit = "Exit",
     gameover = "Game over",
     backtomainmenu = "Back to main menu",
@@ -19,4 +20,14 @@ return {
     music = "Music",
     language = "Language",
     restartrequired = "App restart required!",
+    abouttext1="“13” version ",
+    abouttext2=" was developed in 2020 by",
+    abouttext3="Sasszem (Hungary)",
+    abouttext4="This game uses the Löve2D engine.",
+    abouttext5="Oregano font is made by Astigmatic One Eye",
+    abouttext6="based on the work of Rand Holub.",
+    abouttext7="Sounds and music are from",
+    abouttext8="OrangeFreeSounds.com.",
+    abouttext9="Original game idea is from",
+    abouttext10="Geek Squad (Romania)"
 }

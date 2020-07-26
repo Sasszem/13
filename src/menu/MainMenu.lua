@@ -16,6 +16,7 @@ local MainMenu = VDiv(
     Button(L["timed"], BS, "btnTimed"),
     Button(L["highscores"], BS, "btnHighscores"),
     Button(L["options"], BS, "btnOptions"),
+    Button(L["about"], BS, "btnAbout"),
     Button(L["exit"], BS, "btnExit"),
     {
         placement = "center",
@@ -55,6 +56,12 @@ end
 function MainMenu.widgets.btnOptions.style:click()
     self:getWidget("switcher").selected = "options"
 end
+
+-- options button
+function MainMenu.widgets.btnAbout.style:click()
+    self:getWidget("switcher").selected = "about"
+end
+
 
 -- exit button
 function MainMenu.widgets.btnExit.style:click(x, y, button)
