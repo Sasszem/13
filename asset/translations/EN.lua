@@ -35,5 +35,6 @@ return {
     abouttext7="Sounds and music are from",
     abouttext8="OrangeFreeSounds.com.",
     abouttext9="Original game idea is from",
-    abouttext10="Geek Squad (Romania)"
+    abouttext10="Geek Squad (Romania)",
+    gamedata = "Game data",
 }

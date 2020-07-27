@@ -35,5 +35,6 @@ return {
     abouttext7="A hangok és a zenék forrása az",
     abouttext8="OrangeFreeSounds.com.",
     abouttext9="Az ötletül szolgáló játék alkotója a",
-    abouttext10="Geek Squad (Romániából)"
+    abouttext10="Geek Squad (Romániából)",
+    gamedata = "Játék adatok",
 }
