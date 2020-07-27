@@ -37,4 +37,5 @@ return {
     abouttext9="Original game idea is from",
     abouttext10="Geek Squad (Romania)",
     gamedata = "Game data",
+    roman = "Roman numerals",
 }

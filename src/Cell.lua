@@ -45,7 +45,7 @@ local CellColors = {
 --------------------
 -- Roman numerals --
 --------------------
-local roman = {
+local romanNumbers = {
     "I",
     "II",
     "III",
@@ -86,7 +86,7 @@ function Cell:new(config, o)
 end
 
 
-function Cell:draw()
+function Cell:draw(roman)
     if self.remove then return end
     love.graphics.push()
     love.graphics.translate(self.x, self.y)
@@ -99,7 +99,8 @@ function Cell:draw()
     local font = self.config.gameFont
     local h = font:getHeight()
     love.graphics.setColor(hex("#000000"))
-    love.graphics.printf(roman[self.value], font, self.x-s/2, self.y - h/2, s, "center")
+    local text = roman and romanNumbers[self.value] or tostring(self.value)
+    love.graphics.printf(text, font, self.x-s/2, self.y - h/2, s, "center")
     love.graphics.pop()
 end
 

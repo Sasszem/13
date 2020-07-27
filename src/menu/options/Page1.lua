@@ -74,10 +74,48 @@ function MusicMenu.widgets.musicOff.style:click()
     self.style.activeBorder = self.style.borderColor
 end
 
+
+------------------
+-- Roman on-off --
+------------------
+
+local RomanMenu = HDiv(
+    Label(L["roman"], S.NL),
+    HDiv(
+        Button(L["on"], S.OnBTN, "romanOn"),
+        Button(L["off"], S.OffBTN, "romanOff")
+    )
+)
+
+-- on button
+function RomanMenu.widgets.romanOn.style:click()
+    self:getWidget("game").roman = true
+
+    -- disable off button
+    self:getWidget("romanOff").style.borderColor = S.OffBTN.borderColor
+
+    -- set border color
+    -- (borderColor and activeBorder are swapped by hovering)
+    self.style.activeBorder = self.style.borderColor
+end
+
+-- off button
+function RomanMenu.widgets.romanOff.style:click()
+    self:getWidget("game").roman = false
+
+    -- disable on button
+    self:getWidget("romanOn").style.borderColor = S.OnBTN.borderColor
+
+    -- set border color
+    -- (borderColor and activeBorder are swapped by hovering)
+    self.style.activeBorder = self.style.borderColor
+end
+
 local Page = VDiv(
     Label(L["options"], S.LS),
     SoundsMenu,
     MusicMenu,
+    RomanMenu,
     {
         slots = 6,
     },

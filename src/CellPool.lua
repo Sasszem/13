@@ -65,11 +65,11 @@ function CellPool:findCell(x,y)
 end
 
 
-function CellPool:draw()
+function CellPool:draw(roman)
     love.graphics.setLineWidth(0)
     -- draw each cell
     for _, C in ipairs(self.cells) do
-        C:draw()
+        C:draw(roman)
     end
 end
 

@@ -64,6 +64,7 @@ function OptionsMenu:save()
     local options = {
         sounds = Sounds.soundsEnabled and 1 or 0,
         music = Sounds.musicEnabled and 1 or 0,
+        roman = self:getWidget("game").roman and 1 or 0,
     }
 
     local f = love.filesystem.newFile(FILENAME, "w")
@@ -78,6 +79,7 @@ function OptionsMenu:load()
     local options = {
         sounds = true,
         music = true,
+        roman = false,
     }
 
     -- load from file
@@ -95,6 +97,7 @@ function OptionsMenu:load()
     local push = {}
     push[#push+1] = ("sounds%s"):format(options.sounds and "On" or "Off")
     push[#push+1] = ("music%s"):format(options.music and "On" or "Off")
+    push[#push+1] = ("roman%s"):format(options.roman and "On" or "Off")
 
     -- click them
     for _, id in ipairs(push) do

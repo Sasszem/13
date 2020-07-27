@@ -37,4 +37,5 @@ return {
     abouttext9="Az ötletül szolgáló játék alkotója a",
     abouttext10="Geek Squad (Romániából)",
     gamedata = "Játék adatok",
+    roman = "Római számok",
 }
