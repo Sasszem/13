@@ -35,5 +35,9 @@ return {
     abouttext7="Sounds and music are from",
     abouttext8="OrangeFreeSounds.com.",
     abouttext9="Original game idea is from",
-    abouttext10="Geek Squad (Romania)"
+    abouttext10="Geek Squad (Romania)",
+    timerend = "Time's up",
+    won = "You won!",
+    gameEndTime = "Time: %d:%02d",
+    gameEndValue = "Maximum value: %d",
 }
