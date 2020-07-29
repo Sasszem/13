@@ -38,4 +38,8 @@ return {
     abouttext10="Geek Squad (Romania)",
     gamedata = "Game data",
     roman = "Roman numerals",
+    timerend = "Time's up",
+    won = "You won!",
+    gameEndTime = "Time: %d:%02d",
+    gameEndValue = "Maximum value: %d"
 }

@@ -38,4 +38,8 @@ return {
     abouttext10="Geek Squad (Romániából)",
     gamedata = "Játék adatok",
     roman = "Római számok",
+    timerend = "Lejárt az idő!",
+    won = "Nyertél!",
+    gameEndTime = "Eltelt idő: %d:%02d",
+    gameEndValue = "Maximum érték: %d"
 }
