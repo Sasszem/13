@@ -14,7 +14,7 @@ local BS = require("src.menu.buttonStyle")
 local GameWrapper = VDiv(
     Label("", {span=11}),
     HDiv(
-        Button(L["back"], BS, "backFromGame"),
+        Button(L["back_ingame"], BS, "backFromGame"),
         Label(""),
         Button(L["undo"], BS, "undoBtn")
     ),

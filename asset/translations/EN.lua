@@ -13,6 +13,7 @@ return {
     gameover = "Game over",
     backtomainmenu = "Back to main menu",
     back = "Back",
+    back_ingame = "Exit",
     undo = "Undo",
     sure = "Are you sure?",
     delSaves = "Delete saved games",
