@@ -88,11 +88,11 @@ function GameWrapper:quit()
         self:getWidget("switcher").selected = "gameEnd"
 
         self:getWidget("gameOverLbl").text =
-            (self.game.gamemode=="normal") and "You won!" or "Time's up"
+            (self.game.gamemode=="normal") and L["won"] or L["timerend"]
 
         self:getWidget("resultLbl").text =
-            (self.game.gamemode=="normal") and ("Time: %d:%02d"):format(self.game.time/60, self.game.time%60)
-                or ("Maximum value: %d"):format(self.game.biggestYet)
+            (self.game.gamemode=="normal") and L["gameEndTime"]:format(self.game.time/60, self.game.time%60)
+                or L["gameEndValue"]:format(self.game.biggestYet)
     end
 
     -- delete game instance
