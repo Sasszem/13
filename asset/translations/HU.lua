@@ -13,7 +13,6 @@ return {
     gameover = "Játék vége",
     backtomainmenu = "Vissza a menübe",
     back = "Vissza",
-    back_ingame = "Kilépés",
     undo = "Mégse",
     sure = "Biztosan?",
     delSaves = "Mentések törlése",
