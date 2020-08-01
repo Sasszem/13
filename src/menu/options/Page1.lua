@@ -90,6 +90,7 @@ local RomanMenu = HDiv(
 -- on button
 function RomanMenu.widgets.romanOn.style:click()
     self:getWidget("game").roman = true
+    self:getWidget("titleLbl").text = "XIII"
 
     -- disable off button
     self:getWidget("romanOff").style.borderColor = S.OffBTN.borderColor
@@ -102,6 +103,7 @@ end
 -- off button
 function RomanMenu.widgets.romanOff.style:click()
     self:getWidget("game").roman = false
+    self:getWidget("titleLbl").text = "13"
 
     -- disable on button
     self:getWidget("romanOn").style.borderColor = S.OnBTN.borderColor
