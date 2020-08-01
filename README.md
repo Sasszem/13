@@ -10,8 +10,16 @@ You can also try out the web version (.html file), altought that's slower and ha
 
 ## To build
 
-Clone this repo **with submodules**, and enjoy.
-I used [love-release](https://github.com/MisterDA/love-release) to make a bundle.
+Prerequisites:
+- you must have a posix system with `wget` and `Java 8+` installed
+- build and install [luarocks3](https://github.com/luarocks/luarocks/wiki/Download)
+- `sudo luarocks install love-release`
+- install [apktool](https://ibotpeaches.github.io/Apktool/install/)
+
+Actuall building:
+- Clone this repo **with submodules**: 
+`git clone --recurse-submodules git://github.com/sasszem/13.git`
+- `lua build.lua`
 
 ## The original
 

@@ -16,7 +16,10 @@ function love.conf(t)
         homepage = "https://github.com/sasszem/13",
         excludeFileList = {
             ".git",
-            ".vscode"
+            ".vscode",
+            "asset/apkStuff",
+            "apk",
+            "jar",
         },
       }
 end
