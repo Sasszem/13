@@ -22,7 +22,7 @@ end
 NB.placement = "center"
 
 -- this will be set in regular font, not in the theme font
-local FS = {font = Font(14)} 
+local FS = {font = Font(14, "asset/OpenSans-SemiBold.ttf")} 
 -- this will be in the theme font
 local FS2 = {font = Font(24, "asset/Oregano-Regular.ttf")}
 FS.placement = "center"
@@ -47,9 +47,11 @@ local AboutMenu = VDiv(
     Label(L["abouttext8"], FS),
     Label(L["abouttext9"], FS),
     Label(L["abouttext10"], FS),
-    Label(""),
     Label(L["abouttext11"], FS),
-    Label(L["abouttext12"], FS2),
+    Label(L["abouttext12"], FS),
+    Label(""),
+    Label(L["abouttext13"], FS),
+    Label(L["abouttext14"], FS2),
     Label(""),
     Label(""),
     Button(L["back"], NB, "backFromAbout"),
