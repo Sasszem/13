@@ -5,9 +5,10 @@
 
 - [tango colors](https://sobac.com/sobac/tangocolors.htm)
 
-## Font
+## Fonts
 
-[Oregano font](https://fonts.google.com/specimen/Oregano) created by Astigmatic
+- [Oregano font](https://fonts.google.com/specimen/Oregano) created by Astigmatic
+- [Open Sans font](https://fonts.google.com/specimen/Open+Sans) created by Steve Matteson, Type Director of Ascender Corp.
 
 ## Sounds
 
