@@ -40,8 +40,10 @@ return {
     abouttext12="from www.flaticon.com.",
     abouttext13="Original game idea is from",
     abouttext14="Geek Squad (Romania)",
+    gamedata = "Game data",
+    roman = "Roman numerals",
     timerend = "Time's up",
     won = "You won!",
     gameEndTime = "Time: %d:%02d",
-    gameEndValue = "Maximum value: %d",
+    gameEndValue = "Maximum value: %d"
 }

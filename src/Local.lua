@@ -7,6 +7,14 @@ local localsSaveFile = "selectedLocal.opt"
 
 local strings = {}
 
+function Local.index(table, key)
+    if strings[key] then
+        return strings[key]
+    end
+    print(("Error: Invalid translation key: \"%s\""):format(key))
+    return ("$%s$"):format(key)
+end
+
 function Local.load()
     local selectedLocal = "EN"
     if love.filesystem.getInfo(localsSaveFile) then
@@ -16,7 +24,7 @@ function Local.load()
     end
 
     strings = require(("asset.translations.%s"):format(selectedLocal))
-    setmetatable(Local, {__index = strings})
+    setmetatable(Local, {__index = Local.index})
 end
 
 function Local.set(selectedLocal)

@@ -40,8 +40,10 @@ return {
     abouttext12="(forrás: www.flaticon.com).",
     abouttext13="Az ötletül szolgáló játék alkotója a",
     abouttext14="Geek Squad (Romániából)",
+    gamedata = "Játék adatok",
+    roman = "Római számok",
     timerend = "Lejárt az idő!",
     won = "Nyertél!",
     gameEndTime = "Eltelt idő: %d:%02d",
-    gameEndValue = "Maximum érték: %d",
+    gameEndValue = "Maximum érték: %d"
 }

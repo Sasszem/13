@@ -83,7 +83,7 @@ end
 
 function Game:draw()
     self.path:drawPath()
-    self.cells:draw()
+    self.cells:draw(self.parentWidget.roman)
     self.path:drawMerge()
     self:drawInfo()
 end
