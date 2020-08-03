@@ -66,6 +66,8 @@ function Game:drawInfo()
     love.graphics.printf(time_label,
         0, 10*self.config.hP, self.config.width, "center"
     )
+    
+    love.graphics.setFont(self.config.defaultFont)
     love.graphics.printf(
         ("%d:%02d"):format(
             math.floor(self.time / 60),
