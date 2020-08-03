@@ -9,7 +9,7 @@ function love.conf(t)
         title = "13",
         package = "13",
         loveVersion = "11.3",
-        version = "1.0",
+        version = "v1.1.0-pre",
         author = "Sasszem",
         email = "barath.laszlo.szolnok@gmail.com",
         description = "A simple but addictive game",
