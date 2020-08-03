@@ -135,6 +135,7 @@ end
 
 -- merge the cells if possible
 -- called by game
+-- returns if merging is successful
 function Path:merge()
     -- don't do a thing if still animating
     if self:animating() then return end
@@ -147,6 +148,7 @@ function Path:merge()
 
     self.game.undo:backup()
     self.game.TM:run(self.mergeAnimation, self)
+    return true
 end
 
 -- at which value to win the game

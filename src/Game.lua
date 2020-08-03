@@ -33,16 +33,10 @@ function Game:new(config, parentWidget, gamemode)
     -- game state
     o.time = ((gamemode == "timed") and 300) or 0
     o.biggestYet = 2
+    o.running = false
 
     -- load saved game
     SaveRestore.load(o)
-
-    -- time updater
-    o.TM:periodic(function (game)
-        local dt = game.gamemode == "normal" and 1 or -1
-        game.time = game.time + dt
-    end, 1, 0, o)
-
 
     -- time's up detector task
     if gamemode == "timed" then
@@ -108,7 +102,15 @@ end
 
 
 function Game:touchEnd(x, y)
-    self.path:merge()
+    local res = self.path:merge()
+    if not self.running and res then
+        self.running = true
+        -- time updater
+        self.TM:periodic(function (game)
+            local dt = game.gamemode == "normal" and 1 or -1
+            game.time = game.time + dt
+        end, 1, 0, self)
+    end
 end
 
 
