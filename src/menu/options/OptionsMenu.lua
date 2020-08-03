@@ -75,6 +75,10 @@ function OptionsMenu:save()
 end
 
 function OptionsMenu:load()
+    -- disable sounds
+    Sounds.setSounds(false)
+    Sounds.setMusic(false)
+
     -- default options
     local options = {
         sounds = true,
@@ -95,9 +99,9 @@ function OptionsMenu:load()
 
     -- what buttons to click
     local push = {}
-    push[#push+1] = ("sounds%s"):format(options.sounds and "On" or "Off")
     push[#push+1] = ("music%s"):format(options.music and "On" or "Off")
     push[#push+1] = ("roman%s"):format(options.roman and "On" or "Off")
+    push[#push+1] = ("sounds%s"):format(options.sounds and "On" or "Off")
 
     -- click them
     for _, id in ipairs(push) do
