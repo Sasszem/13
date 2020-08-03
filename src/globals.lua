@@ -2,6 +2,6 @@
 -- GLOBAL CONSTANTS --
 ----------------------
 
-globalvars = {version = "1.0"}
+globalvars = {version = "v1.1.0-pre"}
 
 return globalvars
