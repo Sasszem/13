@@ -11,19 +11,19 @@ local function buildLove()
     if not r then
         print("\27[41mError: could not run release tool!\27[49m")
         print("\27[31m> Make sure you have love-release installed!")
-        print("> install it using \27[4msudo luarocks install love-release\27[0m\27[39m")
+        print("> Install it using \27[4msudo luarocks install love-release\27[0m\27[39m")
         os.exit(-1)
     end
-    print("\27[92mPackeged game!\27[39m")
+    print("\27[92mPackaged game!\27[39m")
 end
 
 local function buildWin()
-    print("\n\27[34mBuilding for windows...\27[39m")
+    print("\n\27[34mBuilding for Windows...\27[39m")
     local r = runCmd("love-release -W 64")
     if not r then
         print("\27[41mError: could not run release tool!\27[49m")
         print("\27[31m> Make sure you have love-release installed!")
-        print("> install it using \27[4msudo luarocks install love-release\27[0m\27[39m")
+        print("> Install it using \27[4msudo luarocks install love-release\27[0m\27[39m")
         os.exit(-1)
     end
     print("\27[92mPackaged game for windows (64 bit)!\27[39m")
@@ -102,7 +102,7 @@ local function signApk()
         print("\27[41mError: uber-apk-signer returned with error!\27[49m")
         os.exit(-1)
     end
-    print("\27[92mSigned APK!")
+    print("\27[92mAPK signed successfully!")
 end
 
 local function buildApk()
@@ -123,7 +123,7 @@ local function buildAll()
     buildApk()
 
     print()
-    print("\27[92mBuild process compleate!")
+    print("\27[92mBuild process complete!")
 end
 
 buildAll()
