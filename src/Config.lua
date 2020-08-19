@@ -35,7 +35,8 @@ function Config:resize(w, h)
     self.hP = self.height / 100
     self.mP = math.min(self.wP, self.hP)
 
-    self.gameFont = love.graphics.newFont("asset/Oregano-Regular.ttf", self.mP*7)
+    self.gameFont = love.graphics.newFont("asset/Oregano-Regular.ttf", self.mP*9)
+    self.gameFontRoman = love.graphics.newFont("asset/Oregano-Regular.ttf", self.mP*7)
     self.defaultFont = love.graphics.newFont("asset/OpenSans-SemiBold.ttf", self.mP*6)
 
     self.Cell.size = self.mP * 10
