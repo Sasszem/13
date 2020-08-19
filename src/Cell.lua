@@ -96,13 +96,7 @@ function Cell:draw(roman)
     love.graphics.setColor(CellColors[self.value] or hex("#ffffff"))
     -- love.graphics.rectangle("fill", self.x-s/2, self.y-s/2, s, s)
     rwrc(self.x-s/2, self.y-s/2, s, s, 7)
-    -- local font = self.config.gameFont
-    local font1 = self.config.gameFont
-    local font2 = self.config.gameFontRoman
-    local font = font1
-    if roman == true then 
-        font=font2
-    end
+    local font = roman and self.config.gameFontRoman or self.config.gameFont
     local h = font:getHeight()
     love.graphics.setColor(hex("#000000"))
     local text = roman and romanNumbers[self.value] or tostring(self.value)
