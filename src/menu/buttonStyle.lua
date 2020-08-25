@@ -1,10 +1,11 @@
+local Y = require("yalg.yalg")
 local Sounds = require("src.Sounds")
 
 local ButtonStyle = {
-    activeBorder = rgb(114, 193, 233),
-    borderColor = rgb(108, 110, 114),
+    activeBorder = Y.rgb(114, 193, 233),
+    borderColor = Y.rgb(108, 110, 114),
     placement = "fill",
-    backgroundColor = rgb(28, 33, 38),
+    backgroundColor = Y.rgb(28, 33, 38),
     -- kattintásnál a háttérszín változzon meg
     -- ButtonStyle:click(x, y)
     --     self.style.backgroundColor=rgb(61, 174, 230)

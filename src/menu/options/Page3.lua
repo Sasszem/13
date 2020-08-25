@@ -1,3 +1,5 @@
+local Y = require("yalg.yalg")
+
 local SaveRestore = require("src.SaveRestore")
 local Highscores = require("src.Highscores")
 local L = require("src.Local")
@@ -7,15 +9,15 @@ local S = require("src.menu.options.styles")
 -- DELETE SAVES --
 ------------------
 
-local DelSaves = Switcher(
-    HDiv(
-        Button(L["no"], S.OffBTN, "noDelSavesBtn"),
-        Label(L["sure"], S.NL),
-        Button(L["yes"], S.OnBTN, "delSavesBtn"),
+local DelSaves = Y.Switcher(
+    Y.HDiv(
+        Y.Button(L["no"], S.OffBTN, "noDelSavesBtn"),
+        Y.Label(L["sure"], S.NL),
+        Y.Button(L["yes"], S.OnBTN, "delSavesBtn"),
         {},
         "delSavesHDiv"
     ),
-    Button(L["delSaves"], S.NB, "delSavesMenuBtn"),
+    Y.Button(L["delSaves"], S.NB, "delSavesMenuBtn"),
     {},
     "delSavesSwitcher"
 )
@@ -41,15 +43,15 @@ end
 -- Delete highscores --
 -----------------------
 
-local DelHS = Switcher(
-    HDiv(
-        Button(L["no"], S.OffBTN, "noDelHSBtn"),
-        Label(L["sure"], S.NL),
-        Button(L["yes"], S.OnBTN, "delHSBtn"),
+local DelHS = Y.Switcher(
+    Y.HDiv(
+        Y.Button(L["no"], S.OffBTN, "noDelHSBtn"),
+        Y.Label(L["sure"], S.NL),
+        Y.Button(L["yes"], S.OnBTN, "delHSBtn"),
         {},
         "delHSHDiv"
     ),
-    Button(L["delHS"], S.NB, "delHSMenuBtn"),
+    Y.Button(L["delHS"], S.NB, "delHSMenuBtn"),
     {},
     "delHSSwitcher"
 )
@@ -75,8 +77,8 @@ end
 -- OPTIONS PAGE --
 ------------------
 
-local Page = VDiv(
-    Label(L["gamedata"], S.LS),
+local Page = Y.VDiv(
+    Y.Label(L["gamedata"], S.LS),
     DelSaves,
     DelHS,
     {slots = 6},

@@ -3,7 +3,7 @@
 -- also handles loading of them
 
 -- imports
-require("yalg.yalg")
+local Y = require("yalg.yalg")
 local Highscores = require("src.Highscores")
 local L = require("src.Local")
 
@@ -29,8 +29,8 @@ for k, v in pairs(BS) do
     SC[k] = v
 end
 
-SC.borderColor = rgb(108, 110, 114)
-SC.activeBorder = rgb(108, 110, 114)
+SC.borderColor = Y.rgb(108, 110, 114)
+SC.activeBorder = Y.rgb(108, 110, 114)
 
 function SC:mouseEnter(x, y)
     self.style.borderColor, self.style.activeBorder = self.style.activeBorder, self.style.borderColor
@@ -48,22 +48,22 @@ end
 ----------
 
 local rowStyle = {
-    font = Font(20, themefontsrc),
+    font = Y.Font(20, themefontsrc),
 }
 
 local function makeRow(i)
-    return HDiv(
-        Label("", {font = Font(32, themefontsrc), span = 1}, ("result#%d"):format(i)),
-        Label("", {font = Font(20, themefontsrc), span = 2}, ("date#%d"):format(i)),
+    return Y.HDiv(
+        Y.Label("", {font = Y.Font(32, themefontsrc), span = 1}, ("result#%d"):format(i)),
+        Y.Label("", {font = Y.Font(20, themefontsrc), span = 2}, ("date#%d"):format(i)),
         rowStyle
     )
 end
 
 --normal mode highscores rows
-local NormalHS = VDiv(
-    HDiv(
-        Label(L["highscorecolumn1"], {span = 1}),
-        Label(L["highscorecolumn3"], {span = 2}),
+local NormalHS = Y.VDiv(
+    Y.HDiv(
+        Y.Label(L["highscorecolumn1"], {span = 1}),
+        Y.Label(L["highscorecolumn3"], {span = 2}),
         rowStyle
     ),
     makeRow(1),
@@ -78,10 +78,10 @@ local NormalHS = VDiv(
 )
 
 -- timed mode highscores rows
-local TimedHS = VDiv(
-    HDiv(
-        Label(L["highscorecolumn2"], {span = 1}),
-        Label(L["highscorecolumn3"], {span = 2}),
+local TimedHS = Y.VDiv(
+    Y.HDiv(
+        Y.Label(L["highscorecolumn2"], {span = 1}),
+        Y.Label(L["highscorecolumn3"], {span = 2}),
         rowStyle
     ),
     makeRow(6),
@@ -100,9 +100,9 @@ local TimedHS = VDiv(
 -- Chooser buttons --
 ---------------------
 
-local chooser = HDiv(
-    Button(L["normal"], SC, "selectNormalBtn"),
-    Button(L["timed"], SC, "selectTimedBtn")
+local chooser = Y.HDiv(
+    Y.Button(L["normal"], SC, "selectNormalBtn"),
+    Y.Button(L["timed"], SC, "selectTimedBtn")
 )
 
 -- custom styles for chooser buttons
@@ -110,7 +110,7 @@ chooser.widgets.selectNormalBtn.style.span = 4
 chooser.widgets.selectTimedBtn.style.span = 4
 
 -- background for selected mode button
-local activeBackground = rgb(108, 110, 114)
+local activeBackground = Y.rgb(108, 110, 114)
 
 -- select normal mode button
 function chooser.widgets.selectNormalBtn.style:click()
@@ -131,12 +131,12 @@ end
 -- Assemble the menu --
 ----------------------
 
-local HighscoresMenu = VDiv(
-    HDiv(
-        Label(L["highscores"], {font = Font(40, themefontsrc)})
+local HighscoresMenu = Y.VDiv(
+    Y.HDiv(
+        Y.Label(L["highscores"], {font = Y.Font(40, themefontsrc)})
     ),
     chooser,
-    Switcher(
+    Y.Switcher(
         TimedHS,
         NormalHS,
         {
@@ -144,9 +144,9 @@ local HighscoresMenu = VDiv(
         },
         "hsSwitcher"
     ),
-    VDiv(
-        HDiv(
-            Button(L["back"], CB, "backBtn")
+    Y.VDiv(
+        Y.HDiv(
+            Y.Button(L["back"], CB, "backBtn")
         )
     ),
     {

@@ -1,13 +1,15 @@
+local Y = require("yalg.yalg")
+
 local L = require("src.Local")
 local S = require("src.menu.options.styles")
 
 
-local LanguageSelectMenu = VDiv(
-    Label(L["languageswitcher"], S.LS, "languageselecttitle"),
-    Button("English", S.NB, "english"),
-    Button("Magyar", S.NB, "magyar"),
-    Label("", {span=2}),
-    Label("", S.NS, "restartLbl"),
+local LanguageSelectMenu = Y.VDiv(
+    Y.Label(L["languageswitcher"], S.LS, "languageselecttitle"),
+    Y.Button("English", S.NB, "english"),
+    Y.Button("Magyar", S.NB, "magyar"),
+    Y.Label("", {span=2}),
+    Y.Label("", S.NS, "restartLbl"),
     {},
     "optionsPage2"
 )

@@ -1,13 +1,15 @@
+local Y = require("yalg.yalg")
+
 -- label and button styles
 local LS = require("src.menu.labelStyle")
 local BS = require("src.menu.buttonStyle")
 
 local L = require("src.Local")
 
-local GameEndScreen = VDiv(
-    Label(L["gameover"], LS, "gameOverLbl"),
-    Label("gameScorePlaceholder", LS, "resultLbl"),
-    Button(L["backtomainmenu"], BS, "backToMenuBtn"),
+local GameEndScreen = Y.VDiv(
+    Y.Label(L["gameover"], LS, "gameOverLbl"),
+    Y.Label("gameScorePlaceholder", LS, "resultLbl"),
+    Y.Button(L["backtomainmenu"], BS, "backToMenuBtn"),
     {},
     "gameEnd"
 )

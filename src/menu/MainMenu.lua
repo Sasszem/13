@@ -2,7 +2,7 @@
 -- Main menu UI fragment
 
 -- imports
-require("yalg.yalg")
+local Y = require("yalg.yalg")
 local BS = require("src.menu.buttonStyle")
 local L = require("src.Local")
 
@@ -10,14 +10,14 @@ local L = require("src.Local")
 -- UI declaration --
 --------------------
 
-local MainMenu = VDiv(
-    Label("XIII", {font=Font(60, "asset/Oregano-Regular.ttf"), span = 2}, "titleLbl"),
-    Button(L["normal"], BS, "btnNormal"),
-    Button(L["timed"], BS, "btnTimed"),
-    Button(L["highscores"], BS, "btnHighscores"),
-    Button(L["options"], BS, "btnOptions"),
-    Button(L["about"], BS, "btnAbout"),
-    Button(L["exit"], BS, "btnExit"),
+local MainMenu = Y.VDiv(
+    Y.Label("XIII", {font=Y.Font(60, "asset/Oregano-Regular.ttf"), span = 2}, "titleLbl"),
+    Y.Button(L["normal"], BS, "btnNormal"),
+    Y.Button(L["timed"], BS, "btnTimed"),
+    Y.Button(L["highscores"], BS, "btnHighscores"),
+    Y.Button(L["options"], BS, "btnOptions"),
+    Y.Button(L["about"], BS, "btnAbout"),
+    Y.Button(L["exit"], BS, "btnExit"),
     {
         placement = "center",
         gap = 10,
