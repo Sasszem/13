@@ -8,6 +8,10 @@ local S = require("src.menu.options.styles")
 local Page1 = require("src.menu.options.Page1")
 local Page2 = require("src.menu.options.Page2")
 local Page3 = require("src.menu.options.Page3")
+local Page4 = require("src.menu.options.Page4")
+
+-- update here after inserting a new page
+local numofpages=4
 
 
 ------------------
@@ -19,6 +23,7 @@ local OptionsMenu = Y.VDiv(
         Page1,
         Page2,
         Page3,
+        Page4,
         {span=6},
         "optionsSwitcher"
     ),
@@ -43,14 +48,15 @@ end
 -- next button
 function OptionsMenu.widgets.optionsNextBtn.style:click()
     local sw = self:getWidget("optionsSwitcher")
-    local nextid = tonumber(sw.selected:sub(-1))%3 + 1
+    local nextid = tonumber(sw.selected:sub(-1))%numofpages + 1
     sw.selected = ("optionsPage%d"):format(nextid)
 end
 
 -- prev button
 function OptionsMenu.widgets.optionsPrevBtn.style:click()
     local sw = self:getWidget("optionsSwitcher")
-    local nextid = tonumber(sw.selected:sub(-1)+1)%3 + 1
+    -- after increasing the number of pages by 1, adding -1 here did not change the page, so I tried -2, and this works
+    local nextid = tonumber(sw.selected:sub(-1)-2)%numofpages + 1
     sw.selected = ("optionsPage%d"):format(nextid)
 end
 

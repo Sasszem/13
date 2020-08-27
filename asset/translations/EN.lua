@@ -25,6 +25,7 @@ return {
     music = "Music",
     language = "Select language",
     languageswitcher = "Select language",
+    musicswitcher="Select background music",
     restartrequired = "Please restart the app!",
     abouttext1="“13” version ",
     abouttext2=" was developed in 2020 by",

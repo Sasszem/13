@@ -25,6 +25,7 @@ return {
     music = "Zene",
     language = "Nyelv módosítása",
     languageswitcher = "Nyelv módosítása",
+    musicswitcher="Háttérzene módosítása",
     restartrequired = "Indítsd újra az appot!",
     abouttext1="A „13” ",
     abouttext2=" verzióját 2020-ban készítette",
