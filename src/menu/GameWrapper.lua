@@ -3,7 +3,7 @@
 -- forwards drawing, updateing and other events
 -- has 2 buttons: back and undo
 
-require("yalg.yalg")
+local Y = require("yalg.yalg")
 local L = require("src.Local")
 
 -- button style
@@ -11,12 +11,12 @@ local BS = require("src.menu.buttonStyle")
 
 
 -- game wrapper widget with 2 buttons (back and undo)
-local GameWrapper = VDiv(
-    Label("", {span=11}),
-    HDiv(
-        Button(L["exit"], BS, "backFromGame"),
-        Label(""),
-        Button(L["undo"], BS, "undoBtn")
+local GameWrapper = Y.VDiv(
+    Y.Label("", {span=11}),
+    Y.HDiv(
+        Y.Button(L["exit"], BS, "backFromGame"),
+        Y.Label(""),
+        Y.Button(L["undo"], BS, "undoBtn")
     ),
     {},
     "game"
@@ -55,7 +55,7 @@ end
 
 function GameWrapper:draw()
     self.game:draw()
-    VDiv.draw(self)
+    Y.VDiv.draw(self)
 end
 
 function GameWrapper:update(dt)

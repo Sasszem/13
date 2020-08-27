@@ -1,3 +1,5 @@
+local Y = require("yalg.yalg")
+
 local Sounds = require("src.Sounds")
 local versionCompat = require("src.versionCompat")
 
@@ -7,7 +9,7 @@ function love.load()
     versionCompat.register()
     Sounds.playLooping("loop")
     menu:getWidget("options"):load()
-    love.graphics.setBackgroundColor(rgb(16, 16, 16))
+    love.graphics.setBackgroundColor(Y.rgb(16, 16, 16))
 end
 
 function love.draw()

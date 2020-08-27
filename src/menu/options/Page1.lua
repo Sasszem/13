@@ -1,3 +1,5 @@
+local Y = require("yalg.yalg")
+
 local Sounds = require("src.Sounds")
 local L = require("src.Local")
 local S = require("src.menu.options.styles")
@@ -5,11 +7,11 @@ local S = require("src.menu.options.styles")
 -------------------
 -- Sounds on-off --
 -------------------
-local SoundsMenu = HDiv(
-    Label(L["sounds"], S.NL),
-    HDiv(
-        Button(L["on"], S.OnBTN, "soundsOn"),
-        Button(L["off"], S.OffBTN, "soundsOff")
+local SoundsMenu = Y.HDiv(
+    Y.Label(L["sounds"], S.NL),
+    Y.HDiv(
+        Y.Button(L["on"], S.OnBTN, "soundsOn"),
+        Y.Button(L["off"], S.OffBTN, "soundsOff")
     )
 )
 
@@ -42,11 +44,11 @@ end
 -- Music on-off --
 ------------------
 
-local MusicMenu = HDiv(
-    Label(L["music"], S.NL),
-    HDiv(
-        Button(L["on"], S.OnBTN, "musicOn"),
-        Button(L["off"], S.OffBTN, "musicOff")
+local MusicMenu = Y.HDiv(
+    Y.Label(L["music"], S.NL),
+    Y.HDiv(
+        Y.Button(L["on"], S.OnBTN, "musicOn"),
+        Y.Button(L["off"], S.OffBTN, "musicOff")
     )
 )
 
@@ -79,11 +81,11 @@ end
 -- Roman on-off --
 ------------------
 
-local RomanMenu = HDiv(
-    Label(L["roman"], S.NL),
-    HDiv(
-        Button(L["on"], S.OnBTN, "romanOn"),
-        Button(L["off"], S.OffBTN, "romanOff")
+local RomanMenu = Y.HDiv(
+    Y.Label(L["roman"], S.NL),
+    Y.HDiv(
+        Y.Button(L["on"], S.OnBTN, "romanOn"),
+        Y.Button(L["off"], S.OffBTN, "romanOff")
     )
 )
 
@@ -113,8 +115,8 @@ function RomanMenu.widgets.romanOff.style:click()
     self.style.activeBorder = self.style.borderColor
 end
 
-local Page = VDiv(
-    Label(L["options"], S.LS),
+local Page = Y.VDiv(
+    Y.Label(L["options"], S.LS),
     SoundsMenu,
     MusicMenu,
     RomanMenu,
