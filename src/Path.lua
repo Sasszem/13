@@ -111,10 +111,10 @@ end
 
 
 -- draw merge cells
-function Path:drawMerge()
+function Path:drawMerge(roman)
     -- need 2 separate draws because of layering
     if self.mergeCell then
-        self.mergeCell:draw()
+        self.mergeCell:draw(roman)
     end
 end
 

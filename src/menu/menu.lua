@@ -2,8 +2,7 @@
 -- main menu assembly from UI fragments
 -- forwards most event handlers
 
-require("yalg.yalg")
-
+local Y = require("yalg.yalg")
 -- fragment imports
 local MainMenu = require("src.menu.MainMenu")
 local GameWrapper = require("src.menu.GameWrapper")
@@ -13,8 +12,8 @@ local OptionsMenu = require("src.menu.options.OptionsMenu")
 local AboutMenu = require("src.menu.AboutMenu")
 
 
-local Menu = GUI(
-    Switcher(
+local Menu = Y.GUI(
+    Y.Switcher(
         GameWrapper,
         Highscores,
         GameEndScreen,
@@ -25,7 +24,7 @@ local Menu = GUI(
         "switcher"
     ),
     {
-        font = Font(30, "asset/Oregano-Regular.ttf")
+        font = Y.Font(30, "asset/Oregano-Regular.ttf")
     }
 )
 
@@ -36,7 +35,7 @@ local Menu = GUI(
 
 function Menu:update(dt)
     self:getWidget("game"):update(dt)
-    GUI.update(self)
+    Y.GUI.update(self)
 end
 
 function Menu:mousemove(x, y)

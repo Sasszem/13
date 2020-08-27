@@ -1,6 +1,8 @@
 -- Game.lua
 -- class representing the game itself
 
+local Y = require("yalg.yalg")
+
 -- component imports
 local Path = require("src.Path")
 local TasksManager = require("src.TaskManager")
@@ -56,7 +58,7 @@ end
 function Game:drawInfo()
     -- draw time
     love.graphics.setFont(self.config.gameFont)
-    love.graphics.setColor(rgb(255, 255, 255))
+    love.graphics.setColor(Y.rgb(255, 255, 255))
     
     time_label=L["gametime1"]
     if self.gamemode == "timed" then
@@ -80,7 +82,7 @@ end
 function Game:draw()
     self.path:drawPath()
     self.cells:draw(self.parentWidget.roman)
-    self.path:drawMerge()
+    self.path:drawMerge(self.parentWidget.roman)
     self:drawInfo()
 end
 

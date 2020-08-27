@@ -5,6 +5,8 @@
 -- since that changes on android after love.load, we also have to be careful and sometimes recalculate
 -- (took me a long time to make it working)
 
+local Y = require("yalg.yalg")
+
 local Config = {
 }
 
@@ -21,7 +23,7 @@ function Config.get()
     }
     c.Path = {
         width = 10,
-        color = rgb(255, 255, 255),
+        color = Y.rgb(255, 255, 255),
     }
 
     c:resize(love.graphics.getWidth(), love.graphics.getHeight())

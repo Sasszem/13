@@ -1,3 +1,5 @@
+local Y = require("yalg.yalg")
+
 local Sounds = require("src.Sounds")
 local L = require("src.Local")
 local S = require("src.menu.options.styles")
@@ -12,18 +14,18 @@ local Page3 = require("src.menu.options.Page3")
 -- Options menu --
 ------------------
 
-local OptionsMenu = VDiv(
-    Switcher(
+local OptionsMenu = Y.VDiv(
+    Y.Switcher(
         Page1,
         Page2,
         Page3,
         {span=6},
         "optionsSwitcher"
     ),
-    HDiv(
-        Button("   <   ", S.NB, "optionsPrevBtn"),
-        Button(L["back"], S.NB, "optionsBackBtn"),
-        Button("   >   ", S.NB, "optionsNextBtn")
+    Y.HDiv(
+        Y.Button("   <   ", S.NB, "optionsPrevBtn"),
+        Y.Button(L["back"], S.NB, "optionsBackBtn"),
+        Y.Button("   >   ", S.NB, "optionsNextBtn")
     ),
     "options"
 )
