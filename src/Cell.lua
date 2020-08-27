@@ -34,12 +34,12 @@ local CellColors = {
     hex("#3465a4"),
     hex("#f57900"),
     hex("#babdb6"),
-    hex("#cc0000"), -- 10
+    hex("#a40000"), -- 10 
     hex("#c4a000"),
     hex("#204a87"),
     hex("#4e9a06"),
-    hex("#5c3566"),
-    hex("#a40000"), -- 15
+    hex("#eeeeec"),
+    hex("#eeeeec"), -- 15
 }
 
 --------------------
@@ -96,7 +96,7 @@ function Cell:draw(roman)
     love.graphics.setColor(CellColors[self.value] or hex("#ffffff"))
     -- love.graphics.rectangle("fill", self.x-s/2, self.y-s/2, s, s)
     rwrc(self.x-s/2, self.y-s/2, s, s, 7)
-    local font = self.config.gameFont
+    local font = roman and self.config.gameFontRoman or self.config.gameFont
     local h = font:getHeight()
     love.graphics.setColor(hex("#000000"))
     local text = roman and romanNumbers[self.value] or tostring(self.value)
@@ -120,21 +120,21 @@ function rwrc(x, y, w, h, r)
     -- without border lines, cell lines will not be blurred
     -- but, with border lines, cell will be ugly when drawing a path
     love.graphics.rectangle("line", x, y+r, w, h-r*2)
-	love.graphics.rectangle("line", x+r, y, w-r*2, r)
-	love.graphics.rectangle("line", x+r, y+h-r, w-r*2, r)
-	love.graphics.arc("line", x+r, y+r, r, left, top)
-	love.graphics.arc("line", x + w-r, y+r, r, -bottom, right)
-	love.graphics.arc("line", x + w-r, y + h-r, r, right, bottom)
-	love.graphics.arc("line", x+r, y + h-r, r, bottom, left)
+    love.graphics.rectangle("line", x+r, y, w-r*2, r)
+    love.graphics.rectangle("line", x+r, y+h-r, w-r*2, r)
+    love.graphics.arc("line", x+r, y+r, r, left, top)
+    love.graphics.arc("line", x + w-r, y+r, r, -bottom, right)
+    love.graphics.arc("line", x + w-r, y + h-r, r, right, bottom)
+    love.graphics.arc("line", x+r, y + h-r, r, bottom, left)
     
     -- filling
     love.graphics.rectangle("fill", x, y+r, w, h-r*2)
-	love.graphics.rectangle("fill", x+r, y, w-r*2, r)
-	love.graphics.rectangle("fill", x+r, y+h-r, w-r*2, r)
-	love.graphics.arc("fill", x+r, y+r, r, left, top)
-	love.graphics.arc("fill", x + w-r, y+r, r, -bottom, right)
-	love.graphics.arc("fill", x + w-r, y + h-r, r, right, bottom)
-	love.graphics.arc("fill", x+r, y + h-r, r, bottom, left)
+    love.graphics.rectangle("fill", x+r, y, w-r*2, r)
+    love.graphics.rectangle("fill", x+r, y+h-r, w-r*2, r)
+    love.graphics.arc("fill", x+r, y+r, r, left, top)
+    love.graphics.arc("fill", x + w-r, y+r, r, -bottom, right)
+    love.graphics.arc("fill", x + w-r, y + h-r, r, right, bottom)
+    love.graphics.arc("fill", x+r, y + h-r, r, bottom, left)
 end
 
 
