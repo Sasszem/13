@@ -46,7 +46,7 @@ function Sounds.play(name)
 
     local source = Sounds.getSource(name)
     if Sounds.clone then
-        playing[#playing+1] = source
+        playing[source] = true
     end
     source:play()
 end
@@ -55,7 +55,7 @@ end
 function Sounds.playLooping(name)
     local source = Sounds.getSource(name)
     if Sounds.clone then
-        playing[#playing+1] = source
+        playing[source] = true
     end
 
     source:setLooping(true)
@@ -82,15 +82,12 @@ end
 -- remove stopped sources from list
 function Sounds.cleanup()
     if not Sounds.clone then return end
-    local newPlaying = {}
-    for _, sound in ipairs(playing) do
+    for sound, _ in pairs(playing) do
         if not sound:isPlaying() then
+            playing[sound] = nil
             sound:release()
-        else
-            newPlaying[#newPlaying+1] = sound
         end
     end
-    playing = newPlaying
 end
 
 
@@ -108,7 +105,7 @@ function Sounds.setMusic(enable)
     -- apply setting for playing sources
     -- (might mute currently playign effects as well, but they are short and later effects won't be affected)
     local volume = enable and 1 or 0
-    for _, S in ipairs(playing) do
+    for S, _ in pairs(playing) do
         S:setVolume(volume)
     end
 end
