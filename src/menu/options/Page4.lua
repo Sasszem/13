@@ -17,18 +17,28 @@ local musicfiles={
     track10={title='Water World', filename='POL-water-world-short'},
 }
 
-local LanguageSelectMenu = Y.VDiv(
+local NB2withHandler = {}
+for k, v in pairs(S.NB2) do
+    NB2withHandler[k] = v
+end
+
+function NB2withHandler:click()
+    Sounds.playLooping(musicfiles[self.id].filename)
+end
+
+
+local MusicSelectMenu = Y.VDiv(
     Y.Label(L["musicswitcher"], S.LS, "musicselecttitle"),
-    Y.Button(musicfiles["track01"].title, S.NB2, "track01"),
-    Y.Button(musicfiles["track02"].title, S.NB2, "track02"),
-    Y.Button(musicfiles["track03"].title, S.NB2, "track03"),
-    Y.Button(musicfiles["track04"].title, S.NB2, "track04"),
-    Y.Button(musicfiles["track05"].title, S.NB2, "track05"),
-    Y.Button(musicfiles["track06"].title, S.NB2, "track06"),
-    Y.Button(musicfiles["track07"].title, S.NB2, "track07"),
-    Y.Button(musicfiles["track08"].title, S.NB2, "track08"),
-    Y.Button(musicfiles["track09"].title, S.NB2, "track09"),
-    Y.Button(musicfiles["track10"].title, S.NB2, "track10"),
+    Y.Button(musicfiles["track01"].title, NB2withHandler, "track01"),
+    Y.Button(musicfiles["track02"].title, NB2withHandler, "track02"),
+    Y.Button(musicfiles["track03"].title, NB2withHandler, "track03"),
+    Y.Button(musicfiles["track04"].title, NB2withHandler, "track04"),
+    Y.Button(musicfiles["track05"].title, NB2withHandler, "track05"),
+    Y.Button(musicfiles["track06"].title, NB2withHandler, "track06"),
+    Y.Button(musicfiles["track07"].title, NB2withHandler, "track07"),
+    Y.Button(musicfiles["track08"].title, NB2withHandler, "track08"),
+    Y.Button(musicfiles["track09"].title, NB2withHandler, "track09"),
+    Y.Button(musicfiles["track10"].title, NB2withHandler, "track10"),
     {
         placement = "center",
         gap = 3
@@ -36,58 +46,8 @@ local LanguageSelectMenu = Y.VDiv(
     "optionsPage4"
 )
 
-
-
-
-local function selectLang(lang)
-    L.set(lang)
-    L.load()
-    LanguageSelectMenu:getWidget("restartLbl").text = L["restartrequired"]
-end
-
-
 -- music change buttons
 
 -- TO DO: the previously played loop should be stopped before starting the new track
 
-function LanguageSelectMenu.widgets.track01.style:click()
-    Sounds.playLooping(musicfiles["track01"].filename)
-end
-
-function LanguageSelectMenu.widgets.track02.style:click()
-    Sounds.playLooping(musicfiles["track02"].filename)
-end
-
-function LanguageSelectMenu.widgets.track03.style:click()
-    Sounds.playLooping(musicfiles["track03"].filename)
-end
-
-function LanguageSelectMenu.widgets.track04.style:click()
-    Sounds.playLooping(musicfiles["track04"].filename)
-end
-
-function LanguageSelectMenu.widgets.track05.style:click()
-    Sounds.playLooping(musicfiles["track05"].filename)
-end
-
-function LanguageSelectMenu.widgets.track06.style:click()
-    Sounds.playLooping(musicfiles["track06"].filename)
-end
-
-function LanguageSelectMenu.widgets.track07.style:click()
-    Sounds.playLooping(musicfiles["track07"].filename)
-end
-
-function LanguageSelectMenu.widgets.track08.style:click()
-    Sounds.playLooping(musicfiles["track08"].filename)
-end
-
-function LanguageSelectMenu.widgets.track09.style:click()
-    Sounds.playLooping(musicfiles["track09"].filename)
-end
-
-function LanguageSelectMenu.widgets.track10.style:click()
-    Sounds.playLooping(musicfiles["track10"].filename)
-end
-
-return LanguageSelectMenu
+return MusicSelectMenu
