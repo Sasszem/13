@@ -14,6 +14,7 @@ local Sounds = {
 }
 
 local cache = {}
+local tasks = {}
 
 -- get a sound from cache
 -- load it into cache if necessary
@@ -54,6 +55,7 @@ end
 -- play a sound looping (background music)
 function Sounds.playLooping(name)
     local source = Sounds.getSource(name)
+    Sounds.fadeOut()
     if Sounds.clone then
         playing[source] = true
     end
@@ -63,15 +65,46 @@ function Sounds.playLooping(name)
     -- mute if necessary
     local volume = Sounds.musicEnabled and 1 or 0
     source:setVolume(volume)
-
     source:play()
 end
 
+-- start and queue a coroutine for every playing sound
+-- that fades then stops them
+-- they will be called from update
+function Sounds.fadeOut()
+    local TIME = 0.2
+
+    for S, _ in pairs(playing) do
+        local t = coroutine.create(function(s)
+            local t = TIME
+            while t > 0 do
+                local dt = coroutine.yield()
+                t = t - dt
+                s:setVolume(t/TIME)
+            end
+            s:setVolume(0)
+            s:stop()
+            playing[s] = nil
+        end)
+        coroutine.resume(t, S)
+        tasks[t] = true
+    end
+end
 
 -- update function
 -- calls cleanup every second
 local t = 0
 function Sounds.update(dt)
+    -- from TaskManager.lua
+    for T, _ in pairs(tasks) do
+        local cont, err = coroutine.resume(T, dt)
+        if not cont then
+            if err~="cannot resume dead coroutine" then
+                print(err)
+            end
+            tasks[T] = nil
+        end
+    end
     if math.floor(t+dt) > math.floor(t) then -- every second
         Sounds.cleanup()
     end
