@@ -15,10 +15,6 @@ local Sounds = {
 
 local cache = {}
 
-local StreamSize = 100000
--- maximum file size for static sources
-
-
 -- get a sound from cache
 -- load it into cache if necessary
 -- and determine preferred mode based on file size
@@ -31,8 +27,7 @@ function Sounds.getSource(name)
             ("Requested sound file %s can not be found!"):format(filename)
         )
         local fileSize = fileInfo.size
-        local sourceMode = (fileSize > StreamSize) and "stream" or "static"
-        cache[name] = love.audio.newSource(filename, sourceMode)
+        cache[name] = love.audio.newSource(filename, "static")
     end
 
     local s = cache[name]
