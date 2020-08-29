@@ -73,6 +73,7 @@ function OptionsMenu:save()
         sounds = Sounds.soundsEnabled and 1 or 0,
         music = Sounds.musicEnabled and 1 or 0,
         roman = self:getWidget("game").roman and 1 or 0,
+        track = self:getWidget("optionsPage4").track or "track01"
     }
 
     local f = love.filesystem.newFile(FILENAME, "w")
@@ -92,16 +93,20 @@ function OptionsMenu:load()
         sounds = true,
         music = true,
         roman = false,
+        track = "track01",
     }
 
     -- load from file
     if love.filesystem.getInfo(FILENAME) then
         for line in love.filesystem.lines(FILENAME) do
             local k, v = line:match("(.+)=(.+)")
-            v = v=="1"
             options[k] = v
         end
     end
+
+    options.music = options.music=="1"
+    options.sounds = options.music=="1"
+    options.roman = options.music=="1"
 
     -- simulate button clicks
 
@@ -110,6 +115,7 @@ function OptionsMenu:load()
     push[#push+1] = ("music%s"):format(options.music and "On" or "Off")
     push[#push+1] = ("roman%s"):format(options.roman and "On" or "Off")
     push[#push+1] = ("sounds%s"):format(options.sounds and "On" or "Off")
+    push[#push+1] = ("%s"):format(options.track)
 
     -- click them
     for _, id in ipairs(push) do

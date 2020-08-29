@@ -24,6 +24,7 @@ end
 
 function NB2withHandler:click()
     Sounds.playLooping(musicfiles[self.id].filename)
+    self:getWidget("optionsPage4").track = self.id
 end
 
 
