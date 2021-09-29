@@ -14,10 +14,7 @@ local Sounds = {
 }
 
 local cache = {}
-
-local StreamSize = 100000
--- maximum file size for static sources
-
+local tasks = {}
 
 -- get a sound from cache
 -- load it into cache if necessary
@@ -31,8 +28,7 @@ function Sounds.getSource(name)
             ("Requested sound file %s can not be found!"):format(filename)
         )
         local fileSize = fileInfo.size
-        local sourceMode = (fileSize > StreamSize) and "stream" or "static"
-        cache[name] = love.audio.newSource(filename, sourceMode)
+        cache[name] = love.audio.newSource(filename, "static")
     end
 
     local s = cache[name]
@@ -51,7 +47,7 @@ function Sounds.play(name)
 
     local source = Sounds.getSource(name)
     if Sounds.clone then
-        playing[#playing+1] = source
+        playing[source] = true
     end
     source:play()
 end
@@ -59,8 +55,9 @@ end
 -- play a sound looping (background music)
 function Sounds.playLooping(name)
     local source = Sounds.getSource(name)
+    Sounds.fadeOut()
     if Sounds.clone then
-        playing[#playing+1] = source
+        playing[source] = true
     end
 
     source:setLooping(true)
@@ -68,15 +65,46 @@ function Sounds.playLooping(name)
     -- mute if necessary
     local volume = Sounds.musicEnabled and 1 or 0
     source:setVolume(volume)
-
     source:play()
 end
 
+-- start and queue a coroutine for every playing sound
+-- that fades then stops them
+-- they will be called from update
+function Sounds.fadeOut()
+    local TIME = 0.2
+
+    for S, _ in pairs(playing) do
+        local t = coroutine.create(function(s)
+            local t = TIME
+            while t > 0 do
+                local dt = coroutine.yield()
+                t = t - dt
+                s:setVolume(t/TIME)
+            end
+            s:setVolume(0)
+            s:stop()
+            playing[s] = nil
+        end)
+        coroutine.resume(t, S)
+        tasks[t] = true
+    end
+end
 
 -- update function
 -- calls cleanup every second
 local t = 0
 function Sounds.update(dt)
+    -- from TaskManager.lua
+    for T, _ in pairs(tasks) do
+        local cont, err = coroutine.resume(T, dt)
+        if not cont then
+            if err~="cannot resume dead coroutine" then
+                print(err)
+            end
+            tasks[T] = nil
+        end
+    end
     if math.floor(t+dt) > math.floor(t) then -- every second
         Sounds.cleanup()
     end
@@ -87,15 +115,12 @@ end
 -- remove stopped sources from list
 function Sounds.cleanup()
     if not Sounds.clone then return end
-    local newPlaying = {}
-    for _, sound in ipairs(playing) do
+    for sound, _ in pairs(playing) do
         if not sound:isPlaying() then
+            playing[sound] = nil
             sound:release()
-        else
-            newPlaying[#newPlaying+1] = sound
         end
     end
-    playing = newPlaying
 end
 
 
@@ -113,7 +138,7 @@ function Sounds.setMusic(enable)
     -- apply setting for playing sources
     -- (might mute currently playign effects as well, but they are short and later effects won't be affected)
     local volume = enable and 1 or 0
-    for _, S in ipairs(playing) do
+    for S, _ in pairs(playing) do
         S:setVolume(volume)
     end
 end

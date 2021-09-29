@@ -16,6 +16,12 @@ for k, v in pairs(BS) do
 end
 NB.placement = "center"
 
+-- new button style (smaller font)
+local NB2 = {}
+for k, v in pairs(BS) do
+    NB2[k] = v
+end
+NB2.font=Y.Font(24, "asset/Oregano-Regular.ttf")
 
 -- new label style (smaller font)
 local NL = {}
@@ -23,7 +29,6 @@ for k, v in pairs(LS) do
     NL[k] = v
 end
 NL.font = Y.Font(24, "asset/Oregano-Regular.ttf")
-
 
 -- on / yes button
 local OnBTN = {}
@@ -55,6 +60,7 @@ return {
     LS = LS,
     NB = NB,
     NL = NL,
+    NB2 = NB2,
     OffBTN = OffBTN,
     OnBTN = OnBTN,
 }

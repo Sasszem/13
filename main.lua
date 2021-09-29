@@ -7,7 +7,6 @@ local menu = require("src.menu.menu")
 
 function love.load()
     versionCompat.register()
-    Sounds.playLooping("loop")
     menu:getWidget("options"):load()
     love.graphics.setBackgroundColor(Y.rgb(16, 16, 16))
 end

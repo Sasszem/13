@@ -13,7 +13,8 @@
 ## Sounds
 
 - [click sound](https://opengameart.org/content/menu-selection-click)
-- [music loop](https://opengameart.org/content/menu-loop)
+- [the music loop I titled All Hail Victor was created by Akikazer](https://opengameart.org/content/menu-loop), licensed under CC0 1.0 Universal (CC0 1.0) Public Domain Dedication 
+- [other music loops are from PlayOnLoop.com](https://www.playonloop.com/), licensed under Creative Commons by Attribution 4.0
 - [new biggest cell (originally rise7)](https://opengameart.org/content/level-up-power-up-coin-get-13-sounds)
 - [pop sound](https://opengameart.org/content/bubbles-pop)
 - [victory sound (victorySmall)](https://opengameart.org/content/8-bit-sound-fx)
