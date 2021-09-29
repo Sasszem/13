@@ -8,7 +8,22 @@ Grab a download from the releases page. The .love bundles need Löve2D version 1
 
 You can also try out the web version (.html file), altought that's slower and hase a few sound issues.
 
-## To build
+## To build using Docker
+
+Prerequisites:
+- GIT
+- Docker
+
+1. Clone repo **with submodules**:
+`git clone --recurse-submodules git://github.com/sasszem/13.git`
+2. Build container: 
+`DOCKER_BUILDKIT=0 docker build -t love-apk-builder builder-cont`
+3. Build using container: 
+`docker run --rm -v "$(pwd)":/project love-apk-builder`
+
+(getting `sh: love: not found` lines is normal and should not effect the build process)
+
+## To build without container
 
 Prerequisites:
 - you must have a posix system with `wget` and `Java 8+` installed
