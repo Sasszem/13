@@ -40,17 +40,12 @@ function Undo:restore()
     -- do not restore if no data
     -- (no backup was made yet)
     if self.biggestYet == 0 then return end
-
+    if self.game.animating then return end
     self.game.TM:run(self.undoTask, self)
 end
 
 
 function Undo:undoTask()
-    -- wait for game to finish animating
-    while self.game.animating do
-        local _ = coroutine.yield()
-    end
-
     -- deep copy the saved data back to game
     self.game.time = self.time
 
